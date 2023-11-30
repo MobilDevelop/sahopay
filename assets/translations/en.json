@@ -17,8 +17,20 @@
     "dashboard":{
         "title":"Dashboard"   
     },
+    "deposit":{
+        "title":"Deposit"
+    },
+    "transfer":{
+        "title":"Transfer"
+    },
+    "exchange":{
+        "title":"Exchange"
+    },
+    "history":{
+        "title":"History"
+    },
     "setting":{
-        "title":"Sozlamalar"
+        "title":"Setting"
     },
     "error":{
         "location":"Iltimos dasturdan foydaylanish uchun joylashuv ma'lumotlarini yoqing",
