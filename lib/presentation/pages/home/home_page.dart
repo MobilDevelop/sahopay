@@ -7,6 +7,7 @@ import 'package:sahopay/application/home/home_state.dart';
 import 'package:sahopay/presentation/assets/res/app_icons.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
+import 'package:sahopay/presentation/pages/drawer/drawer_page.dart';
 
 import 'components/bottom_widget.dart';
 
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
             Container(
               height: 55.h,
               width: double.maxFinite,
-              margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w6,right: ScreenSize.w6),
+              margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
               padding: EdgeInsets.only(left: ScreenSize.w6,right:ScreenSize.w6),
               decoration: BoxDecoration(
                 color: AppTheme.colors.white,
@@ -47,17 +48,16 @@ class HomePage extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  BottomWidget(icon: AppIcons.dashboard, title: tr('home.dashboard'), onPress: 0==cubit.currentPage, press: ()=>cubit.nextScreen(0)),
-                  BottomWidget(icon: AppIcons.money, title: tr('home.deposit'), onPress: 1==cubit.currentPage, press: ()=>cubit.nextScreen(1)),
-                  BottomWidget(icon: AppIcons.send, title: tr('home.transfer'), onPress: 2==cubit.currentPage, press: ()=>cubit.nextScreen(2)),
-                  BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: 3==cubit.currentPage, press: ()=>cubit.nextScreen(3)),
-                  BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: 4==cubit.currentPage, press: ()=>cubit.nextScreen(4)),
-                  BottomWidget(icon: AppIcons.setting, title: tr('home.setting'), onPress: 5==cubit.currentPage, press: ()=>cubit.nextScreen(5)),
+                  BottomWidget(icon: AppIcons.dashboard, title: tr('home.dashboard'), onPress: cubit.currentPage==0, press: ()=>cubit.nextScreen(0)),
+                  BottomWidget(icon: AppIcons.money, title: tr('home.deposit'), onPress: cubit.currentPage==1, press: ()=>cubit.nextScreen(1)),
+                  BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: cubit.currentPage==2, press: ()=>cubit.nextScreen(2)),
+                  BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: cubit.currentPage==3, press: ()=>cubit.nextScreen(3)),
                 ],
               ),
             )
           ],
         ),
+        drawer: DrawerPage(),
 )
       );
     },),

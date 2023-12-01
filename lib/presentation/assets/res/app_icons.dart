@@ -8,6 +8,7 @@ class AppIcons {
   static const String history = 'assets/icons/history.svg';
   static const String money = 'assets/icons/money.svg';
   static const String setting = 'assets/icons/setting.svg';
+  static const String menu = 'assets/icons/menu.svg';
   static const String send = 'assets/icons/send-2.svg';
 
 

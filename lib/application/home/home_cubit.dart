@@ -26,4 +26,7 @@ class HomeCubit extends Cubit<HomeState>{
     currentPage =index;
     emit(HomeInitial());
   }
+  void openDrawer(){
+    emit(HomeOpenDrawer());
+  }
 }

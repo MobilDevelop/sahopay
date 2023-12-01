@@ -42,7 +42,7 @@ class BottomWidget extends StatelessWidget {
                   children: [
                 SvgPicture.asset(icon,
                 color: onPress?AppTheme.colors.primary:AppTheme.colors.grey,
-                height: ScreenSize.h24),
+                height: 25.h),
                 Visibility(
                   visible: onPress,
                   child: Text(title,
@@ -62,8 +62,8 @@ class BottomWidget extends StatelessWidget {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-                  AppTheme.colors.primary.withOpacity(.1),
-                  AppTheme.colors.primary.withOpacity(.01),
+                  AppTheme.colors.primary.withOpacity(.18),
+                  AppTheme.colors.primary.withOpacity(.018),
                   AppTheme.colors.primary.withOpacity(.005),
                 ])
             ),
