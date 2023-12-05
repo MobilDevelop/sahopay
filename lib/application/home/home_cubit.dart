@@ -5,28 +5,31 @@ import 'package:sahopay/presentation/pages/dashboard/dashboard.dart';
 import 'package:sahopay/presentation/pages/deposit/deposit_page.dart';
 import 'package:sahopay/presentation/pages/exchange/exchange_page.dart';
 import 'package:sahopay/presentation/pages/history/history_page.dart';
-import 'package:sahopay/presentation/pages/setting/setting_page.dart';
-import 'package:sahopay/presentation/pages/transfer/transfer_page.dart';
 
 class HomeCubit extends Cubit<HomeState>{
-  HomeCubit():super(HomeInitial());
+  HomeCubit():super(HomeInitial()){
+    nextScreen(0);
+  }
 
   int currentPage = 0;
 
-  List<Widget> screens = [
-    const Dashboard(),
-    const DepositPage(),
-    const TransferPage(),
-    const ExchangePage(),
-    const HistoryPage(),
-    const SettingPage(),
-  ];
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
-  void nextScreen(int index){
+  Widget? window;
+
+
+  void nextScreen(int index)async{
+    switch (index) {
+      case 0:window= Dashboard(press:openDrawer);break;
+      case 1:window=const DepositPage();break;
+      case 2:window=const ExchangePage();break;
+      case 3:window=const HistoryPage();break;
+    }
     currentPage =index;
     emit(HomeInitial());
   }
   void openDrawer(){
-    emit(HomeOpenDrawer());
+   scaffoldkey.currentState!.openDrawer();
   }
+  
 }

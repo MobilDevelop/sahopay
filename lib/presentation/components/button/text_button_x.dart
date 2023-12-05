@@ -26,7 +26,7 @@ class TextButtonX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle? style =
-        AppTheme.data.textTheme.titleMedium?.copyWith(color: textColor);
+        AppTheme.data.textTheme.bodyMedium?.copyWith(color: textColor); 
 
     if (withUnderLine) {
       style = AppTheme.data.textTheme.labelLarge?.copyWith(
@@ -49,29 +49,28 @@ class TextButtonX extends StatelessWidget {
 
     if (rightIcon != null || leftIcon != null) {
       current = Container(
-        width: double.maxFinite,
-        height: 55.h,
-        color: AppTheme.colors.secondary,
+        //width: double.maxFinite,
+        height: 30.h,
+        //color: AppTheme.colors.secondary,
         padding: EdgeInsets.symmetric(horizontal: ScreenSize.w4),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
               children: [
                 if (leftIcon != null) ...[
                   Padding(
                     padding: withUnderLine
-                        ? EdgeInsets.only(bottom: ScreenSize.h8)
+                        ? EdgeInsets.only(bottom: ScreenSize.h4)
                         : EdgeInsets.zero,
                     child: SvgPicture.asset(
                       leftIcon!,
-                      width: ScreenSize.w24,
-                      height: ScreenSize.w24,
+                      height: ScreenSize.h16,
                       fit: BoxFit.cover,
                       color: textColor,
                     ),
                   ),
-                  Gap(ScreenSize.w20),
+                  Gap(ScreenSize.w6),
                 ],
                 current,
               ],
@@ -79,7 +78,7 @@ class TextButtonX extends StatelessWidget {
             if (rightIcon != null) ...[
               Padding(
                 padding: withUnderLine
-                    ? EdgeInsets.only(bottom: ScreenSize.h8)
+                    ? EdgeInsets.only(bottom: ScreenSize.h4)
                     : EdgeInsets.zero,
                 child: SvgPicture.asset(
                   rightIcon!,

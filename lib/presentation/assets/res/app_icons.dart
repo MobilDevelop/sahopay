@@ -10,11 +10,15 @@ class AppIcons {
   static const String setting = 'assets/icons/setting.svg';
   static const String menu = 'assets/icons/menu.svg';
   static const String send = 'assets/icons/send-2.svg';
+  static const String logout = 'assets/icons/logout.svg';
+  static const String user = 'assets/icons/user.svg';
+  static const String back = 'assets/icons/back.svg';
 
 
 
 
   static const String logo = 'assets/images/logo.jpeg';
+  static const String card = 'assets/images/card_background.jpg';
   static const String curier = 'assets/images/curier.jpg';
   static const String loading = 'assets/images/loading.webp';
 

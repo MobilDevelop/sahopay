@@ -22,6 +22,14 @@ class Routes implements Coordinate {
     name: 'login_page',
     path: '/login',
   );
+   static const transfer = Routes._(
+    name: 'transfer_page',
+    path: '/transfer',
+  );
+   static const setting = Routes._(
+    name: 'setting_page',
+    path: '/setting',
+  );
 
   @override
   String toString() => 'name=$name, path=$path';

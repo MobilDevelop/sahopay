@@ -16,7 +16,7 @@ class HistoryPage extends StatelessWidget {
      },
      child: Builder(builder: (context) {
        final cubit = context.read<HistoryCubit>();
-       return BlocBuilder<HistoryCubit,HistoryState>(builder: (_, state) => Scaffold(
+      return BlocBuilder<HistoryCubit,HistoryState>(builder: (_, state) => Scaffold(
         appBar: AppBar(
           backgroundColor: AppTheme.colors.primary,
           elevation: 0,

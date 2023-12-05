@@ -32,6 +32,9 @@
     "setting":{
         "title":"Setting"
     },
+    "drawer":{
+        "exit":"CHIQISH"
+    },
     "error":{
         "location":"Iltimos dasturdan foydaylanish uchun joylashuv ma'lumotlarini yoqing",
         "workhome":"Iltimos dasturdan foydaylanish uchun ish joyingizda bo'ling"

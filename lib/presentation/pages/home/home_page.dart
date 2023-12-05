@@ -18,14 +18,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(create:(context) => HomeCubit(),
     child: BlocListener<HomeCubit,HomeState>(listener: (_, state) {
-      
+
     },
     child: Builder(builder: (context) {
       final cubit = context.read<HomeCubit>();
       return BlocBuilder<HomeCubit,HomeState>(builder: (_, state) => Scaffold(
+        key: cubit.scaffoldkey,
         body: Column(
           children: [
-            Expanded(child: cubit.screens[cubit.currentPage]),
+            Expanded(child: cubit.window ?? Container()),
             Container(
               height: 55.h,
               width: double.maxFinite,
