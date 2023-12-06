@@ -13,6 +13,14 @@ class AppIcons {
   static const String logout = 'assets/icons/logout.svg';
   static const String user = 'assets/icons/user.svg';
   static const String back = 'assets/icons/back.svg';
+  static const String transfer = 'assets/icons/transfer.svg';
+  static const String filter = 'assets/icons/filter.svg';
+  static const String referal = 'assets/icons/referral.svg';
+  static const String exchange2 = 'assets/icons/exchange2.svg';
+  static const String bag = 'assets/icons/bag.svg';
+  static const String dollar = 'assets/icons/dollar.svg';
+  static const String euro = 'assets/icons/euro.svg';
+  static const String ruble = 'assets/icons/ruble.svg';
 
 
 

@@ -18,7 +18,9 @@
         "title":"Dashboard"   
     },
     "deposit":{
-        "title":"Deposit"
+        "title":"Deposit",
+        "wallet1":"Choose wallet",
+        "wallet2":"Choose payment"
     },
     "transfer":{
         "title":"Transfer"

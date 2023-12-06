@@ -11,8 +11,8 @@ class Helper{
       return date==null?"": DateFormat('yyyy-MM-dd').format(date);
   }
 
-  static String dateTimeFormat(){
-    return DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+  static String timeFormat(DateTime time){
+    return DateFormat('HH:mm').format(time);
   }
 
   static String formatDate() {

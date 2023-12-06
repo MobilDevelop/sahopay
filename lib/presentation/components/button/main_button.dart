@@ -41,8 +41,8 @@ class MainButton extends StatelessWidget {
       current = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(leftIcon!,color: textColor??AppTheme.colors.white),
-          Gap(ScreenSize.w12),
+          SvgPicture.asset(leftIcon!,color: textColor??AppTheme.colors.white,height: ScreenSize.h24),
+          Gap(ScreenSize.w10),
           Text(
             text,
             style: AppTheme.data.textTheme.displaySmall
@@ -63,7 +63,7 @@ class MainButton extends StatelessWidget {
       duration: const Duration(milliseconds: 150),
       child: Container(
         width: wrap ? null : double.infinity,
-        height: wrap ? null : 45.h,
+        height: wrap ? null : 40.h,
         alignment: Alignment.center,
         padding: wrap
             ? EdgeInsets.symmetric(
@@ -74,6 +74,14 @@ class MainButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
           color: color ?? AppTheme.colors.primary,
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.colors.grey,
+              blurRadius: 10,
+              spreadRadius: 4,
+              offset: Offset(5.w, 6.h)
+            )
+          ],
         ),
         margin: margin,
         child: current,
