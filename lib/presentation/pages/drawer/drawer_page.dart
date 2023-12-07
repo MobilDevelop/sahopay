@@ -82,6 +82,17 @@ class DrawerPage extends StatelessWidget {
               onTap: ()=>cubit.nextPage(2),
               contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
               splashColor: AppTheme.colors.primary.withOpacity(.3),
+              leading: SvgPicture.asset(AppIcons.withdraw,color: AppTheme.colors.primary,height: ScreenSize.h24),
+              title: Text(tr('home.withdraw'),style: AppTheme.data.textTheme.bodyMedium),
+            ),
+             Divider(
+              height: 2.h,
+              color: AppTheme.colors.grey,
+            ),
+            ListTile(
+              onTap: ()=>cubit.nextPage(2),
+              contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
+              splashColor: AppTheme.colors.primary.withOpacity(.3),
               leading: SvgPicture.asset(AppIcons.setting,color: AppTheme.colors.primary,height: ScreenSize.h24),
               title: Text(tr('home.setting'),style: AppTheme.data.textTheme.bodyMedium),
             ),

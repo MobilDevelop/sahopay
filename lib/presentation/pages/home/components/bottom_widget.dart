@@ -8,12 +8,13 @@ import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 
 class BottomWidget extends StatelessWidget {
   const BottomWidget({
-    super.key, required this.title, required this.icon, required this.press, required this.onPress,
+    super.key, required this.title, required this.icon, required this.press, required this.onPress,this.size,
   });
   final String title;
   final String icon;
   final VoidCallback press;
   final bool onPress;
+  final String? size;
   @override
   Widget build(BuildContext context) {
     return Expanded(

@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   BottomWidget(icon: AppIcons.dashboard, title: tr('home.dashboard'), onPress: cubit.currentPage==0, press: ()=>cubit.nextScreen(0)),
                   BottomWidget(icon: AppIcons.money, title: tr('home.deposit'), onPress: cubit.currentPage==1, press: ()=>cubit.nextScreen(1)),
-                  BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: cubit.currentPage==2, press: ()=>cubit.nextScreen(2)),
+                  BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: cubit.currentPage==2, press: ()=>cubit.nextScreen(2),size: "test"),
                   BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: cubit.currentPage==3, press: ()=>cubit.nextScreen(3)),
                 ],
               ),

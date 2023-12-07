@@ -17,6 +17,7 @@ dependencies:
   gap: ^2.0.1
   dotted_line: ^3.2.2
   google_nav_bar: ^5.0.6
+  gif: ^2.2.0
 
   # Animations
   flutter_bounce: ^1.1.0

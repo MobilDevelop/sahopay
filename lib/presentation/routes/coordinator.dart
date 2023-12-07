@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:sahopay/presentation/pages/home/home_page.dart';
+import 'package:sahopay/presentation/pages/login/login_page.dart';
+import 'package:sahopay/presentation/pages/registration/registration_page.dart';
 import 'package:sahopay/presentation/pages/setting/setting_page.dart';
 import 'package:sahopay/presentation/pages/transfer/transfer_page.dart';
 import 'index_routes.dart';
 
 
 final GoRouter router = GoRouter(
-    initialLocation: Routes.home.path,
+    initialLocation: Routes.login.path,
     debugLogDiagnostics: true,
     routes: <GoRoute>[
       GoRoute(
@@ -32,6 +34,22 @@ final GoRouter router = GoRouter(
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child:  const SettingPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.login.name, 
+        path: Routes.login.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const LoginPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.registration.name, 
+        path: Routes.registration.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const RegistrationPage(),
         ),
       ),
        

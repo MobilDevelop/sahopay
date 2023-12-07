@@ -30,6 +30,11 @@ class Routes implements Coordinate {
     name: 'setting_page',
     path: '/setting',
   );
+  static const registration = Routes._(
+    name: 'registration_page',
+    path: '/registration',
+  );
+  
 
   @override
   String toString() => 'name=$name, path=$path';

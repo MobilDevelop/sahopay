@@ -5,13 +5,20 @@
       "transfer":"Transfer",
       "exchange":"Exchange",
       "history":"History",
-      "setting":"Setting"
+      "setting":"Setting",
+      "withdraw":"Withdraw"
     },
     "login_page":{
-        "login":" Login",
-        "pass":" Parol",
-        "enter":"Kirish",
-        "error":"Login yoki parol kiritilmadi"
+        "login":" Email",
+        "pass":" Password",
+        "enter":"Continue",
+        "confirm":" Confirm Password",
+        "referal":" Referal Code",
+        "error":"Login yoki parol kiritilmadi",
+        "signin":"Sign in Account",
+        "signup":"Create an Account",
+        "comment1":"Have a Account?",
+        "comment2":"New Here?"
     },
     
     "dashboard":{

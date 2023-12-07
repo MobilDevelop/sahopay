@@ -21,11 +21,12 @@ class AppIcons {
   static const String dollar = 'assets/icons/dollar.svg';
   static const String euro = 'assets/icons/euro.svg';
   static const String ruble = 'assets/icons/ruble.svg';
+  static const String withdraw= 'assets/icons/withdraw.svg';
 
 
 
 
-  static const String logo = 'assets/images/logo.jpeg';
+  static const String logo = 'assets/images/sahopay.gif';
   static const String card = 'assets/images/card_background.jpg';
   static const String curier = 'assets/images/curier.jpg';
   static const String loading = 'assets/images/loading.webp';
