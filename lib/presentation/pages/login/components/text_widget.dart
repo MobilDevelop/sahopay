@@ -4,10 +4,14 @@ import 'package:sahopay/presentation/assets/asset_index.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget({
-    super.key, required this.controller, required this.title,
+    super.key, required this.controller, required this.title, required this.border, required this.visible, required this.showText, required this.overflow,
      });
     final TextEditingController controller;
     final String title;
+    final bool border;
+    final bool visible;
+    final VoidCallback showText;
+    final bool overflow;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,28 +20,37 @@ class TextWidget extends StatelessWidget {
       Text(
        title,
         style: AppTheme.data.textTheme.bodyLarge!
-            .copyWith(color: AppTheme.colors.black),
+            .copyWith(color: border?AppTheme.colors.black25:AppTheme.colors.primary),
       ),
       Gap(ScreenSize.h6),
-      SizedBox(
-        height: 50.h,
+      Container(
+        margin: EdgeInsets.only(bottom: ScreenSize.h10),
         child: TextField(
           controller: controller,
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
               color: AppTheme.colors.black),
+              obscureText: overflow, 
           decoration: InputDecoration(
+             suffixIcon: Visibility(
+              visible:  visible,
+              child: IconButton(onPressed:showText, icon:overflow?const Icon(Icons.visibility_off_outlined):const Icon(Icons.remove_red_eye_outlined))),
+              fillColor: border?AppTheme.colors.white12:AppTheme.colors.white,
+              suffixIconColor: MaterialStateColor.resolveWith((states) =>
+            states.contains(MaterialState.focused)
+                ? AppTheme.colors.black
+                : AppTheme.colors.grey),
               contentPadding: EdgeInsets.symmetric(
                   vertical: 13.h, horizontal: ScreenSize.w16),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18.r),
                   borderSide: BorderSide(
-                      width: 1.5, color: AppTheme.colors.primary)),
+                      width: 1.5, color: border?AppTheme.colors.grey:AppTheme.colors.primary)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18.r),
                   borderSide: BorderSide(
-                      width: 1.5, color: AppTheme.colors.primary))),
+                      width: 1.5, color:border?AppTheme.colors.grey:AppTheme.colors.primary))),
         ),
       )
     ]);

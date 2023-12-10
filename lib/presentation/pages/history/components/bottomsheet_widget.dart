@@ -1,17 +1,28 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:sahopay/application/history/history_bottomsheet/history_bottomsheet_cubit.dart';
+import 'package:sahopay/application/history/history_bottomsheet/history_bottomsheet_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/button/border_button.dart';
+import 'bottomsheet_widget1.dart';
+import 'bottomsheet_widget2.dart';
 
 class BottomsheetWidget extends StatelessWidget {
   const BottomsheetWidget({
-    super.key,
+    super.key, required this.onPress,
   });
-
+  final Function onPress;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BlocProvider(create: (context)=>HistoryBottomsheetCubit(),
+    child: BlocListener<HistoryBottomsheetCubit,HistoryBottomsheetState>(listener: (context, state) {
+      
+    },
+    child: Builder(builder: (context) {
+      final cubit = context.read<HistoryBottomsheetCubit>();
+      return BlocBuilder<HistoryBottomsheetCubit,HistoryBottomsheetState>(builder: (context, state) => Container(
      height: 400.h,
               width: double.maxFinite,
               padding: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10,bottom: ScreenSize.h32),
@@ -45,24 +56,24 @@ class BottomsheetWidget extends StatelessWidget {
             ),
             child: Column(
               children: [
-              typeView("Transactions", AppIcons.bag,true),
+              BottomsheetWidget2(icon: AppIcons.bag, selected: cubit.changed==0, title:tr('history.transactions'), press: ()=>cubit.chooseChangeg(0)),
               Gap(ScreenSize.h10),
-              typeView("Exchanges", AppIcons.exchange2,false),
+               BottomsheetWidget2(icon: AppIcons.exchange2, selected: cubit.changed==1, title:tr('history.exchanges'), press: ()=>cubit.chooseChangeg(1)),
               Gap(ScreenSize.h10),
-              typeView("Referals", AppIcons.referal,false),
+               BottomsheetWidget2(icon: AppIcons.referal, selected: cubit.changed==2, title:tr('history.referals'), press: ()=>cubit.chooseChangeg(2)),
               ],
             ),
           ),
           Gap(ScreenSize.h32),
           Row(
             children: [
-              typeWidget(" All", AppIcons.bag,false),
+              BottomsheetWidget1(icon: AppIcons.bag, selected: cubit.changetype==0, title: tr('history.all'), press:()=>cubit.chooseType(0)),
               Gap(ScreenSize.w8),
-              typeWidget(" Dollor", AppIcons.dollar,true),
-               Gap(ScreenSize.w8),
-              typeWidget(" Euro", AppIcons.euro,false),
-               Gap(ScreenSize.w8),
-              typeWidget(" Ruble", AppIcons.ruble,false),
+              BottomsheetWidget1(icon: AppIcons.dollar, selected: cubit.changetype==1, title: tr('history.dollor'), press: ()=>cubit.chooseType(1)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.euro, selected: cubit.changetype==2, title: tr('history.euro'), press: ()=>cubit.chooseType(2)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==3, title: tr('history.ruble'), press: ()=>cubit.chooseType(3)),
               
             ],
           ),
@@ -70,56 +81,19 @@ class BottomsheetWidget extends StatelessWidget {
         ),
           Row(
             children: [
-              Expanded(child: BorderButton(onPressed: (){Navigator.pop(context);}, text: "Cancel",borderColor: AppTheme.colors.red)),
+              Expanded(child: BorderButton(onPressed: (){Navigator.pop(context);}, text: tr('history.cancel'),borderColor: AppTheme.colors.red)),
               Gap(ScreenSize.w10),
-              Expanded(child: BorderButton(onPressed: (){}, text: "OK",borderColor: AppTheme.colors.green)),
+              Expanded(child: BorderButton(onPressed: (){
+                onPress({"changeId":cubit.changed,"typeId":cubit.changetype});
+                Navigator.pop(context);
+              }, text: tr('history.ok'),borderColor: AppTheme.colors.green)),
             ],
           )
     ],
       ),
-     );
-  }
-  Widget typeWidget(String title,String icon,bool selected){
-    return Expanded(
-                child: Container(
-                  height: 30.h,
-                   padding: EdgeInsets.only(left: ScreenSize.w6),
-                  decoration: BoxDecoration(
-                    color: selected?AppTheme.colors.primary:AppTheme.colors.white,
-                    border: Border.all(
-                      color: AppTheme.colors.grey
-                    ),
-                    borderRadius: BorderRadius.circular(10.r)
-                  ),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(icon,color: selected?AppTheme.colors.white:AppTheme.colors.black,height: ScreenSize.h18),
-                      Text(title,style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: selected?AppTheme.colors.white:AppTheme.colors.black))
-                    ],
-                  ),  
-                ),
-              );
-  }
-
-  Widget typeView(String title,String icon,bool selected){
-    return Container(
-                height: 45.h,
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
-                decoration: BoxDecoration(
-                  color: selected?AppTheme.colors.primary:AppTheme.colors.white,
-                  border: Border.all(
-                    color: AppTheme.colors.grey
-                  ),
-                  borderRadius: BorderRadius.circular(10.r)
-                ),
-                child: Row(
-                    children: [
-                      SvgPicture.asset(icon,color: selected?AppTheme.colors.white:AppTheme.colors.black,height: ScreenSize.h24),
-                      Gap(ScreenSize.w10),
-                      Text(title,style: AppTheme.data.textTheme.displaySmall!.copyWith(color: selected?AppTheme.colors.white:AppTheme.colors.black))
-                    ],
-                  ),  
-              );
+     ));
+    },),
+    ),
+    );
   }
 }

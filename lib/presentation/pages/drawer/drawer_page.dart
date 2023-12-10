@@ -26,6 +26,9 @@ class DrawerPage extends StatelessWidget {
       }else if(state is DrawerNextSetting){
         Navigator.pop(context);
         context.push(Routes.setting.path);
+      }else if(state is DrawerNextWithdraw){
+        Navigator.pop(context);
+        context.push(Routes.withdraw.path);
       }
     },
     child: Builder(builder: (context) {
@@ -90,7 +93,7 @@ class DrawerPage extends StatelessWidget {
               color: AppTheme.colors.grey,
             ),
             ListTile(
-              onTap: ()=>cubit.nextPage(2),
+              onTap: ()=>cubit.nextPage(3),
               contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
               splashColor: AppTheme.colors.primary.withOpacity(.3),
               leading: SvgPicture.asset(AppIcons.setting,color: AppTheme.colors.primary,height: ScreenSize.h24),

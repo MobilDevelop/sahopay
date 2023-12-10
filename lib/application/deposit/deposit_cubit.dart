@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/infrastructure/models/deposit/wallet_items.dart';
@@ -7,4 +8,8 @@ class DepositCubit extends Cubit<DepositState>{
 
   List<WalletItem> walletItems = [];
   WalletItem? selectedWalletItem;
+
+  final amountController = TextEditingController();
+
+  void sendDeposit(){}
 }

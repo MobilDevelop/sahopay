@@ -5,10 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:sahopay/application/deposit/deposit_cubit.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
-import 'package:sahopay/presentation/assets/res/screen_size.dart';
-import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
-
 import 'components/deposit_items_widget.dart';
 import 'components/deposit_write_widget.dart';
 
@@ -30,14 +27,14 @@ class DepositPage extends StatelessWidget {
           title: Text(tr('deposit.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
         ),
         body: Container(
-          padding: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10,top: ScreenSize.h14),
+          padding: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10,top: ScreenSize.h8),
           width: double.maxFinite,
           height: double.maxFinite,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
                Container(
-                padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h16),
+                padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h12),
                 decoration: BoxDecoration(
                   color: AppTheme.colors.white ,
                   border: Border.all(
@@ -51,25 +48,36 @@ class DepositPage extends StatelessWidget {
                spreadRadius: 10,
                offset: Offset(5.w, 10.h)
             )
-          ],
-                  borderRadius: BorderRadius.circular(10.r)
+            ],
+           borderRadius: BorderRadius.circular(10.r)
                 ),
                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                     Column(children: [
-                    DepositItemWidget(items: cubit.walletItems,selectedItem: cubit.selectedWalletItem,hint: tr('deposit.wallet1'), title: "  Your Wallet",press:(){}),
+                    DepositItemWidget(items: cubit.walletItems,
+                    selectedItem: cubit.selectedWalletItem,
+                    hint: tr('universal.chooseyourwallet'), 
+                    title: tr('universal.yourwallet'),
+                    press:(){}),
                     Gap(ScreenSize.h14),
-                    DepositItemWidget(items: cubit.walletItems,selectedItem: cubit.selectedWalletItem,hint: tr('deposit.wallet2'), title: "  Select payment system",press:(){}),
+                    DepositItemWidget(items: cubit.walletItems,
+                    selectedItem: cubit.selectedWalletItem,
+                    hint: tr('universal.chooseyourwallet'), 
+                    title: tr('universal.payment'),
+                    press:(){}),
                     Gap(ScreenSize.h14),
-                    const DepositWriteWidget(title: "  Amount"),
+                     DepositWriteWidget(title: tr('universal.amount'), 
+                     controller: cubit.amountController, 
+                     hint: tr('universal.enteramount'), 
+                     icon: AppIcons.dollar1),
                     ]),
                    ],
                  ),
                ),
                 Padding(
                   padding: EdgeInsets.only(bottom: ScreenSize.h20),
-                  child: MainButton(text: "Add Deposit", onPressed: (){},leftIcon: AppIcons.money),
+                  child: MainButton(text:tr('deposit.add'), onPressed:cubit.sendDeposit,leftIcon: AppIcons.money),
                 )
             ],
           ),
@@ -80,5 +88,3 @@ class DepositPage extends StatelessWidget {
     );
   }
 }
-
-

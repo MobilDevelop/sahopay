@@ -26,23 +26,50 @@
     },
     "deposit":{
         "title":"Deposit",
-        "wallet1":"Choose wallet",
-        "wallet2":"Choose payment"
+        "add":"Add Deposit"
     },
     "transfer":{
-        "title":"Transfer"
+        "title":"Transfer",
+        "amount":"Total Amount"
     },
     "exchange":{
-        "title":"Exchange"
+        "title":"Exchange",
+        "sender":"Sender Wallet",
+        "reciever":"Reciever Wallet"
     },
     "history":{
-        "title":"History"
+        "title":"History",
+        "status":"Status:",
+        "transactions":"Transactions",
+        "exchanges":"Exchanges",
+        "referals":"Referals",
+        "all":" All",
+        "dollor":" Dollor",
+        "euro":" Euro",
+        "ruble":" Ruble",
+        "ok":"OK",
+        "cancel":"Cancel"
+    },
+    "withdraw":{
+        "title":"Withdraw"
     },
     "setting":{
         "title":"Setting"
     },
     "drawer":{
         "exit":"CHIQISH"
+    },
+    "universal":{
+     "payment":"Select payment system",
+     "yourwallet":"Your Wallet",
+     "amount":"  Amount",
+     "enteramount":" Enter Amount",
+     "comission":"With Commission",
+     "totalsum":"Total sum",
+     "comment":"  Comment",
+     "entercomment":" Enter your comment",
+     "choosewallet":"Choose wallet",
+     "chooseyourwallet":"Choose your wallet"
     },
     "error":{
         "location":"Iltimos dasturdan foydaylanish uchun joylashuv ma'lumotlarini yoqing",

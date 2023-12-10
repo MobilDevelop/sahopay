@@ -30,9 +30,9 @@ class Routes implements Coordinate {
     name: 'setting_page',
     path: '/setting',
   );
-  static const registration = Routes._(
-    name: 'registration_page',
-    path: '/registration',
+  static const withdraw = Routes._(
+    name: 'withdraw_page',
+    path: '/withdraw',
   );
   
 

@@ -22,6 +22,8 @@ class AppIcons {
   static const String euro = 'assets/icons/euro.svg';
   static const String ruble = 'assets/icons/ruble.svg';
   static const String withdraw= 'assets/icons/withdraw.svg';
+  static const String dollar1= 'assets/icons/dollar1.svg';
+  static const String message= 'assets/icons/message.svg';
 
 
 

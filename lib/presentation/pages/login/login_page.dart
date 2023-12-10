@@ -1,16 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bounce/flutter_bounce.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
-import 'package:gif/gif.dart';
-import 'package:sahopay/application/login/login_cubit.dart';
-import 'package:sahopay/application/login/login_state.dart';
-import 'package:sahopay/presentation/assets/asset_index.dart';
-import 'package:sahopay/presentation/components/button/main_button.dart';
-
+import 'package:sahopay/presentation/components/button/border_button.dart';
+import 'package:sahopay/presentation/routes/index_routes.dart';
+import 'components/circle_user_widget.dart';
+import 'components/forgot_password.dart';
+import 'components/login_widget.dart';
+import 'components/registration_widget.dart';
 import 'components/text_widget.dart';
+import 'library/login_library.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -19,7 +15,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => LoginCubit(),
     child:  BlocListener<LoginCubit,LoginState>(listener: (context, state) {
-      
+      if(state is LoginNextHome){
+        context.go(Routes.home.path);
+      }
     },
     child: Builder(builder: (context) {
       final cubit = context.read<LoginCubit>();
@@ -53,45 +51,37 @@ class LoginPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                 children: [
-                  cubit.chooseView?Column(
-                  children: [
-                  Gap(ScreenSize.h8),
-                  Text("Hi Welcome",style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
-                  Gap(ScreenSize.h4),
-                  Text("Sign up with Email address",style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
-                  ],
-                  ):Column(
-                    children: [
-                  Gap(ScreenSize.h14),
-                  Text("Hi Welcome Back",style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
-                  Gap(ScreenSize.h4),
-                  Text("Enter your credentials to continue",style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
-                  Gap(ScreenSize.h4),
-                  Text("Sign in with Email address",style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
-                    ],
-                  ),
+                  cubit.forgotPassword?const ForgotPassword():cubit.chooseView?const RegistrationWidget():const LoginWidget(),
                   Gap(ScreenSize.h10),
-                  Container(
-                    padding: EdgeInsets.all(ScreenSize.h12),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppTheme.colors.primary,
-                        width: 2
+                  const CircleUserWidget(),
+                  TextWidget(controller: cubit.loginController,title:  tr('login_page.login'), border: false, visible: false, overflow: false, showText: (){}),
+                  Visibility(
+                    visible: !cubit.forgotPassword,
+                    child: Column(
+                    children: [TextWidget(controller: cubit.passwordController,title:  tr('login_page.pass'), border: false, visible: true, overflow: cubit.passwordVisible, showText:()=>cubit.visiblePassword(1)),
+                  Visibility(
+                    visible: !cubit.chooseView,
+                    child: Container(
+                      width: double.maxFinite,
+                      padding: EdgeInsets.only(right: ScreenSize.w10),
+                      child: Bounce(
+                        duration: const Duration(milliseconds: 300),
+                        onPressed:cubit.showForgotPassword,
+                        child: Text("Forgot password?",style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary),
+                        textAlign: TextAlign.end),
                       ),
-                      shape: BoxShape.circle
                     ),
-                    child: SvgPicture.asset(AppIcons.user,height: 45.h,fit: BoxFit.cover,color:AppTheme.colors.primary,)),
-                  TextWidget(controller: cubit.loginController,title:  tr('login_page.login')),
-                  TextWidget(controller: cubit.passwordController,title:  tr('login_page.pass')),
+                  )],
+                  )),
                   Visibility(
                     visible: cubit.chooseView,
                     child: Column(
                       children: [
-                  TextWidget(controller: cubit.loginController,title:  tr('login_page.confirm')),
-                  TextWidget(controller: cubit.passwordController,title:  tr('login_page.referal')),
+                  TextWidget(controller: cubit.confirmPasswordController,title:  tr('login_page.confirm'), border: true, visible: true, overflow: cubit.confirmpasswordVisible, showText:()=>cubit.visiblePassword(2)),
+                  TextWidget(controller: cubit.referalController,title:  tr('login_page.referal'), border: true, visible: false, overflow:false, showText:(){}),
                   Row(
                     children: [
-                      Checkbox(value: false, onChanged: (value){}),
+                      Checkbox(value: cubit.checked, onChanged: cubit.showChecked,activeColor: AppTheme.colors.primary),
                       Text("Agree with",style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
                       Gap(ScreenSize.w10),
                       Text("Terms & Condition",style: AppTheme.data.textTheme.titleMedium!.copyWith(color: AppTheme.colors.primary)),
@@ -112,7 +102,7 @@ class LoginPage extends StatelessWidget {
                     showLoading: cubit.loading,
                     onPressed: cubit.checkInfo),
                      Gap(ScreenSize.h20),
-                     Padding(
+                     cubit.forgotPassword?BorderButton(onPressed:cubit.showForgotPassword, text: "Back",borderColor: AppTheme.colors.grey):Padding(
                        padding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
                        child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

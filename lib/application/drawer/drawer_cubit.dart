@@ -15,6 +15,8 @@ class DrawerCubit extends Cubit<DrawerState>{
   void nextPage(int index){
     if(index==1){
       emit(DrawerNextTransfer());
+    }else if(index==2){
+      emit(DrawerNextWithdraw());
     }else{
       emit(DrawerNextSetting());
     }

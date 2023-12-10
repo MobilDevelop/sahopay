@@ -27,11 +27,8 @@ class DepositItemWidget extends StatelessWidget {
          mode: Mode.MENU,
         items: items,
         dropdownSearchDecoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal:0),
+        contentPadding:  EdgeInsets.only(left:ScreenSize.w14),
         hintText: hint,
-        prefixIcon: Visibility(
-        visible: true,
-        child: IconButton(onPressed: (){}, icon: const Icon(Icons.home,color: Colors.black))),
         enabledBorder: OutlineInputBorder(
         borderRadius:BorderRadius.circular(10.r),
         borderSide: BorderSide(

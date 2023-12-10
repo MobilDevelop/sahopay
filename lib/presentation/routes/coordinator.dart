@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:sahopay/presentation/pages/home/home_page.dart';
 import 'package:sahopay/presentation/pages/login/login_page.dart';
-import 'package:sahopay/presentation/pages/registration/registration_page.dart';
 import 'package:sahopay/presentation/pages/setting/setting_page.dart';
 import 'package:sahopay/presentation/pages/transfer/transfer_page.dart';
+import 'package:sahopay/presentation/pages/withdraw/withdraw_page.dart';
 import 'index_routes.dart';
 
 
@@ -45,14 +45,12 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        name: Routes.registration.name, 
-        path: Routes.registration.path,
+        name: Routes.withdraw.name, 
+        path: Routes.withdraw.path,
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child:  const RegistrationPage(),
+          child:  const WithdrawPage(),
         ),
       ),
-       
-      
     ],
     errorBuilder: (context, state) => const SizedBox());
