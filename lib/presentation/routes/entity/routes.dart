@@ -34,7 +34,14 @@ class Routes implements Coordinate {
     name: 'withdraw_page',
     path: '/withdraw',
   );
-  
+  static const profile = Routes._(
+    name: 'profile_page',
+    path: '/profile',
+  );
+  static const password = Routes._(
+    name: 'password_page',
+    path: '/password',
+  );
 
   @override
   String toString() => 'name=$name, path=$path';

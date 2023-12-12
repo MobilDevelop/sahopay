@@ -35,7 +35,9 @@ class DepositWriteWidget extends StatelessWidget {
          child: TextField(
            controller: controller,
            decoration:  InputDecoration(
-            prefixIcon: SvgPicture.asset(icon,height: ScreenSize.h14),
+            prefixIcon:  Visibility(
+              visible: icon.isNotEmpty,
+              child: SvgPicture.asset(icon,height: ScreenSize.h14)),
             hintText: hint,
             contentPadding: const EdgeInsets.all(0),
             enabledBorder: InputBorder.none,

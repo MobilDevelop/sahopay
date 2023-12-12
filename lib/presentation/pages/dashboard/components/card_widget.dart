@@ -50,11 +50,11 @@ class CardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(6.r)
             ),
           ),
-          title: Text("Account Number",style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white)),
+          title: Text(tr('dashboard.number'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white)),
           subtitle: Text("U0000126",style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.white)),
           ),
           Gap(ScreenSize.h6),
-          Text("Account Balance",style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white)),
+          Text(tr('dashboard.balance'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white)),
           Text("USDT 16.79",style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white)),
           Gap(ScreenSize.h6),
           DottedLine(dashColor: AppTheme.colors.white),
@@ -73,7 +73,7 @@ class CardWidget extends StatelessWidget {
               height: ScreenSize.h10,
               color: AppTheme.colors.white,
              ),
-             TextButtonX(onPressed: (){}, text: tr('home.transfer'),leftIcon:AppIcons.send,textColor: AppTheme.colors.black25),
+             TextButtonX(onPressed: (){}, text: tr('home.withdraw'),leftIcon:AppIcons.withdraw,textColor: AppTheme.colors.black25),
               // Bounce(
               //   duration: const Duration(milliseconds: 300),
               //   onPressed: (){},

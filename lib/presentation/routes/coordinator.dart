@@ -2,14 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:sahopay/presentation/pages/home/home_page.dart';
 import 'package:sahopay/presentation/pages/login/login_page.dart';
+import 'package:sahopay/presentation/pages/password/password_page.dart';
+import 'package:sahopay/presentation/pages/profile/profile_page.dart';
 import 'package:sahopay/presentation/pages/setting/setting_page.dart';
+import 'package:sahopay/presentation/pages/splash/splash_page.dart';
 import 'package:sahopay/presentation/pages/transfer/transfer_page.dart';
 import 'package:sahopay/presentation/pages/withdraw/withdraw_page.dart';
 import 'index_routes.dart';
 
 
 final GoRouter router = GoRouter(
-    initialLocation: Routes.login.path,
+    initialLocation: Routes.splash.path,
     debugLogDiagnostics: true,
     routes: <GoRoute>[
       GoRoute(
@@ -50,6 +53,30 @@ final GoRouter router = GoRouter(
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child:  const WithdrawPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.profile.name, 
+        path: Routes.profile.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const ProfilePage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.password.name, 
+        path: Routes.password.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const PasswordPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.splash.name, 
+        path: Routes.splash.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const SplashPage(),
         ),
       ),
     ],

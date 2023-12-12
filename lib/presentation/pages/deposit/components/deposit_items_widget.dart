@@ -24,11 +24,14 @@ class DepositItemWidget extends StatelessWidget {
         Text(title,style: AppTheme.data.textTheme.bodyMedium),
          Gap(ScreenSize.h4),
         DropdownSearch<WalletItem>(
-         mode: Mode.MENU,
+         mode: Mode.MENU,  
         items: items,
         dropdownSearchDecoration: InputDecoration(
-        contentPadding:  EdgeInsets.only(left:ScreenSize.w14),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal:0),
         hintText: hint,
+        prefixIcon: Visibility(
+        visible: selectedItem!=null,
+        child: IconButton(onPressed: (){}, icon: const Icon(Icons.home,color: Colors.black))),
         enabledBorder: OutlineInputBorder(
         borderRadius:BorderRadius.circular(10.r),
         borderSide: BorderSide(

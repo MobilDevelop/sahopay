@@ -22,44 +22,47 @@ class HomePage extends StatelessWidget {
     },
     child: Builder(builder: (context) {
       final cubit = context.read<HomeCubit>();
-      return BlocBuilder<HomeCubit,HomeState>(builder: (_, state) => Scaffold(
-        key: cubit.scaffoldkey,
-        body: Column(
-          children: [
-            Expanded(child: cubit.window ?? Container()),
-            Container(
-              height: 55.h,
-              width: double.maxFinite,
-              margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
-              padding: EdgeInsets.only(left: ScreenSize.w6,right:ScreenSize.w6),
-              decoration: BoxDecoration(
-                color: AppTheme.colors.white,
-                border: Border.all(
-                  color: AppTheme.colors.primary
+      return BlocBuilder<HomeCubit,HomeState>(builder: (_, state) => WillPopScope(
+        onWillPop: ()=>cubit.onWillPop(),
+        child: Scaffold(
+          key: cubit.scaffoldkey,
+          body: Column(
+            children: [
+              Expanded(child: cubit.window ?? Container()),
+              Container(
+                height: 55.h,
+                width: double.maxFinite,
+                margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
+                padding: EdgeInsets.only(left: ScreenSize.w6,right:ScreenSize.w6),
+                decoration: BoxDecoration(
+                  color: AppTheme.colors.white,
+                  border: Border.all(
+                    color: AppTheme.colors.primary
+                  ),
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade400,
+                      blurRadius: 10,
+                      spreadRadius:5,
+                      offset: Offset(4.w,8.h)
+                    )
+                  ]
                 ),
-                borderRadius: BorderRadius.circular(16.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade400,
-                    blurRadius: 10,
-                    spreadRadius:5,
-                    offset: Offset(4.w,8.h)
-                  )
-                ]
-              ),
-              child: Row(
-                children: [
-                  BottomWidget(icon: AppIcons.dashboard, title: tr('home.dashboard'), onPress: cubit.currentPage==0, press: ()=>cubit.nextScreen(0)),
-                  BottomWidget(icon: AppIcons.money, title: tr('home.deposit'), onPress: cubit.currentPage==1, press: ()=>cubit.nextScreen(1)),
-                  BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: cubit.currentPage==2, press: ()=>cubit.nextScreen(2),size: "test"),
-                  BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: cubit.currentPage==3, press: ()=>cubit.nextScreen(3)),
-                ],
-              ),
-            )
-          ],
-        ),
-        drawer: DrawerPage(),
-)
+                child: Row(
+                  children: [
+                    BottomWidget(icon: AppIcons.dashboard, title: tr('home.dashboard'), onPress: cubit.currentPage==0, press: ()=>cubit.nextScreen(0)),
+                    BottomWidget(icon: AppIcons.money, title: tr('home.deposit'), onPress: cubit.currentPage==1, press: ()=>cubit.nextScreen(1)),
+                    BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: cubit.currentPage==2, press: ()=>cubit.nextScreen(2),size: "test"),
+                    BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: cubit.currentPage==3, press: ()=>cubit.nextScreen(3)),
+                  ],
+                ),
+              )
+            ],
+          ),
+          drawer: DrawerPage(),
+      ),
+      )
       );
     },),
     ),

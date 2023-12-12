@@ -22,7 +22,9 @@
     },
     
     "dashboard":{
-        "title":"Dashboard"   
+        "title":"Dashboard",
+        "number":"Account Number",
+        "balance":"Account Balance"
     },
     "deposit":{
         "title":"Deposit",
@@ -51,10 +53,31 @@
         "cancel":"Cancel"
     },
     "withdraw":{
-        "title":"Withdraw"
+        "title":"Withdraw",
+        "adress":"Address",
+        "enteradress":"Enter address"
     },
     "setting":{
-        "title":"Setting"
+        "title":"Setting",
+        "profile":"Prifile",
+        "password":"Change Password"
+    },
+    "profile":{
+        "title":"Profile",
+        "email":"  Email",
+        "firstname":"  First Name",
+        "lastname":"  Last Name",
+        "referal":"  Referal Code",
+        "clear":"Clear",
+        "update":"Update Profile"
+    },
+    "password":{
+        "title":"Change Password",
+        "current":"  Current Password",
+        "newpass":"  New Password",
+        "confirmpass":"  Confirm new password",
+        "clear":"Clear",
+        "update":"Update Password"
     },
     "drawer":{
         "exit":"CHIQISH"

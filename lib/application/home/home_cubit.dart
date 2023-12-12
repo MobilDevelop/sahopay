@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/home/home_state.dart';
 import 'package:sahopay/presentation/pages/dashboard/dashboard.dart';
 import 'package:sahopay/presentation/pages/deposit/deposit_page.dart';
@@ -12,6 +13,7 @@ class HomeCubit extends Cubit<HomeState>{
   }
 
   int currentPage = 0;
+  dynamic currentBackPressTime;
 
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
@@ -30,6 +32,17 @@ class HomeCubit extends Cubit<HomeState>{
   }
   void openDrawer(){
    scaffoldkey.currentState!.openDrawer();
+  }
+
+  Future<bool> onWillPop() async {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      EasyLoading.showToast('Dasturdan chiqish uchun yana bir marta bosing!');
+      return Future.value(false);
+    }
+    return Future.value(true);
   }
   
 }
