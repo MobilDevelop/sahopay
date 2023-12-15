@@ -4,7 +4,7 @@ import 'package:sahopay/presentation/assets/asset_index.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget({
-    super.key, required this.controller, required this.title, required this.border, required this.visible, required this.showText, required this.overflow,
+    super.key, required this.controller, required this.title, required this.border, required this.visible, required this.showText, required this.overflow, required this.hintText,
      });
     final TextEditingController controller;
     final String title;
@@ -12,6 +12,7 @@ class TextWidget extends StatelessWidget {
     final bool visible;
     final VoidCallback showText;
     final bool overflow;
+    final String hintText;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +25,7 @@ class TextWidget extends StatelessWidget {
       ),
       Gap(ScreenSize.h6),
       Container(
-        margin: EdgeInsets.only(bottom: ScreenSize.h10),
+        margin: EdgeInsets.only(bottom: ScreenSize.h4),
         child: TextField(
           controller: controller,
           style: TextStyle(
@@ -36,7 +37,7 @@ class TextWidget extends StatelessWidget {
              suffixIcon: Visibility(
               visible:  visible,
               child: IconButton(onPressed:showText, icon:overflow?const Icon(Icons.visibility_off_outlined):const Icon(Icons.remove_red_eye_outlined))),
-              fillColor: border?AppTheme.colors.white12:AppTheme.colors.white,
+              fillColor: border?AppTheme.colors.red.withOpacity(.05):AppTheme.colors.white,
               suffixIconColor: MaterialStateColor.resolveWith((states) =>
             states.contains(MaterialState.focused)
                 ? AppTheme.colors.black
@@ -46,13 +47,22 @@ class TextWidget extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18.r),
                   borderSide: BorderSide(
-                      width: 1.5, color: border?AppTheme.colors.grey:AppTheme.colors.primary)),
+                      width: 1.5, color: border?AppTheme.colors.red:AppTheme.colors.primary)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18.r),
                   borderSide: BorderSide(
-                      width: 1.5, color:border?AppTheme.colors.grey:AppTheme.colors.primary))),
+                      width: 1.5, color:border?AppTheme.colors.red:AppTheme.colors.primary))),
         ),
-      )
+      ),
+      Visibility(
+        visible: border,
+        child: Text(
+         hintText,
+          style: AppTheme.data.textTheme.labelSmall!
+              .copyWith(color: AppTheme.colors.red),
+        ),
+      ),
+      Gap(ScreenSize.h10)
     ]);
   }
 }

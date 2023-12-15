@@ -26,7 +26,7 @@ class TextButtonX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextStyle? style =
-        AppTheme.data.textTheme.bodyMedium?.copyWith(color: textColor); 
+        AppTheme.data.textTheme.headlineMedium?.copyWith(color: textColor); 
 
     if (withUnderLine) {
       style = AppTheme.data.textTheme.labelLarge?.copyWith(

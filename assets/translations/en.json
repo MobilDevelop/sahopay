@@ -18,7 +18,11 @@
         "signin":"Sign in Account",
         "signup":"Create an Account",
         "comment1":"Have a Account?",
-        "comment2":"New Here?"
+        "comment2":"New Here?",
+        "error1":"  Not valid Email address",
+        "error2":"  Password must be at least 4 character",
+        "error3":"  Passwords does not match",
+        "error4": "    Terms and condition confirmation required"
     },
     
     "dashboard":{
