@@ -5,9 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/application/dashboard/dashboard_cubit.dart';
 import 'package:sahopay/application/dashboard/dashboard_state.dart';
+import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/assets/res/app_icons.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
+import 'package:sahopay/presentation/components/animation_loading/saho_loading.dart';
 
 import 'components/card_widget.dart';
 
@@ -34,15 +36,23 @@ class Dashboard extends StatelessWidget {
           ),
           title: Text(tr('dashboard.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
         ),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
-          child: Column(
-            children: [
-              Gap(ScreenSize.h24),
-              const CardWidget(),
-              const CardWidget(),
-            ],
-          ),
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Gap(ScreenSize.h14),
+                  for(int i=0;i<cubit.items.length;i++)
+                   CardWidget(item: cubit.items[i]),
+                   Gap(60.h)
+                ],
+              ),
+            ),
+            Visibility(
+              visible:  cubit.loading,
+              child: const SahoLoading())
+          ],
         ),
        ));
      },),

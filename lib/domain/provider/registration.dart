@@ -41,7 +41,7 @@ class RegistrationServices{
   Future<bool> login(Map<String,dynamic> param)async{
     try {
       Response response = await dio.post(AppContatants.login,data: param);
-      LocalSource.putInfo(key: "token",json: response.data['id_token']);
+      LocalSource.putInfo(key: "token",json: "Bearer  ${response.data['id_token']}");
       return Future.value(true);
     } catch (e) {
       print(e);
