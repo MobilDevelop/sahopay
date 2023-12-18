@@ -13,7 +13,7 @@ class ErrorView extends StatelessWidget {
       child: Center(
         child: Text(
           error,
-          style: AppTheme.data.textTheme.bodyText2,
+          style: AppTheme.data.textTheme.bodyMedium,
         ),
       ),
     );

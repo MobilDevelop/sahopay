@@ -13,7 +13,7 @@ class MyInterceptor extends Interceptor{
   void onError(DioError err, ErrorInterceptorHandler handler) {
     print(err.response);
     EasyLoading.showInfo(err.response!.data.toString());
-    if (err.response?.statusCode == 503) {
+    if (err.response?.statusCode == 401) {
       EasyLoading.showInfo(tr('universal.error'));
       LocalSource.clearProfile();
     }

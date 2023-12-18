@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
         onWillPop: ()=>cubit.onWillPop(),
         child: Scaffold(
           key: cubit.scaffoldkey,
-          body: Column(
+          body: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
               Expanded(child: cubit.window ?? Container()),
               Container(
@@ -35,19 +36,12 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
                 padding: EdgeInsets.only(left: ScreenSize.w6,right:ScreenSize.w6),
                 decoration: BoxDecoration(
-                  color: AppTheme.colors.white,
+                  color: AppTheme.colors.white.withOpacity(.9),
                   border: Border.all(
                     color: AppTheme.colors.primary
                   ),
                   borderRadius: BorderRadius.circular(16.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade400,
-                      blurRadius: 10,
-                      spreadRadius:5,
-                      offset: Offset(4.w,8.h)
-                    )
-                  ]
+               
                 ),
                 child: Row(
                   children: [
