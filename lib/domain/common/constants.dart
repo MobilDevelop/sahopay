@@ -14,6 +14,13 @@ class AppContatants{
   static String forgotPassword = '${addition}account/reset-password/init';
   static String newPassword = '${addition}account/reset-password/finish';
   static String dashboard = '${addition}get-all-wallet/andBalance';
+  static String depositAllWallet = '${addition}get-all-wallet-andBalance-deposit';
+  static String depositAllPayment = '${addition}getAll-payment-systems-for-deposit';
+  static String history = '${addition}getAllHistory';
+  static String transferPayment = '${addition}getAll-payment-systems-for-transfer';
+  static String transferWallet = '${addition}get-all-wallet/andBalance';
+
+
 
 
   static String appVersion = '1.2.2';

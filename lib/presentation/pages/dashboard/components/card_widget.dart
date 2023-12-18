@@ -8,8 +8,6 @@ import 'package:sahopay/presentation/assets/res/app_icons.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/components/button/text_button_x.dart';
-import 'package:sahopay/presentation/pages/dashboard/components/background.dart';
-
 class CardWidget extends StatelessWidget {
   const CardWidget({
     super.key, required this.item, required this.index,
@@ -53,7 +51,7 @@ class CardWidget extends StatelessWidget {
                 color: AppTheme.colors.primary,
                 borderRadius: BorderRadius.circular(6.r)
               ),
-             // child: Image.network(AppContatants.imageUrl+item.logoUrl,color: AppTheme.colors.white,)
+           // child: Image.network(AppContatants.imageUrl+item.logoUrl,color: AppTheme.colors.white,errorBuilder: (context, error, stackTrace) => const Icon(Icons.card_giftcard_outlined,color:Colors.white))
             ),
             title: Text(tr('dashboard.number'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white12)),
             subtitle: Text(item.account,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.white12)),

@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:sahopay/application/dashboard/dashboard_cubit.dart';
 import 'package:sahopay/application/dashboard/dashboard_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
+import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/animation_loading/saho_loading.dart';
 
 import 'components/card_widget.dart';
@@ -48,7 +49,7 @@ class Dashboard extends StatelessWidget {
             ),
             Visibility(
               visible:  cubit.loading,
-              child: const SahoLoading())
+              child: const Loading())
           ],
         ),
        ));

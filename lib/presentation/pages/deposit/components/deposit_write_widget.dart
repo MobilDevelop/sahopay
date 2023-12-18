@@ -21,9 +21,9 @@ class DepositWriteWidget extends StatelessWidget {
         Text(title,style: AppTheme.data.textTheme.bodyMedium),
         Gap(ScreenSize.h4),
         Container(
-          height: 36.h,
-          width: double.maxFinite,
-          padding: EdgeInsets.symmetric(horizontal:ScreenSize.w6,vertical: ScreenSize.h4),
+          height: 40.h,
+          //width: double.maxFinite,
+          padding: EdgeInsets.symmetric(horizontal:ScreenSize.w6),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: AppTheme.colors.white,
@@ -35,13 +35,10 @@ class DepositWriteWidget extends StatelessWidget {
          child: TextField(
            controller: controller,
            decoration:  InputDecoration(
-            prefixIcon:  Visibility(
-              visible: icon.isNotEmpty,
-              child: SvgPicture.asset(icon,height: ScreenSize.h14)),
             hintText: hint,
             contentPadding: const EdgeInsets.all(0),
             enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none
+            focusedBorder: InputBorder.none,
            ),
          ), 
         ),

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/domain/common/constants.dart';
-import 'package:sahopay/infrastructure/models/deposit/wallet.dart';
+import 'package:sahopay/infrastructure/models/universal/payment.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 
-class DepositItemWidget extends StatelessWidget {
-  const DepositItemWidget({
+class DepositItemPayment extends StatelessWidget {
+  const DepositItemPayment({
     super.key, required this.items, required this.selectedItem, required this.press, required this.title, required this.hint,
   });
-  final List<Wallet> items;
-  final Wallet? selectedItem;
+  final List<Payment> items;
+  final Payment? selectedItem;
   final Function press;
   final String title;
   final String hint;
@@ -23,7 +23,7 @@ class DepositItemWidget extends StatelessWidget {
       children: [
         Text(title,style: AppTheme.data.textTheme.bodyMedium),
          Gap(ScreenSize.h4),
-        DropdownSearch<Wallet>(
+        DropdownSearch<Payment>(
          mode: Mode.MENU,  
         items: items,
         dropdownSearchDecoration: InputDecoration(
@@ -39,7 +39,7 @@ class DepositItemWidget extends StatelessWidget {
             shape: BoxShape.circle,
             color: AppTheme.colors.primary
           ),
-          child: Text(selectedItem!.currencyName.substring(0,1),style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white)))),
+          child: Text(selectedItem!.systemName.substring(0,1),style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white)))),
         enabledBorder: OutlineInputBorder(
         borderRadius:BorderRadius.circular(10.r),
         borderSide: BorderSide(
@@ -49,8 +49,8 @@ class DepositItemWidget extends StatelessWidget {
         borderSide: BorderSide(
         color: AppTheme.colors.primary))),
         selectedItem: selectedItem,
-        itemAsString: (Wallet? item) {
-        return "   ${item!.account} \n   ${item.hold} ${item.currencyName}";},
+        itemAsString: (Payment? item) {
+        return "   ${item!.systemName} \n   ${item.commission}";},
         onChanged: (item)=>press(item)),
       ],
     );

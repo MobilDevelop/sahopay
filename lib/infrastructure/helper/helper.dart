@@ -11,8 +11,12 @@ class Helper{
       return date==null?"": DateFormat('yyyy-MM-dd').format(date);
   }
 
-  static String timeFormat(DateTime time){
-    return DateFormat('HH:mm').format(time);
+  static String timeFormat(String date){
+    DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
+    DateTime inputDate = DateTime.parse(parseDate.toString());  
+    DateFormat outputFormat = DateFormat('hh:mm');
+    String outputDate = outputFormat.format(inputDate);
+    return outputDate;
   }
 
 

@@ -33,8 +33,8 @@ class HistoryPage extends StatelessWidget {
           ],
         ),
         body:  ListView.builder(
-          itemCount: 10,
-          itemBuilder:(context, index) => HistoryItemWidget(press: () {  })),
+          itemCount: cubit.items.length,
+          itemBuilder:(context, index) => HistoryItemWidget(press: () {  }, item: cubit.items[index])),
        ));
      },),
      ),
