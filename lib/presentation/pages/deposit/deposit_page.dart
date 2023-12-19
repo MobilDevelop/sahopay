@@ -8,8 +8,8 @@ import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
+import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_item_payment.dart';
-import 'components/deposit_items_widget.dart';
 import 'components/deposit_write_widget.dart';
 
 class DepositPage extends StatelessWidget {
@@ -61,12 +61,13 @@ class DepositPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                          children: [ 
                           Column(children: [
-                          DepositItemWidget(items: cubit.walletItems,
+                          WalletWidget(items: cubit.walletItems,
                           selectedItem: cubit.selectedWalletItem,
                           hint: tr('universal.chooseyourwallet'), 
                           title: tr('universal.yourwallet'),
                           press:cubit.onChangedWallet),
                           Gap(ScreenSize.h14),
+                          
                           DepositItemPayment(items: cubit.paymentItems,
                           selectedItem: cubit.selectedPaymentItem,
                           hint: tr('universal.chooseyourwallet'), 
@@ -82,7 +83,7 @@ class DepositPage extends StatelessWidget {
                        ),
                      ),
                      cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
-                       cubit.selectedPaymentItem==null?Text("Select Payment System \n to see Requirement",style: AppTheme.data.textTheme.displaySmall): Column(
+                     cubit.selectedPaymentItem==null?Text("Select Payment System \n to see Requirement",style: AppTheme.data.textTheme.displaySmall): Column(
                       children: [
                         for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
                         Container(

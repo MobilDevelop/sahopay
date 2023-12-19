@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:sahopay/presentation/assets/res/app_icons.dart';
 
 class AppContatants{
 
@@ -19,6 +19,10 @@ class AppContatants{
   static String history = '${addition}getAllHistory';
   static String transferPayment = '${addition}getAll-payment-systems-for-transfer';
   static String transferWallet = '${addition}get-all-wallet/andBalance';
+  static String withdrawWallet = '${addition}get-payout-wallet';
+  static String withdrawPayment = '${addition}get-AllPayoutPaymentSystem';
+  static String exchangeWallet = '${addition}get-all-wallet-and-balance-exchange';
+  static String exchangeRates = '${addition}get-all-exchange-rates';
 
 
 
@@ -27,20 +31,43 @@ class AppContatants{
 
   static int duration = 200;
   
-  static List<String> backgroundImages=[
-    AppIcons.card,
-    AppIcons.card1,
-    AppIcons.card2,
-    AppIcons.card3,
-    AppIcons.card5,
-    AppIcons.card6,
-    AppIcons.card7,
-    AppIcons.card8,
-    AppIcons.card9,
-    AppIcons.card10,
-    AppIcons.card11,
-    AppIcons.card12, 
-    AppIcons.card13,
-    AppIcons.card14,
+  static List<List<Color>> backgroundColor = [
+    [
+      Colors.blue.shade300,
+      Colors.blue.shade600,
+      Colors.blue.shade900,
+    ],
+    [
+      Colors.teal.shade300,
+      Colors.teal.shade600,
+      Colors.teal.shade900,
+    ],
+    [
+      Colors.green.shade300,
+      Colors.green.shade600,
+      Colors.green.shade900,
+    ],
+    
+    [
+      Colors.green.shade300,
+      Colors.green.shade600,
+      Colors.green.shade900,
+    ],
+    [
+      Colors.green.shade300,
+      Colors.green.shade600,
+      Colors.green.shade900,
+    ],
+    [
+      Colors.green.shade300,
+      Colors.green.shade600,
+      Colors.green.shade900,
+    ],
+    [
+      Colors.green.shade300,
+      Colors.green.shade600,
+      Colors.green.shade900,
+    ]
   ];
+  
 }

@@ -27,6 +27,7 @@ class AppIcons {
   static const String profile= 'assets/icons/profile.svg';
   static const String key= 'assets/icons/key.svg';
   static const String cardSvg= 'assets/icons/card.svg';
+  static const String right = 'assets/icons/right.svg';
 
 
   static const String card = 'assets/images/card_background.jpg';

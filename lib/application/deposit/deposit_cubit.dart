@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/domain/provider/deposit.dart';
-import 'package:sahopay/infrastructure/models/universal/payment.dart';
-import 'package:sahopay/infrastructure/models/deposit/wallet.dart';
+import 'package:sahopay/infrastructure/models/deposit/deposit.dart';
+import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
 class DepositCubit extends Cubit<DepositState>{
   DepositCubit():super(DepositInitial()){
@@ -12,11 +12,11 @@ class DepositCubit extends Cubit<DepositState>{
 
   bool loading =true;
 
-  List<Wallet> walletItems = [];
-  Wallet? selectedWalletItem;
+  List<WalletObject> walletItems = [];
+  WalletObject? selectedWalletItem;
 
- List<Payment> paymentItems = [];
- Payment? selectedPaymentItem;
+  List<DepositPayment> paymentItems = [];
+  DepositPayment? selectedPaymentItem;
 
   final amountController = TextEditingController();
   
@@ -28,13 +28,13 @@ class DepositCubit extends Cubit<DepositState>{
   }
 
 
-  void onChangedWallet(Wallet selectWallet){
+  void onChangedWallet(WalletObject selectWallet){
     selectedWalletItem =selectWallet;
     emit(DepositInitial());
   }
 
 
-  void onChangedPayment(Payment selectPayment){
+  void onChangedPayment(DepositPayment selectPayment){
     selectedPaymentItem =selectPayment;
     emit(DepositInitial());
   }

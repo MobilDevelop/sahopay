@@ -1,7 +1,7 @@
-List<Wallet>  walletItemFromMap(List list) =>
-    List<Wallet>.from(list.map((items) => Wallet.fromJson(items)));
+List<WalletObject>  walletItemFromMap(List list) =>
+    List<WalletObject>.from(list.map((items) => WalletObject.fromJson(items)));
 
-class Wallet {
+class WalletObject {
   String account;
   String currencyName;
   String accountStatus;
@@ -9,7 +9,7 @@ class Wallet {
   String logoUrl;
   double balance;
 
-  Wallet({
+  WalletObject({
     required this.account,
     required this.currencyName,
     required this.accountStatus,
@@ -17,7 +17,7 @@ class Wallet {
     required this.logoUrl,
     required this.balance,
   });
-  factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
+  factory WalletObject.fromJson(Map<String, dynamic> json) => WalletObject(
         account: json['account'] ?? "",
         currencyName: json['currencyName'] ?? "",
         accountStatus: json['accountStatus'] ?? "",

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/domain/common/constants.dart';
-import 'package:sahopay/infrastructure/models/deposit/wallet.dart';
+import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 
-class DepositItemWidget extends StatelessWidget {
-  const DepositItemWidget({
+class WalletWidget extends StatelessWidget {
+  const WalletWidget({
     super.key, required this.items, required this.selectedItem, required this.press, required this.title, required this.hint,
   });
-  final List<Wallet> items;
-  final Wallet? selectedItem;
+  final List<WalletObject> items;
+  final WalletObject? selectedItem;
   final Function press;
   final String title;
   final String hint;
@@ -23,7 +23,7 @@ class DepositItemWidget extends StatelessWidget {
       children: [
         Text(title,style: AppTheme.data.textTheme.bodyMedium),
          Gap(ScreenSize.h4),
-        DropdownSearch<Wallet>(
+        DropdownSearch<WalletObject>(
          mode: Mode.MENU,  
         items: items,
         dropdownSearchDecoration: InputDecoration(
@@ -49,7 +49,7 @@ class DepositItemWidget extends StatelessWidget {
         borderSide: BorderSide(
         color: AppTheme.colors.primary))),
         selectedItem: selectedItem,
-        itemAsString: (Wallet? item) {
+        itemAsString: (WalletObject? item) {
         return "   ${item!.account} \n   ${item.hold} ${item.currencyName}";},
         onChanged: (item)=>press(item)),
       ],

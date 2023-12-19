@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/application/dashboard/dashboard_cubit.dart';
 import 'package:sahopay/application/dashboard/dashboard_state.dart';
+import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/animation_loading/saho_loading.dart';
@@ -42,7 +43,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Gap(ScreenSize.h14),
                   for(int i=0;i<cubit.items.length;i++)
-                   CardWidget(item: cubit.items[i], index: i),
+                   CardWidget(item: cubit.items[i], index: i, backgroundColor:AppContatants.backgroundColor[i]),
                    Gap(60.h)
                 ],
               ),

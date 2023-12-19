@@ -10,10 +10,11 @@ import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/components/button/text_button_x.dart';
 class CardWidget extends StatelessWidget {
   const CardWidget({
-    super.key, required this.item, required this.index,
+    super.key, required this.item, required this.index, required this.backgroundColor,
   });
   final DashboardModel item;
   final int index;
+  final List<Color> backgroundColor;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +22,10 @@ class CardWidget extends StatelessWidget {
       width: double.maxFinite,
       margin: EdgeInsets.only(bottom: ScreenSize.h20,left: ScreenSize.w12,right: ScreenSize.w12),
       decoration: BoxDecoration(
-        color: Colors.green,
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: backgroundColor),
         border: Border.all(
           color: AppTheme.colors.black,
           width: .5
@@ -47,18 +51,21 @@ class CardWidget extends StatelessWidget {
               leading: Container(
               height: ScreenSize.h32,
               width: ScreenSize.h32,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppTheme.colors.primary,
                 borderRadius: BorderRadius.circular(6.r)
               ),
-           // child: Image.network(AppContatants.imageUrl+item.logoUrl,color: AppTheme.colors.white,errorBuilder: (context, error, stackTrace) => const Icon(Icons.card_giftcard_outlined,color:Colors.white))
+        //     child:Image.network(AppContatants.imageUrl+item.logoUrl,
+        // errorBuilder: (context, error, stackTrace) =>Text(item.account.substring(0,1),
+        // style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white))), 
             ),
             title: Text(tr('dashboard.number'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white12)),
             subtitle: Text(item.account,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.white12)),
             ),
             Gap(ScreenSize.h6),
             Text(tr('dashboard.balance'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white12)),
-            Text("${item.currensyName} ${item.balance}",style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white12)),
+            Text("${item.currencyName} ${item.balance}",style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white12)),
             Gap(ScreenSize.h6),
             DottedLine(dashColor: AppTheme.colors.white12),
             Row(

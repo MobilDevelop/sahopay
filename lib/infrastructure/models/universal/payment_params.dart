@@ -1,7 +1,7 @@
 List<PaymentParams>  paymentParamsFromMap(List list) => List<PaymentParams>.from(
     list.map((items) => PaymentParams.fromJson(items)));
-
-class PaymentParams {
+ 
+ class PaymentParams {
   String name;
   double maxSum;
 

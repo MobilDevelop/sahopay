@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/domain/my_dio/my_dio.dart';
@@ -41,6 +43,7 @@ class RegistrationServices{
   Future<bool> login(Map<String,dynamic> param)async{
     try {
       Response response = await dio.post(AppContatants.login,data: param);
+      LocalSource.putInfo(key: "loginParam", json: jsonEncode(param));
       LocalSource.putInfo(key: "token",json: "Bearer  ${response.data['id_token']}");
       return Future.value(true);
     } catch (e) {

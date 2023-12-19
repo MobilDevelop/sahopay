@@ -96,7 +96,8 @@
      "comment":"  Comment",
      "entercomment":" Enter your comment",
      "choosewallet":"Choose wallet",
-     "chooseyourwallet":"Choose your wallet"
+     "chooseyourwallet":"Choose your wallet",
+     "error":"Qayta so'rov yuboring"
     },
     "error":{
         "location":"Iltimos dasturdan foydaylanish uchun joylashuv ma'lumotlarini yoqing",

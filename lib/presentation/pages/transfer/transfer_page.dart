@@ -4,7 +4,7 @@ import 'package:sahopay/application/transfer/transfer_cubit.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
-import 'package:sahopay/presentation/pages/deposit/components/deposit_items_widget.dart';
+import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 import 'package:sahopay/presentation/pages/transfer/components/payment_item_widget.dart';
@@ -64,7 +64,7 @@ class TransferPage extends StatelessWidget {
                     hint: tr('universal.chooseyourwallet')),
                     Gap(ScreenSize.h12),
             
-                    DepositItemWidget(
+                    WalletWidget(
                     items: cubit.itemsWallet, 
                     selectedItem: cubit.selectedWalletItem, 
                     press: cubit.selectedWallet, 

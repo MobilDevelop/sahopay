@@ -1,17 +1,13 @@
 import 'package:sahopay/infrastructure/models/universal/payment.dart';
 import 'package:sahopay/infrastructure/models/universal/payment_params.dart';
 
-List<TransferPayment> transferItemsFromMap(List list) => List<TransferPayment>.from(list.map((items) => TransferPayment.fromJson(items)));
+List<WithdrawPayment> withdrawPaymentFromMap(List list) => List<WithdrawPayment>.from(list.map((items) => WithdrawPayment.fromJson(items)));
 
-class TransferPayment extends Payment {
+class WithdrawPayment extends Payment {
   String description;
-  String saldoPrefix;
-  String clientId;
 
-  TransferPayment({
+  WithdrawPayment({
     required this.description,
-    required this.clientId,
-    required this.saldoPrefix,
     required super.id, 
     required super.systemName, 
     required super.logoUrl, 
@@ -22,14 +18,14 @@ class TransferPayment extends Payment {
     required super.minSumDeposit, 
     required super.params
   });
+    
+  
 
-  factory TransferPayment.fromJson(Map<String, dynamic> json) => TransferPayment(
+  factory WithdrawPayment.fromJson(Map<String, dynamic> json) => WithdrawPayment(
         id: json['id']?? -1,
         systemName: json['systemName'] ?? "",
-        clientId: json['clientId'] ?? "",
         logoUrl: json['logoUrl'] ?? "",
         description: json['description'] ?? "",
-        saldoPrefix: json['saldoPrefix'] ?? '',
         accountStatus: json['accountStatus'],
         key: json['key'],
         commission: json['commission'] ?? 0.00,
