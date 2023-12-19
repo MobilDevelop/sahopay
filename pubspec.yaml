@@ -36,6 +36,7 @@ dependencies:
   dropdown_search: ^3.0.1
   awesome_dialog: ^3.1.0
   flutter_dotenv: ^5.0.2
+  flutter_keyboard_visibility: ^5.4.1
 
   # State management
   flutter_bloc: ^8.1.2

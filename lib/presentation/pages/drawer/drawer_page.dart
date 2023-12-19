@@ -29,6 +29,8 @@ class DrawerPage extends StatelessWidget {
       }else if(state is DrawerNextWithdraw){
         Navigator.pop(context);
         context.push(Routes.withdraw.path);
+      } else if(state is DrawerNextLogin){
+        context.go(Routes.login.path);
       }
     },
     child: Builder(builder: (context) {
@@ -118,7 +120,8 @@ class DrawerPage extends StatelessWidget {
                 desc: 'chiqmoqchimisiz?',
                 btnCancelText: "YO'Q",
                 btnOkText: "HA",
-                btnCancelOnPress: () {},
+                btnCancelOnPress: () {
+                },
                 btnOkOnPress:cubit.logOut,
                 ).show();
                     },

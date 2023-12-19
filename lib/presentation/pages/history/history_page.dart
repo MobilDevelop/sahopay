@@ -1,11 +1,15 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:sahopay/application/history/history_cubit.dart';
 import 'package:sahopay/application/history/history_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
+import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'components/bottomsheet_widget.dart';
+import 'components/bottomsheet_widget1.dart';
 import 'components/history_item_widget.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -28,19 +32,79 @@ class HistoryPage extends StatelessWidget {
             IconButton(onPressed: (){
               showModalBottomSheet(
                 backgroundColor: Colors.transparent,
-                context: context, builder: (context) => BottomsheetWidget(onPress:(Map<String,dynamic> item)=>cubit.succesFilter(item)));
+                context: context, builder: (context) => BottomsheetWidget(onPress:(int type)=>cubit.succesFilter(type), type: cubit.filterType));
             }, icon: SvgPicture.asset(AppIcons.filter,color: AppTheme.colors.white))
           ],
         ),
-        body:  ListView.builder(
-          itemCount: cubit.items.length,
-          itemBuilder:(context, index) => HistoryItemWidget(press: () {  }, item: cubit.items[index])),
+        body:  Stack(
+          children: [
+            Column(
+              children: [
+                Visibility(
+                  visible: cubit.filterType==0,
+                  child: Container(
+                    height: 45.h,
+                    width: double.maxFinite,
+                    margin: EdgeInsets.only(top: ScreenSize.h4),
+                     padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child:  Row(
+            children: [
+              BottomsheetWidget1(icon: AppIcons.bag, selected: cubit.changetype==0, title: tr('history.all'), press:()=>cubit.chooseType(0)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.dollar, selected: cubit.changetype==1, title: tr('history.dollor'), press: ()=>cubit.chooseType(1)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.euro, selected: cubit.changetype==2, title: tr('history.euro'), press: ()=>cubit.chooseType(2)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==3, title: tr('history.ruble'), press: ()=>cubit.chooseType(3)),
+               Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.dollar, selected: cubit.changetype==4, title: tr('history.dollor'), press: ()=>cubit.chooseType(4)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.euro, selected: cubit.changetype==5, title: tr('history.euro'), press: ()=>cubit.chooseType(5)),
+              Gap(ScreenSize.w8),
+              BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==6, title: tr('history.ruble'), press: ()=>cubit.chooseType(6)),
+              
+            ],
+          ),
+                    ),
+                  ),
+                ),
+                Expanded(
+              child: NotificationListener<ScrollNotification>(
+              onNotification: (notification){
+              if(notification.metrics.pixels==notification.metrics.maxScrollExtent){
+               if(!cubit.loading){
+                 cubit.init("");
+                }
+                 return true;
+               }
+               return false;
+                },
+              child: ListView.builder(
+                itemCount: cubit.items.length,
+                itemBuilder:(context, index) => HistoryItemWidget(press: () { 
+                 AwesomeDialog(
+                  context: context,
+                  dialogType: cubit.items[index].trasactionStatus=="WAITING"? DialogType.error:DialogType.success,
+                  animType: AnimType.bottomSlide,
+                  title: 'Rostdan ham',
+                  desc: 'chiqmoqchimisiz?',
+                  btnOkText: "HA",
+                  btnOkOnPress:(){},
+                  ).show();
+                 }, item: cubit.items[index])),
+            ),)
+              ],
+            ),
+            Visibility(
+              visible: cubit.loading,
+              child: const Loading())
+          ],
+        ),
        ));
      },),
      ),
     );
   }
 }
-
-
-

@@ -46,12 +46,15 @@ class HistoryItemWidget extends StatelessWidget {
                   height: 30.h,
                   width: 30.h,
                   margin: EdgeInsets.only(right: ScreenSize.h6),
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
+                    color: AppTheme.colors.primary.withOpacity(.2),
                     border: Border.all(
-                      color: AppTheme.colors.grey
+                      color: AppTheme.colors.primary
                     ),
                     borderRadius: BorderRadius.circular(8.r)
                   ),
+                  child: Text(item.sender.substring(0,1),style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.primary)),
                 ),
                 Expanded(
                   child: Row(

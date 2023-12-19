@@ -9,7 +9,7 @@ class DrawerCubit extends Cubit<DrawerState>{
 
   void logOut()async{
     await LocalSource.clearProfile();
-    //emit(DrawerLogOut());
+    emit(DrawerNextLogin());
   }
 
   void nextPage(int index){

@@ -31,11 +31,14 @@ class Loading extends StatelessWidget {
      }
      return Container(
       //padding: EdgeInsets.all(ScreenSize.h32),
-      child: ClipRect(
-        child: BackdropFilter(
-             filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-             child: current
-             ),
+      child: Container(
+        color: AppTheme.colors.grey.withOpacity(.1),
+        child: ClipRect(
+          child: BackdropFilter(
+               filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+               child: current
+               ),
+        ),
       ),
      );
   }

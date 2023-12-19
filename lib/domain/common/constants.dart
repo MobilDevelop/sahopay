@@ -17,6 +17,7 @@ class AppContatants{
   static String depositAllWallet = '${addition}get-all-wallet-andBalance-deposit';
   static String depositAllPayment = '${addition}getAll-payment-systems-for-deposit';
   static String history = '${addition}getAllHistory';
+  static String historyReferals = '${addition}get-all-referrals';
   static String transferPayment = '${addition}getAll-payment-systems-for-transfer';
   static String transferWallet = '${addition}get-all-wallet/andBalance';
   static String withdrawWallet = '${addition}get-payout-wallet';

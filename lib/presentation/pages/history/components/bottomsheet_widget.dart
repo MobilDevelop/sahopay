@@ -6,17 +6,17 @@ import 'package:sahopay/application/history/history_bottomsheet/history_bottomsh
 import 'package:sahopay/application/history/history_bottomsheet/history_bottomsheet_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/button/border_button.dart';
-import 'bottomsheet_widget1.dart';
 import 'bottomsheet_widget2.dart';
 
 class BottomsheetWidget extends StatelessWidget {
   const BottomsheetWidget({
-    super.key, required this.onPress,
+    super.key, required this.onPress, required this.type,
   });
   final Function onPress;
+  final int type;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context)=>HistoryBottomsheetCubit(),
+    return BlocProvider(create: (context)=>HistoryBottomsheetCubit(type),
     child: BlocListener<HistoryBottomsheetCubit,HistoryBottomsheetState>(listener: (context, state) {
       
     },
@@ -65,18 +65,7 @@ class BottomsheetWidget extends StatelessWidget {
             ),
           ),
           Gap(ScreenSize.h32),
-          Row(
-            children: [
-              BottomsheetWidget1(icon: AppIcons.bag, selected: cubit.changetype==0, title: tr('history.all'), press:()=>cubit.chooseType(0)),
-              Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.dollar, selected: cubit.changetype==1, title: tr('history.dollor'), press: ()=>cubit.chooseType(1)),
-              Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.euro, selected: cubit.changetype==2, title: tr('history.euro'), press: ()=>cubit.chooseType(2)),
-              Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==3, title: tr('history.ruble'), press: ()=>cubit.chooseType(3)),
-              
-            ],
-          ),
+         
           ],
         ),
           Row(
@@ -84,7 +73,7 @@ class BottomsheetWidget extends StatelessWidget {
               Expanded(child: BorderButton(onPressed: (){Navigator.pop(context);}, text: tr('history.cancel'),borderColor: AppTheme.colors.red)),
               Gap(ScreenSize.w10),
               Expanded(child: BorderButton(onPressed: (){
-                onPress({"changeId":cubit.changed,"typeId":cubit.changetype});
+                onPress(cubit.changed);
                 Navigator.pop(context);
               }, text: tr('history.ok'),borderColor: AppTheme.colors.green)),
             ],

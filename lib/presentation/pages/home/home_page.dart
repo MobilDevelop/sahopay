@@ -29,8 +29,8 @@ class HomePage extends StatelessWidget {
           body: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              Expanded(child: cubit.window ?? Container()),
-              Container(
+              cubit.window ?? Container(),
+              MediaQuery.of(context).viewInsets.bottom==0?Container(
                 height: 55.h,
                 width: double.maxFinite,
                 margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                     BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: cubit.currentPage==3, press: ()=>cubit.nextScreen(3)),
                   ],
                 ),
-              )
+              ):const SizedBox()
             ],
           ),
           drawer: DrawerPage(),

@@ -7,3 +7,5 @@ class DrawerNextTransfer extends DrawerState{}
 class DrawerNextSetting extends DrawerState{}
 
 class DrawerNextWithdraw extends DrawerState{}
+
+class DrawerNextLogin extends DrawerState{}

@@ -9,4 +9,8 @@ class ProfileCubit extends Cubit<ProfileState>{
   final firtnameController = TextEditingController();
   final lastnameController = TextEditingController();
   final referalController = TextEditingController();
+
+  
+
+
 }
