@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/domain/my_dio/my_dio.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
-import 'package:sahopay/infrastructure/models/withdraw/withdraw_payment.dart';
+import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
 
 class WithdrawService{
   final Dio dio = Mydio().dio();

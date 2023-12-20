@@ -28,4 +28,13 @@ class ExchangeService{
     }
   }
 
+  Future calculator(Map<String,dynamic> param)async{
+    try {
+      Response response =await dio.post(AppContatants.exchangeCalc,data: param);
+      return Future.value();
+    } catch (e) {
+      return Future.value();
+    }
+  }
+
 }

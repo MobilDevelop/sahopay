@@ -26,4 +26,13 @@ class DepositService{
     return Future.value([]);
   }
  } 
+
+ Future<String> postInfo(Map<String,dynamic> param)async{
+  try {
+    Response response = await dio.post(AppContatants.depositSend,data: param);
+  return Future.value(response.data['objectData']['returnUrl']);
+  } catch (e) {
+    return Future.value("");
+  }
+ }
 }

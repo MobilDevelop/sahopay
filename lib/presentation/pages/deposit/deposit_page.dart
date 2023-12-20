@@ -19,7 +19,18 @@ class DepositPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => DepositCubit(),
      child:  BlocListener<DepositCubit,DepositState>(listener: (_, state) {
-       
+       if(state is DepositMessage){
+         ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: AppTheme.colors.primary,
+              content: Text(
+                state.message,
+                textAlign: TextAlign.center,
+                style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.white)
+              ),
+            ),
+          );
+       }
      },
      child: Builder(builder: (context) {
        final cubit = context.read<DepositCubit>();
@@ -83,8 +94,12 @@ class DepositPage extends StatelessWidget {
                        ),
                      ),
                      cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
-                     cubit.selectedPaymentItem==null?Text("Select Payment System \n to see Requirement",style: AppTheme.data.textTheme.displaySmall): Column(
+                     cubit.selectedPaymentItem==null?Text("Select Payment System \n to see Requirement",
+                     style: AppTheme.data.textTheme.displaySmall): Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text("   Withdraw with ${cubit.selectedPaymentItem!.systemName}",style: AppTheme.data.textTheme.headlineMedium),
+                        Gap(ScreenSize.h10),
                         for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
                         Container(
                           width: double.maxFinite,

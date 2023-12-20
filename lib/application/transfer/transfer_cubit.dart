@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/domain/provider/transfer.dart';
-import 'package:sahopay/infrastructure/models/transfer/transfer.dart';
+import 'package:sahopay/infrastructure/models/transfer/payment.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
 class TransferCubit extends Cubit<TransferState>{

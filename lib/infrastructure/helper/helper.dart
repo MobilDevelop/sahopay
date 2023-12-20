@@ -19,6 +19,14 @@ class Helper{
     return outputDate;
   }
 
+   static String dateTimeFormat(String date){
+    DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(date);
+    DateTime inputDate = DateTime.parse(parseDate.toString());  
+    DateFormat outputFormat = DateFormat('yyyy-MM-dd  hh:mm:ss');
+    String outputDate = outputFormat.format(inputDate);
+    return outputDate;
+  }
+
 
   static bool isEmail(String em) {
 

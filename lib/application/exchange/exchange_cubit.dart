@@ -11,6 +11,7 @@ class ExchangeCubit extends Cubit<ExchangeState>{
   }
 
   bool loading=true;
+  bool setCallValue =true;
 
 
   List<WalletObject> items = [];
@@ -36,6 +37,20 @@ class ExchangeCubit extends Cubit<ExchangeState>{
   void buttonExchange(){
     
   }
+  
+
+  void setCalculator(String value)async{
+    if(value.length>2){
+   
+      Future.delayed(const Duration(milliseconds: 500),(){
+      print(value);
+    
+    });
+    }
+
+  }
+
+
 
   void selectedSender(WalletObject wallet){
     selectedSenderItem =wallet;

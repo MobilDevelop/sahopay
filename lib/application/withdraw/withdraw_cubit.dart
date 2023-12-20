@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/domain/provider/witdraw.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
-import 'package:sahopay/infrastructure/models/withdraw/withdraw_payment.dart';
+import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
 
 class WithdrawCubit extends Cubit<WithDrawState>{
   WithdrawCubit():super(WithDrawInitial()){

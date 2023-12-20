@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/domain/my_dio/my_dio.dart';
-import 'package:sahopay/infrastructure/models/transfer/transfer.dart';
+import 'package:sahopay/infrastructure/models/transfer/payment.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
 

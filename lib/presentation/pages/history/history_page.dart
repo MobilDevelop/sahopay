@@ -6,10 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/application/history/history_cubit.dart';
 import 'package:sahopay/application/history/history_state.dart';
+import 'package:sahopay/infrastructure/models/history/history_item.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'components/bottomsheet_widget.dart';
 import 'components/bottomsheet_widget1.dart';
+import 'components/dialog_widget.dart';
 import 'components/history_item_widget.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -83,14 +85,16 @@ class HistoryPage extends StatelessWidget {
                 },
               child: ListView.builder(
                 itemCount: cubit.items.length,
-                itemBuilder:(context, index) => HistoryItemWidget(press: () { 
+                itemBuilder:(context, index) => HistoryItemWidget(
+                  press: (HistoryItem item) { 
                  AwesomeDialog(
                   context: context,
                   dialogType: cubit.items[index].trasactionStatus=="WAITING"? DialogType.error:DialogType.success,
                   animType: AnimType.bottomSlide,
-                  title: 'Rostdan ham',
-                  desc: 'chiqmoqchimisiz?',
-                  btnOkText: "HA",
+                  
+                  body: DialogWidget(item: item),
+                  btnOkText: "OK",
+                  btnOkColor: AppTheme.colors.primary,
                   btnOkOnPress:(){},
                   ).show();
                  }, item: cubit.items[index])),
@@ -108,3 +112,4 @@ class HistoryPage extends StatelessWidget {
     );
   }
 }
+

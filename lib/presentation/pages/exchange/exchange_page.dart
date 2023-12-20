@@ -72,10 +72,36 @@ class ExchangePage extends StatelessWidget {
                       title: tr('exchange.reciever'), 
                       hint: tr('exchange.reciever')),
                       Gap(ScreenSize.h12),
-                      DepositWriteWidget(title: tr('universal.amount'), 
-                      controller: cubit.amountController, 
-                      hint: tr('universal.enteramount'), 
-                      icon: AppIcons.dollar1),
+                      Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+        Text( tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
+        Gap(ScreenSize.h4),
+        Container(
+          height: 40.h,
+          //width: double.maxFinite,
+          padding: EdgeInsets.symmetric(horizontal:ScreenSize.w6),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppTheme.colors.white,
+            border: Border.all(
+              color: AppTheme.colors.primary,
+            ),
+            borderRadius: BorderRadius.circular(10.r)
+          ),
+         child: TextField(
+           controller: cubit.amountController,
+           onChanged: (value)=>cubit.setCalculator(value),
+           decoration:  InputDecoration(
+            hintText: tr('universal.enteramount'),
+            contentPadding: const EdgeInsets.all(0),
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+           ),
+         ), 
+        ),
+      ],
+    ),
                       Gap(ScreenSize.h12),
                       DepositWriteWidget(title: tr('universal.comment'), 
                       controller: cubit.commentController, 

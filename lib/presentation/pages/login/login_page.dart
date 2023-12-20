@@ -117,7 +117,8 @@ class LoginPage extends StatelessWidget {
                     border: cubit.borderPassword, 
                     visible: true, 
                     overflow: cubit.passwordVisible, 
-                    showText:()=>cubit.visiblePassword(1)),
+                    showText:()=>cubit.visiblePassword(1)
+                    ),
                   Visibility(
                     visible: !cubit.onRegistration,
                     child: Container(

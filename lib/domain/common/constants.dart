@@ -24,6 +24,19 @@ class AppContatants{
   static String withdrawPayment = '${addition}get-AllPayoutPaymentSystem';
   static String exchangeWallet = '${addition}get-all-wallet-and-balance-exchange';
   static String exchangeRates = '${addition}get-all-exchange-rates';
+  static String profile = '${addition}account';
+  static String profileUpdate = '${addition}update-profile';
+  static String passwordUpdate = '${addition}account/change-password';
+  static String depositSend = '${addition}create-crytpomus-transaction';
+  static String transferPost = '${addition}sahopay-wallet2wallet';
+  static String transferCalc = '${addition}trans-calc-withdraw';
+  static String exchangeCalc = '${addition}calc-exchange-amount';
+  static String exchangePost = '${addition}sahopay-exchange';
+  static String withdrawPost = '${addition}create-payout-transaction';
+  static String withdrawCalc = '${addition}calcAmount-withdraw';
+
+
+
 
 
 

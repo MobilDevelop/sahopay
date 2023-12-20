@@ -1,4 +1,4 @@
-class ExchangePost {
+class ExchangeResponse {
   int transId;
   String transDate;
   String pc;
@@ -10,7 +10,7 @@ class ExchangePost {
   String reciepientCurrency;
   double rate;
 
-  ExchangePost({
+  ExchangeResponse({
     required this.transId,
     required this.transDate,
     required this.pc,
@@ -23,8 +23,8 @@ class ExchangePost {
     required this.rate,
   });
 
-  factory ExchangePost.fromJson(Map<String, dynamic> json) =>
-      ExchangePost(
+  factory ExchangeResponse.fromJson(Map<String, dynamic> json) =>
+      ExchangeResponse(
         transId: json['transId'] ?? -1,
         transDate: json['transDate'] ?? "",
         pc: json['pc'] ?? "",

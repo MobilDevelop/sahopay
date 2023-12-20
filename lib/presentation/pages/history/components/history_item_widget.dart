@@ -11,13 +11,13 @@ class HistoryItemWidget extends StatelessWidget {
   const HistoryItemWidget({
     super.key, required this.press, required this.item,
   });
-  final VoidCallback press;
+  final Function press;
   final HistoryItem item;
   @override
   Widget build(BuildContext context) {
     return Bounce(
       duration: const Duration(milliseconds: 300),
-      onPressed: press,
+      onPressed:()=> press(item),
       child: Container( 
         width: double.maxFinite,
         margin: EdgeInsets.symmetric(horizontal: ScreenSize.w12,vertical: ScreenSize.h10),
@@ -80,7 +80,8 @@ class HistoryItemWidget extends StatelessWidget {
                   child: Text(item.sender,maxLines: 1,overflow: TextOverflow.ellipsis,style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey))),
                 Expanded(
                   flex: 2,
-                  child: Text(item.amount.toString()+ item.senderCurrency,textAlign: TextAlign.end,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.green))),
+                  child: Text( "${item.transactionType}${item.amount} ${item.senderCurrency}",textAlign: TextAlign.end,
+                  style: AppTheme.data.textTheme.titleSmall!.copyWith(color: item.transactionType=="-"? AppTheme.colors.red:AppTheme.colors.green))),
               ],
             ),
             Gap(ScreenSize.h8),

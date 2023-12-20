@@ -23,7 +23,7 @@ class BottomsheetWidget extends StatelessWidget {
     child: Builder(builder: (context) {
       final cubit = context.read<HistoryBottomsheetCubit>();
       return BlocBuilder<HistoryBottomsheetCubit,HistoryBottomsheetState>(builder: (context, state) => Container(
-     height: 400.h,
+     height: 350.h,
               width: double.maxFinite,
               padding: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10,bottom: ScreenSize.h32),
               decoration: BoxDecoration(
