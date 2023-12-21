@@ -44,7 +44,7 @@ class SuccesCodePincodeWidget extends StatelessWidget {
           //errorAnimationController: errorController,
           controller: controller,
           onCompleted: (v) {
-          print("Completed");
+          print(tr('login_page.complated'));
           },
           onChanged: (value) {
           print(value);

@@ -52,11 +52,13 @@ class ProfilePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: AppTheme.colors.primary
+                  width: 0.5,
+                  color: AppTheme.colors.grey
                 ),
                 borderRadius: BorderRadius.circular(15.r)
               ),
               child: TextField(
+              style: TextStyle(color: AppTheme.colors.grey),
                 enabled: cubit.check,
                 controller: cubit.emailController,
                 decoration: const InputDecoration(
@@ -88,7 +90,8 @@ class ProfilePage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: AppTheme.colors.primary
+                  width: 0.5,
+                  color: AppTheme.colors.grey
                 ),
                 borderRadius: BorderRadius.circular(15.r)
               ),

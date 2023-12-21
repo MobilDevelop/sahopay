@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/history/history_item.dart';
-import 'package:sahopay/presentation/assets/res/screen_size.dart';
-import 'package:sahopay/presentation/assets/theme/app_theme.dart';
+import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
 class DialogWidget extends StatelessWidget {
   const DialogWidget({
@@ -21,7 +19,7 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Amount",style: AppTheme.data.textTheme.headlineMedium),
+              Text(tr("history.amount"),style: AppTheme.data.textTheme.headlineMedium),
               Text("${item.amount} ${item.senderCurrency}",style: AppTheme.data.textTheme.titleSmall),
             ],
           ),
@@ -29,7 +27,7 @@ class DialogWidget extends StatelessWidget {
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Sender",style: AppTheme.data.textTheme.displaySmall),
+              Text(tr("history.sender"),style: AppTheme.data.textTheme.displaySmall),
               Text(item.sender,style: AppTheme.data.textTheme.titleSmall),
             ],
           ),
@@ -37,7 +35,7 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Reciever",style: AppTheme.data.textTheme.displaySmall),
+              Text(tr("history.reciever"),style: AppTheme.data.textTheme.displaySmall),
               Text(item.recipient,style: AppTheme.data.textTheme.titleSmall),
             ],
           ),
@@ -45,7 +43,7 @@ class DialogWidget extends StatelessWidget {
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("PS",style: AppTheme.data.textTheme.displaySmall),
+              Text(tr("history.pc"),style: AppTheme.data.textTheme.displaySmall),
               Text(item.pc,style: AppTheme.data.textTheme.titleSmall),
             ],
           ),
@@ -53,12 +51,12 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Date",style: AppTheme.data.textTheme.displaySmall),
+              Text (tr("history.date"),style: AppTheme.data.textTheme.displaySmall),
               Text(Helper.dateTimeFormat(item.date),style: AppTheme.data.textTheme.titleSmall),
             ],
           ),
           Gap(ScreenSize.h14),
-         Text("Comment",style: AppTheme.data.textTheme.displaySmall),
+         Text( tr("history.comment"),style: AppTheme.data.textTheme.displaySmall),
          Gap(ScreenSize.h6),
          Text(item.comment,style: AppTheme.data.textTheme.titleSmall)
         ],

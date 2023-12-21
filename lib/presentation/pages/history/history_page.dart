@@ -103,12 +103,14 @@ class HistoryPage extends StatelessWidget {
             ),
             Visibility(
               visible: cubit.loading,
-              child: const Loading())
-          ],
-        ),
-       ));
-     },),
-     ),
+              child: const Loading()
+               )],
+              ),
+            ),
+          );
+        }
+       ),
+      ),
     );
   }
 }

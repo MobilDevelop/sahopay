@@ -43,13 +43,12 @@ class SplashPage extends StatelessWidget {
            ),
            IgnorePointer(
             child: AnimationScreen(
-              color: AppTheme.colors.primary
-            )
-          )
-         ],
-       ));
-     },),
-     ),
+              color: AppTheme.colors.primary),
+              )],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

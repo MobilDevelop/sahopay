@@ -19,10 +19,33 @@
         "signup":"Create an Account",
         "comment1":"Have a Account?",
         "comment2":"New Here?",
-        "error1":"  Not valid Email address",
-        "error2":"  Password must be at least 4 character",
-        "error3":"  Passwords does not match",
-        "error4": "    Terms and condition confirmation required"
+        "error1":"Not valid Email address",
+        "error2":"Password must be at least 4 character",
+        "error3":"Passwords does not match",
+        "error4": "Terms and condition confirmation required",
+        "forget": "Forgot password?",
+        "agree": "Agree with",
+        "terms": "Terms & Condition",
+        "back": "Back",
+        "robot": "Are you robot?",
+        "captcha": "Captcha",
+        "continue": "Continue",
+        "wesend": "We send 6 digits to your email",
+        "enteryour": "Enter your new password",
+        "reset": "Reset Password",
+        "resetwith": "Reset password with Email address",
+        "hi": "Hi Welcome Back",
+        "credentials": "Enter your credentials to continue",
+        "signemail": "Sign in with Email address",
+        "hiwelcome": "Hi Welcome",
+        "signupemail": "Sign up with Email address",
+        "verify": "Verify",
+        "dontcode": "Don't have a code?",
+        "resend": "Resend code",
+        "check": "Please check your email!",
+        "wehave": "We have emailed a 6-digit confimation code to",
+        "pleaseender": "please enter the code in below box to verify your email.",
+        "complated": "Complated"
     },
     
     "dashboard":{
@@ -32,7 +55,9 @@
     },
     "deposit":{
         "title":"Deposit",
-        "add":"Add Deposit"
+        "add":"Add Deposit",
+        "select":"Select Payment System \n to see Requirement"
+
     },
     "transfer":{
         "title":"Transfer",
@@ -41,7 +66,8 @@
     "exchange":{
         "title":"Exchange",
         "sender":"Sender Wallet",
-        "reciever":"Reciever Wallet"
+        "reciever":"Reciever Wallet",
+        "money":"Money exchange to Sahopay Wallet"
     },
     "history":{
         "title":"History",
@@ -54,7 +80,12 @@
         "euro":" Euro",
         "ruble":" Ruble",
         "ok":"OK",
-        "cancel":"Cancel"
+        "cancel":"Cancel",
+        "amount":"Amount",
+        "sender":"Sender",
+        "reciever":"Reciever",
+        "pc":"Pc",
+        "date":"Date"
     },
     "withdraw":{
         "title":"Withdraw",

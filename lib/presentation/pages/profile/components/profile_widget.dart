@@ -4,10 +4,15 @@ import 'package:sahopay/presentation/assets/asset_index.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({
-    super.key, required this.title, required this.controller,
+    super.key,
+    required this.title,
+    required this.controller,
+
   });
+
   final String title;
   final TextEditingController controller;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,8 +41,7 @@ class ProfileWidget extends StatelessWidget {
                 focusedBorder: InputBorder.none
               ),
             ),
-          ),
-        ],
+          )],
       ),
     );
   }

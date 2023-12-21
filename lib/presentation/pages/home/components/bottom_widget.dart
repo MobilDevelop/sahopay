@@ -66,11 +66,10 @@ class BottomWidget extends StatelessWidget {
                   AppTheme.colors.primary.withOpacity(.18),
                   AppTheme.colors.primary.withOpacity(.018),
                   AppTheme.colors.primary.withOpacity(.005),
-                ])
+              ])
             ),
-              ),
-          )
-        ],
+          ),
+        )]
       ),
     );
   }

@@ -5,7 +5,8 @@ import 'package:sahopay/presentation/assets/asset_index.dart';
 class TextWidget extends StatelessWidget {
   const TextWidget({
     super.key, required this.controller, required this.title, required this.border, required this.visible, required this.showText, required this.overflow, required this.hintText,
-     });
+  });
+
     final TextEditingController controller;
     final String title;
     final bool border;
@@ -13,6 +14,7 @@ class TextWidget extends StatelessWidget {
     final VoidCallback showText;
     final bool overflow;
     final String hintText;
+    
   @override
   Widget build(BuildContext context) {
     return Column(

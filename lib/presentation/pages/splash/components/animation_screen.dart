@@ -3,7 +3,7 @@ import 'hole_painter.dart';
 import 'staggered_raindrop_animation.dart';
 
 class AnimationScreen extends StatefulWidget {
-  AnimationScreen({
+  const AnimationScreen({super.key, 
     required this.color
   });
 

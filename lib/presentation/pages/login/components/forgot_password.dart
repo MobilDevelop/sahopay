@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:sahopay/presentation/assets/asset_index.dart';
+import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({
@@ -12,9 +11,9 @@ class ForgotPassword extends StatelessWidget {
     return Column(
       children: [
     Gap(ScreenSize.h32),
-    Text("Reset Password",style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
+    Text(tr('login_page.reset'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
     Gap(ScreenSize.h4),
-    Text("Reset password with Email address",style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
+    Text(('login_page.resetwith') ,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
      Gap(ScreenSize.h32),
       ],
     );

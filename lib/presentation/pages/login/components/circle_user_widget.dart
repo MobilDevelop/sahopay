@@ -18,6 +18,6 @@ class CircleUserWidget extends StatelessWidget {
         ),
         shape: BoxShape.circle
       ),
-      child: SvgPicture.asset(AppIcons.user,height: 45.h,fit: BoxFit.cover,color:AppTheme.colors.primary,));
+      child: SvgPicture.asset(AppIcons.user,height: 45.h,fit: BoxFit.cover,color:AppTheme.colors.primary));
   }
 }

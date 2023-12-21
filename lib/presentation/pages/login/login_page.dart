@@ -127,7 +127,7 @@ class LoginPage extends StatelessWidget {
                       child: Bounce(
                         duration: const Duration(milliseconds: 300),
                         onPressed:cubit.showForgotPassword,
-                        child: Text("Forgot password?",style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary),
+                        child: Text(tr('login_page.forget'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary),
                         textAlign: TextAlign.end),
                       ),
                     ),
@@ -164,9 +164,9 @@ class LoginPage extends StatelessWidget {
                             onChanged: cubit.showChecked,
                             activeColor: AppTheme.colors.primary), 
                           ),
-                          Text("Agree with",style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
+                          Text(tr('login_page.agree'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
                           Gap(ScreenSize.w10),
-                          Text("Terms & Condition",style: AppTheme.data.textTheme.titleMedium!.copyWith(color: AppTheme.colors.primary)),
+                          Text (tr('login_page.terms'),style: AppTheme.data.textTheme.titleMedium!.copyWith(color: AppTheme.colors.primary)),
                         ],
                       ),
                       Visibility(
@@ -205,7 +205,7 @@ class LoginPage extends StatelessWidget {
                         }
                       }),
                        Gap(ScreenSize.h20),
-                       cubit.forgotPassword?BorderButton(onPressed:cubit.showForgotPassword, text: "Back",borderColor: AppTheme.colors.grey):Padding(
+                       cubit.forgotPassword?BorderButton(onPressed:cubit.showForgotPassword, text: tr('login_page.back'),borderColor: AppTheme.colors.grey):Padding(
                          padding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
                          child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

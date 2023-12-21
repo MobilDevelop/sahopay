@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:sahopay/presentation/assets/asset_index.dart';
-import 'package:sahopay/presentation/components/button/main_button.dart';
 import 'package:sahopay/presentation/components/button/text_button_x.dart';
+import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
 class SuccesCodeBottomWidget extends StatelessWidget {
   const SuccesCodeBottomWidget({
@@ -17,7 +15,7 @@ class SuccesCodeBottomWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
       child: Column(
         children: [
-          MainButton(text: visible?"Continue":"Verify", onPressed:succesPress),
+          MainButton(text: visible?tr('login_page.enter'):tr('login_page.verify'), onPressed:succesPress),
           Gap(ScreenSize.h20),
          Visibility(
           visible: !visible,
@@ -33,7 +31,7 @@ class SuccesCodeBottomWidget extends StatelessWidget {
                 ),
                 Padding(
                   padding:  EdgeInsets.symmetric(horizontal: ScreenSize.w16),
-                  child: Text("Don't have a code?",style: AppTheme.data.textTheme.titleSmall),
+                  child: Text( tr('login_page.dontcode'),style: AppTheme.data.textTheme.titleSmall),
                 ),
                 Expanded(
                   child: Divider(
@@ -44,7 +42,7 @@ class SuccesCodeBottomWidget extends StatelessWidget {
               ],
             ),
             Gap(ScreenSize.h14),
-            TextButtonX(onPressed:resendPress, text: "Resend code",textColor: AppTheme.colors.primary),
+            TextButtonX(onPressed:resendPress, text: tr('login_page.resend'),textColor: AppTheme.colors.primary),
             Gap(ScreenSize.h24)
             ],
            ),

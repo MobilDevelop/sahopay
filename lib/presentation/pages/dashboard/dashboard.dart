@@ -8,7 +8,6 @@ import 'package:sahopay/application/dashboard/dashboard_state.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
-import 'package:sahopay/presentation/components/animation_loading/saho_loading.dart';
 
 import 'components/card_widget.dart';
 

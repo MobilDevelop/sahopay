@@ -11,7 +11,7 @@ class CaptchaWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-          title: Text("Are you robot?",style: AppTheme.data.textTheme.titleMedium),
+          title: Text(tr('login_page.robot'),style: AppTheme.data.textTheme.titleMedium),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -21,7 +21,7 @@ class CaptchaWidget extends StatelessWidget {
                 controller: controller,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(left: ScreenSize.w10),
-                  hintText: "Captcha"
+                  hintText: tr('login_page.captcha')
                 ),
               )
             ],
@@ -29,7 +29,7 @@ class CaptchaWidget extends StatelessWidget {
           actions: [
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: ScreenSize.w12,vertical: ScreenSize.h10),
-              child: MainButton(onPressed:press, text: "Continue",wrap: true),
+              child: MainButton(onPressed:press, text: tr('login_page.continue'),wrap: true),
             )
           ],
         );

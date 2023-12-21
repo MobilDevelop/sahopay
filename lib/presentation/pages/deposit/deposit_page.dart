@@ -94,7 +94,7 @@ class DepositPage extends StatelessWidget {
                        ),
                      ),
                      cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
-                     cubit.selectedPaymentItem==null?Text("Select Payment System \n to see Requirement",
+                     cubit.selectedPaymentItem==null?Text( tr('deposit.select'),
                      style: AppTheme.data.textTheme.displaySmall): Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
