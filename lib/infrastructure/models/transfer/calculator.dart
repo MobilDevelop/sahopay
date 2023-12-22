@@ -1,15 +1,15 @@
 class TransferCalc {
-  int amount;
+  String amount;
   int recipientSystemId;
   String senderCurrencyType;
-  String comment;
+  String senderWalletNumber;
   bool withCommission;
 
   TransferCalc({
     required this.amount,
     required this.recipientSystemId,
     required this.senderCurrencyType,
-    required this.comment,
+    required this.senderWalletNumber,
     required this.withCommission,
   });
 
@@ -17,7 +17,7 @@ class TransferCalc {
     "amount":amount,
     "recipientSystemId":recipientSystemId,
     "senderCurrencyType":senderCurrencyType,
-    "comment":comment,
+    "senderWalletNumber":senderWalletNumber,
     "withCommission":withCommission,
  };
 }

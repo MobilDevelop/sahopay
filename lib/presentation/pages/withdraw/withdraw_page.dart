@@ -36,78 +36,80 @@ class WithdrawPage extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h16),
-                    decoration: BoxDecoration(
-                      color: AppTheme.colors.white ,
-                      border: Border.all(
-                        color: AppTheme.colors.primary,
-                        width: .5
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   Container(
+                    padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h16),
+                      decoration: BoxDecoration(
+                        color: AppTheme.colors.white ,
+                        border: Border.all(
+                          color: AppTheme.colors.primary,
+                          width: .5
+                        ),
+                        boxShadow: [
+                     BoxShadow(
+                     color: AppTheme.colors.grey.withOpacity(.6),
+                     blurRadius: 15,
+                     spreadRadius: 10,
+                     offset: Offset(5.w, 10.h)
+                       )
+                     ],
+                        borderRadius: BorderRadius.circular(10.r)
                       ),
-                      boxShadow: [
-                   BoxShadow(
-                   color: AppTheme.colors.grey.withOpacity(.6),
-                   blurRadius: 15,
-                   spreadRadius: 10,
-                   offset: Offset(5.w, 10.h)
-                     )
-                   ],
-                      borderRadius: BorderRadius.circular(10.r)
-                    ),
-                   child: Column(
-                    children: [
-                    WithdrawPaymentWidget(
-                    items: cubit.itemsPayment,
-                    selectedItem: cubit.selectedPaymentItem,
-                    press: cubit.selectedPayment, 
-                    title: tr('universal.payment'), 
-                    hint: tr('universal.chooseyourwallet')),
-                    Gap(ScreenSize.h12),
-
-                    WalletWidget(
-                    items: cubit.itemsWallet, 
-                    selectedItem: cubit.selectedWalletItem, 
-                    press: cubit.selectedWallet, 
-                    title: tr('universal.yourwallet'), 
-                    hint: tr('universal.chooseyourwallet')),
-                    Gap(ScreenSize.h12),
-                    DepositWriteWidget(title: tr('withdraw.adress'), 
-                    controller: cubit.addressSumController, 
-                    hint: tr('withdraw.enteradress'), 
-                    icon: ""),
-                    Gap(ScreenSize.h12),
-                    DepositWriteWidget(title: tr('universal.amount'), 
-                    controller: cubit.amountController, 
-                    hint: tr('universal.enteramount'), 
-                    icon: AppIcons.dollar1),
-                    Gap(ScreenSize.h6),
-                    Row(
-                        children: [
-                          Checkbox(value: cubit.checked, onChanged: cubit.showChecked,activeColor: AppTheme.colors.primary),
-                          Text(tr('universal.comission'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.black)),
-                        ],
-                      ), 
-                    Gap(ScreenSize.h4),  
-                    DepositWriteWidget(title: tr('universal.totalsum'), 
-                    controller: cubit.totalSumController, 
-                    hint: tr('transfer.amount'), 
-                    icon: AppIcons.dollar1),
-                    Gap(ScreenSize.h12),
-                    DepositWriteWidget(title: tr('universal.comment'), 
-                    controller: cubit.commentController, 
-                    hint: tr('universal.entercomment'), 
-                    icon: AppIcons.message),
-                    ],
+                     child: Column(
+                      children: [
+                      WithdrawPaymentWidget(
+                      items: cubit.itemsPayment,
+                      selectedItem: cubit.selectedPaymentItem,
+                      press: cubit.selectedPayment, 
+                      title: tr('universal.payment'), 
+                      hint: tr('universal.chooseyourwallet')),
+                      Gap(ScreenSize.h12),
+              
+                      WalletWidget(
+                      items: cubit.itemsWallet, 
+                      selectedItem: cubit.selectedWalletItem, 
+                      press: cubit.selectedWallet, 
+                      title: tr('universal.yourwallet'), 
+                      hint: tr('universal.chooseyourwallet')),
+                      Gap(ScreenSize.h12),
+                      DepositWriteWidget(title: tr('withdraw.adress'), 
+                      controller: cubit.addressSumController, 
+                      hint: tr('withdraw.enteradress'), 
+                      icon: ""),
+                      Gap(ScreenSize.h12),
+                      DepositWriteWidget(title: tr('universal.amount'), 
+                      controller: cubit.amountController, 
+                      hint: tr('universal.enteramount'), 
+                      icon: AppIcons.dollar1),
+                      Gap(ScreenSize.h6),
+                      Row(
+                          children: [
+                            Checkbox(value: cubit.checked, onChanged: cubit.showChecked,activeColor: AppTheme.colors.primary),
+                            Text(tr('universal.comission'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.black)),
+                          ],
+                        ), 
+                      Gap(ScreenSize.h4),  
+                      DepositWriteWidget(title: tr('universal.totalsum'), 
+                      controller: cubit.totalSumController, 
+                      hint: tr('transfer.amount'), 
+                      icon: AppIcons.dollar1),
+                      Gap(ScreenSize.h12),
+                      DepositWriteWidget(title: tr('universal.comment'), 
+                      controller: cubit.commentController, 
+                      hint: tr('universal.entercomment'), 
+                      icon: AppIcons.message),
+                      ],
+                     ),
                    ),
-                 ),
-                 Padding(
-                   padding: EdgeInsets.only(bottom: ScreenSize.h10),
-                   child: MainButton(text: tr('withdraw.title'), onPressed:(){},leftIcon: AppIcons.withdraw),
-                 )
-                ],
+                   Padding(
+                     padding: EdgeInsets.only(bottom: ScreenSize.h10),
+                     child: MainButton(text: tr('withdraw.title'), onPressed:(){},leftIcon: AppIcons.withdraw),
+                   )
+                  ],
+                ),
               ),
             ),
             Visibility(

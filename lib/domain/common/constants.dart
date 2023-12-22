@@ -57,31 +57,40 @@ class AppContatants{
       Colors.teal.shade900,
     ],
     [
-      Colors.green.shade300,
-      Colors.green.shade600,
-      Colors.green.shade900,
-    ],
-    
-    [
-      Colors.green.shade300,
-      Colors.green.shade600,
-      Colors.green.shade900,
+      Colors.blueGrey.shade300,
+      Colors.blueGrey.shade600,
+      Colors.blueGrey.shade900,
     ],
     [
-      Colors.green.shade300,
-      Colors.green.shade600,
-      Colors.green.shade900,
+      Colors.cyan.shade300,
+      Colors.cyan.shade600,
+      Colors.cyan.shade900,
     ],
     [
-      Colors.green.shade300,
-      Colors.green.shade600,
-      Colors.green.shade900,
+      Colors.indigo.shade300,
+      Colors.indigo.shade600,
+      Colors.indigo.shade900,
     ],
     [
       Colors.green.shade300,
       Colors.green.shade600,
       Colors.green.shade900,
-    ]
+    ],
+    [
+      Colors.blue.shade300,
+      Colors.blue.shade600,
+      Colors.blue.shade900,
+    ],
+    [
+      Colors.teal.shade300,
+      Colors.teal.shade600,
+      Colors.teal.shade900,
+    ],
+    [
+      Colors.blueGrey.shade300,
+      Colors.blueGrey.shade600,
+      Colors.blueGrey.shade900,
+    ],
   ];
   
 }

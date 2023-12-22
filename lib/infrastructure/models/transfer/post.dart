@@ -1,7 +1,7 @@
 class TransferPost {
   String amount;
   String recipient;
-  int recipientSystemId;
+  String recipientSystemId;
   String senderCurrencyName;
   String comment;
   bool withCommission;

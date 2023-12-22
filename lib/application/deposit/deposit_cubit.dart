@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/domain/provider/deposit.dart';
 import 'package:sahopay/infrastructure/models/deposit/deposit.dart';
 import 'package:sahopay/infrastructure/models/deposit/send_info.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
+import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DepositCubit extends Cubit<DepositState>{
@@ -47,7 +47,7 @@ class DepositCubit extends Cubit<DepositState>{
     loading =true;
     emit(DepositInitial());
     if(selectedPaymentItem==null || selectedWalletItem==null || amountController.text.trim().isEmpty){
-      emit(DepositMessage("Ma'lumotlarni to'ldiring"));
+      emit(DepositMessage(tr('universal.fillInfo')));
     }else{
       String url = await DepositService().postInfo(DepositSend(
         amount: amountController.text.trim(), 

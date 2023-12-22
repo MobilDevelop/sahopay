@@ -61,13 +61,19 @@
     },
     "transfer":{
         "title":"Transfer",
-        "amount":"Total Amount"
+        "amount":"Total Amount",
+        "number":" Account Number",
+        "error":"Account number is required",
+        "error2":"Amount is required"
     },
     "exchange":{
         "title":"Exchange",
         "sender":"Sender Wallet",
         "reciever":"Reciever Wallet",
-        "money":"Money exchange to Sahopay Wallet"
+        "money":"Money exchange to Sahopay Wallet",
+        "error1":"  Not be Equal",
+        "error2":"  Sender is required"
+
     },
     "history":{
         "title":"History",
@@ -128,7 +134,8 @@
      "entercomment":" Enter your comment",
      "choosewallet":"Choose wallet",
      "chooseyourwallet":"Choose your wallet",
-     "error":"Qayta so'rov yuboring"
+     "error":"Qayta so'rov yuboring",
+     "fillInfo":"fill in the information"
     },
     "error":{
         "location":"Iltimos dasturdan foydaylanish uchun joylashuv ma'lumotlarini yoqing",

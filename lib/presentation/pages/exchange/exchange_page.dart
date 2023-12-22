@@ -11,8 +11,8 @@ import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
-import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
+import 'package:sahopay/presentation/pages/exchange/components/item_widget.dart';
 
 class ExchangePage extends StatelessWidget {
   const ExchangePage({super.key});
@@ -21,7 +21,18 @@ class ExchangePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => ExchangeCubit(),
      child:  BlocListener<ExchangeCubit,ExchangeState>(listener: (_, state) {
-       
+       if(state is ExchangeMessage){
+         ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: AppTheme.colors.primary,
+              content: Text(
+                state.message,
+                textAlign: TextAlign.center,
+                style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.white)
+              ),
+            ),
+          );
+       }
      },
      child: Builder(builder: (context) {
        final cubit = context.read<ExchangeCubit>();
@@ -59,44 +70,56 @@ class ExchangePage extends StatelessWidget {
                       ),
                      child: Column(
                       children: [
-                      WalletWidget(items: cubit.items, 
+                      ExchangeItemWidget(items: cubit.items, 
                       selectedItem: cubit.selectedSenderItem, 
                       press: cubit.selectedSender, 
                       title: tr('exchange.sender'), 
-                      hint: tr('exchange.sender')),
-                      Gap(ScreenSize.h10),
-                      SvgPicture.asset(AppIcons.transfer,color: AppTheme.colors.primary,height: ScreenSize.h20),
-                      WalletWidget(items:cubit.items, 
+                      hint: tr('exchange.sender'), 
+                      borderColor: cubit.senderBorderColor, errorText:cubit.senderItemEmpty?tr('exchange.error2'):tr('exchange.error1')),
+                      Gap(ScreenSize.h18),
+                     // SvgPicture.asset(AppIcons.transfer,color: AppTheme.colors.primary,height: ScreenSize.h20),
+                      ExchangeItemWidget(items:cubit.items, 
                       selectedItem: cubit.selectedRecieverItem, 
                       press: cubit.selectedReciever, 
                       title: tr('exchange.reciever'), 
-                      hint: tr('exchange.reciever')),
+                      hint: tr('exchange.reciever'), 
+                      borderColor: cubit.recieverBorderColor, errorText:tr('exchange.error1')),
                       Gap(ScreenSize.h12),
                       Column(crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text( tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
                         Gap(ScreenSize.h4),
                         Container(
-                          height: 40.h,
+                          height: 45.h,
                           //width: double.maxFinite,
-                          padding: EdgeInsets.symmetric(horizontal:ScreenSize.w6),
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                          color: AppTheme.colors.white,
-                          border: Border.all(
-                            color: AppTheme.colors.primary),
-                          borderRadius: BorderRadius.circular(10.r)),
                           child: TextField(
                           controller: cubit.amountController,
-                          onChanged: (value)=>cubit.setCalculator(value),
+                          onSubmitted: (value)=>cubit.onSubmitted(value),
                           decoration:  InputDecoration(
                           hintText: tr('universal.enteramount'),
-                          contentPadding: const EdgeInsets.all(0),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
+                          suffixIcon: IconButton(onPressed: cubit.pressMagnet, icon: SvgPicture.asset(AppIcons.magnet,color: AppTheme.colors.red,height: ScreenSize.h16)),
+                          contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w12),
+                          enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: AppTheme.colors.primary
+                          )
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide(
+                            color: AppTheme.colors.primary
+                          )
+                          ),
                               ),
                             ), 
                           ),
+                      cubit.calculatorValue==null?Container(): Container(
+                        width: double.maxFinite,
+                        margin: EdgeInsets.only(left: ScreenSize.w10),
+                        child: Text("${cubit.calculatorValue!.calAmount} ${cubit.calculatorValue!.recipientCurrensy}",
+                        style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.green))),
                         ],
                       ),
                       Gap(ScreenSize.h12),
@@ -104,6 +127,7 @@ class ExchangePage extends StatelessWidget {
                       controller: cubit.commentController, 
                       hint: tr('universal.entercomment'), 
                       icon: AppIcons.message),
+                      
                          ],
                         ),
                       ),
@@ -138,7 +162,9 @@ class ExchangePage extends StatelessWidget {
                    Padding(
                      padding: EdgeInsets.only(bottom: ScreenSize.h10),
                      child: MainButton(text: tr('exchange.title'), onPressed:cubit.buttonExchange,leftIcon: AppIcons.exchange),
-                   )]
+                   ),
+                   Gap(ScreenSize.h32),
+                   ]
                   ),
                 ),
               ),

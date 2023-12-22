@@ -1,8 +1,7 @@
-import 'dart:ffi';
 
 class ExchangePost {
   String currencyKey;
-  Int senderAmount;
+  String senderAmount;
   String comment;
 
 

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/domain/provider/transfer.dart';
+import 'package:sahopay/infrastructure/models/transfer/calc_response.dart';
+import 'package:sahopay/infrastructure/models/transfer/calculator.dart';
 import 'package:sahopay/infrastructure/models/transfer/payment.dart';
+import 'package:sahopay/infrastructure/models/transfer/post.dart';
+import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
 class TransferCubit extends Cubit<TransferState>{
@@ -13,15 +18,29 @@ class TransferCubit extends Cubit<TransferState>{
   final amountController = TextEditingController();
   final commentController = TextEditingController();
   final totalSumController = TextEditingController();
+  final numberController = TextEditingController();
+
+
+  String accountNumber ="";
 
   bool checked = false;
   bool loading = true;
+  bool numberBorder = false;
+  bool amountBorder = false;
 
   List<TransferPayment> itemsPayment = [];
   TransferPayment? selectedPaymentItem;
 
   List<WalletObject> itemsWallet = [];
   WalletObject? selectedWalletItem;
+
+  CalcResponse? calcResponse;
+
+  dynamic maskFormatter =  MaskTextInputFormatter(
+  mask: '#######', 
+  filter: { "#": RegExp(r'[0-9]') },
+  type: MaskAutoCompletionType.lazy
+);
 
   void init()async{
 
@@ -32,6 +51,91 @@ class TransferCubit extends Cubit<TransferState>{
   emit(TransferInitial());
   }
 
+   void sendTransfer()async{
+       if(selectedPaymentItem!=null && selectedWalletItem!=null){
+        String amount = amountController.text.trim();
+       String recipient =accountNumber+numberController.text.trim();
+       String systemId = selectedPaymentItem!.id.toString();
+       String currensyName = selectedWalletItem!.currencyName;
+       String comment = commentController.text.trim();
+
+        if(recipient.length<7 ){
+          numberBorder=true;
+        }else{
+          numberBorder=false;
+        }
+        if( amount.isEmpty){
+          amountBorder=true;
+        }else{
+          amountBorder=false;
+        }
+      
+        emit(TransferInitial()); 
+        if(!numberBorder && !amountBorder){
+          loading=true;
+          emit(TransferInitial());
+          ServerMessage info = await TransferService().transferSend(TransferPost(
+        amount: amount, 
+        recipient: recipient, 
+        recipientSystemId: systemId, 
+        senderCurrencyName: currensyName, 
+        comment: comment, 
+        withCommission: checked).toJson());
+        loading=false;
+        emit(TransferMessage(info.message)); 
+          }
+       
+       }
+       
+   }
+
+
+    void setCalculator()async{
+    String amount = amountController.text.trim();
+    if(amount.length>2){
+    
+    calcResponse= await TransferService().getCalcInfo(TransferCalc(
+      amount: amount, 
+      recipientSystemId: selectedPaymentItem!.id, 
+      senderCurrencyType: selectedWalletItem!.currencyName, 
+      senderWalletNumber: selectedWalletItem!.account.substring(0,1)+numberController.text, 
+      withCommission: checked).toJson());
+       
+       totalSumController.text= calcResponse!.comissionAmount;
+    }
+    emit(TransferInitial());
+  }
+
+   void onSubmitted(String value){
+    if(selectedWalletItem!=null){
+      //setCalculator();
+    }
+  }
+
+  void onChanged(String value){
+    if(numberController.text.trim().isEmpty){
+      numberController.text=selectedWalletItem!.account.substring(0,1);
+      emit(TransferInitial());
+    }
+  }
+
+  void pressMagnet(){
+    if(selectedWalletItem==null || selectedPaymentItem==null){
+    
+    }else{
+      amountController.text= selectedWalletItem!.balance.toString();
+      setCalculator();
+    }
+    emit(TransferInitial());
+  }
+
+
+
+  void selectedSender(WalletObject wallet){
+   
+     emit(TransferInitial());
+  }
+
   void selectedPayment(TransferPayment payment) {
     selectedPaymentItem = payment;
     emit(TransferInitial());
@@ -39,6 +143,7 @@ class TransferCubit extends Cubit<TransferState>{
 
   void selectedWallet(WalletObject wallet) {
     selectedWalletItem = wallet;
+    accountNumber = selectedWalletItem!.account.substring(0,1);
     emit(TransferInitial());
   }
 

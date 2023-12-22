@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/presentation/assets/res/app_icons.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
@@ -57,6 +58,7 @@ class CardWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6.r)
               ),
         //     child:Image.network(AppContatants.imageUrl+item.logoUrl,
+        //     color: AppTheme.colors.white,
         // errorBuilder: (context, error, stackTrace) =>Text(item.account.substring(0,1),
         // style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.white))), 
             ),
