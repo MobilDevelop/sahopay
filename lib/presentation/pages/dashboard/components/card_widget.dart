@@ -19,9 +19,9 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150.h,
       width: double.maxFinite,
       margin: EdgeInsets.only(bottom: ScreenSize.h20,left: ScreenSize.w12,right: ScreenSize.w12),
+      padding: EdgeInsets.symmetric(vertical: ScreenSize.h4),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
@@ -87,7 +87,7 @@ class CardWidget extends StatelessWidget {
                ),
                TextButtonX(onPressed: (){}, text: tr('home.withdraw'),leftIcon:AppIcons.withdraw,textColor: AppTheme.colors.white12),
               ],
-            )
+            ),
           ],
         ),
       ),

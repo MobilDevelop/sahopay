@@ -1,5 +1,5 @@
 class WithdrawCalc {
-  int amount;
+  String amount;
   int recipientSystemId;
   String senderCurrencyType;
   String senderWalletNumber;

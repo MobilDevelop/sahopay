@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/domain/provider/witdraw.dart';
+import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
+import 'package:sahopay/infrastructure/models/withdraw/calculator.dart';
 import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
+import 'package:sahopay/infrastructure/models/withdraw/post.dart';
 
 class WithdrawCubit extends Cubit<WithDrawState>{
   WithdrawCubit():super(WithDrawInitial()){
@@ -12,6 +16,9 @@ class WithdrawCubit extends Cubit<WithDrawState>{
 
   bool checked = false;
   bool loading = true;
+  bool totalEnebled = false;
+  bool amountBorder =false;
+  bool emailBorder =false;
 
   final amountController = TextEditingController();
   final commentController = TextEditingController();
@@ -31,13 +38,79 @@ class WithdrawCubit extends Cubit<WithDrawState>{
    emit(WithDrawInitial());
   }
 
+
+  void sendInfo()async{
+      String address = addressSumController.text.trim();
+      String amount = amountController.text.trim();
+     if(selectedPaymentItem!=null && selectedWalletItem!=null){
+       
+      if(Helper.isEmail(address)){
+        emailBorder=true;
+       }else{
+        emailBorder=false;
+       }
+      
+       if(!emailBorder && !amountBorder){
+        ServerMessage info = await WithdrawService().sendInfo(WithdrawPost(
+      amount: amountController.text.trim(), 
+      network: selectedPaymentItem!.key, 
+      address: addressSumController.text.trim(), 
+      currency: selectedWalletItem!.currencyName, 
+      withCommission: checked).toJson());
+      emit(WithDrawMessage(info.message));
+       }
+     }
+     emit(WithDrawInitial());
+  }
+  
+  void calculate()async{
+    if(amountController.text.trim().isNotEmpty){
+      if(double.parse(amountController.text)>selectedWalletItem!.balance){
+        amountBorder=true;
+      }else{
+        amountBorder=false;
+      }
+      emit(WithDrawInitial());
+       String info = await WithdrawService().calculate(WithdrawCalc(
+      amount: amountController.text.trim(), 
+      recipientSystemId: selectedPaymentItem!.id, 
+      senderCurrencyType: selectedWalletItem!.currencyName, 
+      senderWalletNumber: selectedWalletItem!.account, 
+      withCommission: checked).toJson());
+      
+
+      totalSumController.text=info;
+    }else{
+      amountBorder=false;
+      totalSumController.clear();
+    }
+         emit(WithDrawInitial());
+  }
+
+    void pressMagnet(){
+    if(selectedWalletItem==null || selectedPaymentItem==null){
+    
+    }else{
+      amountController.text= selectedWalletItem!.balance.toString();
+      calculate();
+    }
+    emit(WithDrawInitial());
+  }
+   
+
    void selectedPayment(WithdrawPayment payment) {
     selectedPaymentItem = payment;
+    if(selectedWalletItem!=null){
+      totalEnebled=true;
+    }
     emit(WithDrawInitial());
   }
 
   void selectedWallet(WalletObject wallet) {
     selectedWalletItem = wallet;
+    if(selectedPaymentItem!=null){
+      totalEnebled=true;
+    }
     emit(WithDrawInitial());
   }
 

@@ -91,12 +91,15 @@
         "sender":"Sender",
         "reciever":"Reciever",
         "pc":"Pc",
-        "date":"Date"
+        "date":"Date",
+        "comment":"  Comment"
     },
     "withdraw":{
         "title":"Withdraw",
         "adress":"Address",
-        "enteradress":"Enter address"
+        "enteradress":"Enter address",
+        "error":"  You have not sufficient amount in your balance",
+        "error2":"  Address is required"
     },
     "setting":{
         "title":"Setting",

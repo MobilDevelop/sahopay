@@ -126,7 +126,7 @@ class ExchangePage extends StatelessWidget {
                       DepositWriteWidget(title: tr('universal.comment'), 
                       controller: cubit.commentController, 
                       hint: tr('universal.entercomment'), 
-                      icon: AppIcons.message),
+                      icon: AppIcons.message, errorBoder: true, hint2: '',),
                       
                          ],
                         ),

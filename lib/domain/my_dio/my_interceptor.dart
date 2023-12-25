@@ -14,9 +14,7 @@ class MyInterceptor extends Interceptor{
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler)async{
-    print(err.response);
-    EasyLoading.showInfo(err.response!.data.toString());
-    if (err.response?.statusCode == 401) {
+      if (err.response?.statusCode == 401) {
       LocalSource.clearProfile();
 
     String json = await  LocalSource.getInfo(key: "loginParam");

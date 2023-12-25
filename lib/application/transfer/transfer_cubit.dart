@@ -71,7 +71,13 @@ class TransferCubit extends Cubit<TransferState>{
       
         emit(TransferInitial()); 
         if(!numberBorder && !amountBorder){
-          loading=true;
+         amountBorder=false;
+         emit(TransferInitial());
+         bool errAmount1 = double.parse(amount)<=selectedPaymentItem!.params.first.maxSum;
+         bool errAmount2 = double.parse(amount)>=selectedPaymentItem!.params.last.maxSum;
+          if(errAmount2 && errAmount1){
+            
+             loading=true;
           emit(TransferInitial());
           ServerMessage info = await TransferService().transferSend(TransferPost(
         amount: amount, 
@@ -82,12 +88,16 @@ class TransferCubit extends Cubit<TransferState>{
         withCommission: checked).toJson());
         loading=false;
         emit(TransferMessage(info.message)); 
+          }else{
+         amountBorder=true;
+         emit(TransferInitial());
+        }
         }
       }
     }
     void setCalculator()async{
     String amount = amountController.text.trim();
-    if(amount.length>2){
+    if(amount.length>=2){
     
     calcResponse= await TransferService().getCalcInfo(TransferCalc(
       amount: amount, 
@@ -103,7 +113,7 @@ class TransferCubit extends Cubit<TransferState>{
 
    void onSubmitted(String value){
     if(selectedWalletItem!=null){
-      //setCalculator();
+      setCalculator();
     }
   }
 
@@ -144,6 +154,7 @@ class TransferCubit extends Cubit<TransferState>{
 
   void showChecked(bool? value){
     checked =!checked;
+    setCalculator();
     emit(TransferInitial());
   }
 }

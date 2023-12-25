@@ -13,6 +13,7 @@ class DepositCubit extends Cubit<DepositState>{
   }
 
   bool loading =true;
+  bool errorBorder =false;
 
   List<WalletObject> walletItems = [];
   WalletObject? selectedWalletItem;
@@ -46,16 +47,30 @@ class DepositCubit extends Cubit<DepositState>{
   void sendDeposit()async{
     loading =true;
     emit(DepositInitial());
-    if(selectedPaymentItem==null || selectedWalletItem==null || amountController.text.trim().isEmpty){
+     
+     String amount = amountController.text.trim();
+
+    if(selectedPaymentItem==null || selectedWalletItem==null || amount.isEmpty){
       emit(DepositMessage(tr('universal.fillInfo')));
     }else{
-      String url = await DepositService().postInfo(DepositSend(
+       
+      bool check1 = selectedPaymentItem!.params.first.maxSum>=double.parse(amount);
+      bool check2 = selectedPaymentItem!.params.last.maxSum<=double.parse(amount);
+
+      if(check1 && check2){
+        errorBorder=false;
+        emit(DepositInitial());
+        String url = await DepositService().postInfo(DepositSend(
         amount: amountController.text.trim(), 
         network: selectedPaymentItem!.key, 
         walletCurrensyName: selectedWalletItem!.currencyName).toJson());
         
     final Uri _url = Uri.parse(url);
      await launchUrl(_url);
+      }else{
+        errorBorder=true;
+      }
+
     }
     loading =false;
     emit(DepositInitial());

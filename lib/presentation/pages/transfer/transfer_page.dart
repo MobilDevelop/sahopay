@@ -146,7 +146,7 @@ class TransferPage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: TextField(
                           controller: cubit.amountController,
-                          onSubmitted: (value)=>cubit.onSubmitted(value),
+                          onChanged: (value)=>cubit.onSubmitted(value),
                           decoration:  InputDecoration(
                           hintText: tr('universal.enteramount'),
                           suffixIcon: IconButton(onPressed: cubit.pressMagnet, icon: SvgPicture.asset(AppIcons.magnet,color: AppTheme.colors.red,height: ScreenSize.h16)),
@@ -154,13 +154,15 @@ class TransferPage extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide(
-                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary
+                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
+                            width: cubit.amountBorder?2:1
                           )
                           ),
                           focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide(
-                            color: AppTheme.colors.primary
+                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
+                            width: cubit.amountBorder?2:1
                           )
                           ),
                               ),
@@ -168,7 +170,7 @@ class TransferPage extends StatelessWidget {
                           ),
                         Gap(ScreenSize.h4),
                            Visibility(
-                            visible: cubit.amountBorder,
+                            visible: (cubit.amountBorder && cubit.amountController.text.trim().isEmpty),
                             child: Text( tr('transfer.error2'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.red))),  
                       ],
                     ),
@@ -180,15 +182,34 @@ class TransferPage extends StatelessWidget {
                         ],
                       ),
                     Gap(ScreenSize.h4),  
-                    DepositWriteWidget(title: tr('universal.totalsum'), 
-                    controller: cubit.totalSumController, 
-                    hint: tr('transfer.amount'), 
-                    icon: AppIcons.dollar1),
+                   
+                    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(tr('universal.totalsum'),style: AppTheme.data.textTheme.bodyMedium),
+        Gap(ScreenSize.h4),
+        TextField(
+          controller: cubit.totalSumController,
+          decoration:  InputDecoration(
+           hintText: tr('transfer.amount'),
+           enabled: false,
+           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+           disabledBorder: OutlineInputBorder(
+             borderRadius: BorderRadius.circular(10.r),
+             borderSide: BorderSide(
+               color: AppTheme.colors.primary,
+                )
+           ),
+          ),
+        ),
+       
+      ],
+    ),
                     Gap(ScreenSize.h12),
                     DepositWriteWidget(title: tr('universal.comment'), 
                     controller: cubit.commentController, 
                     hint: tr('universal.entercomment'), 
-                    icon: AppIcons.message),
+                    icon: AppIcons.message, errorBoder: false, hint2: '',),
                     ],
                    ),
                  ),

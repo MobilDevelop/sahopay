@@ -1,6 +1,6 @@
 class WithdrawPost{
-  int amount;
-  int network;
+  String amount;
+  String network;
   String address;
   String currency;
   bool withCommission;
