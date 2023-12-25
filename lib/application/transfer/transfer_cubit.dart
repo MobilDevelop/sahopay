@@ -21,7 +21,7 @@ class TransferCubit extends Cubit<TransferState>{
   final numberController = TextEditingController();
 
 
-  String accountNumber ="";
+  String accountNumber = "";
 
   bool checked = false;
   bool loading = true;
@@ -46,9 +46,8 @@ class TransferCubit extends Cubit<TransferState>{
 
    itemsPayment = await TransferService().getPayment();
    itemsWallet = await TransferService().getWallet();
-  
-  loading=false;
-  emit(TransferInitial());
+   loading=false;
+   emit(TransferInitial());
   }
 
    void sendTransfer()async{
@@ -83,13 +82,9 @@ class TransferCubit extends Cubit<TransferState>{
         withCommission: checked).toJson());
         loading=false;
         emit(TransferMessage(info.message)); 
-          }
-       
-       }
-       
-   }
-
-
+        }
+      }
+    }
     void setCalculator()async{
     String amount = amountController.text.trim();
     if(amount.length>2){

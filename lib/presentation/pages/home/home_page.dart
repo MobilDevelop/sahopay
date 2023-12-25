@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
           drawer: const DrawerPage(),
-      ),
+        ),
       )
       );
     },),

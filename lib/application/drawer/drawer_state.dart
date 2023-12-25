@@ -9,3 +9,5 @@ class DrawerNextSetting extends DrawerState{}
 class DrawerNextWithdraw extends DrawerState{}
 
 class DrawerNextLogin extends DrawerState{}
+
+class DrawerNextPin extends DrawerState{}

@@ -57,6 +57,18 @@ class SettingPage extends StatelessWidget {
               height: ScreenSize.h10,
               color: AppTheme.colors.grey,
             ),
+            ListTile(
+              onTap: (){
+                context.push(Routes.pin.path);
+              },
+              contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
+              splashColor: AppTheme.colors.primary.withOpacity(.3),
+              leading: SvgPicture.asset(AppIcons.fingerprint,color: AppTheme.colors.primary,height: ScreenSize.h24),
+              title: Text(tr('setting.password2'),style: AppTheme.data.textTheme.displaySmall)
+            ), Divider(
+              height: ScreenSize.h10,
+              color: AppTheme.colors.grey,
+            ),
           ],
         ),
        ));

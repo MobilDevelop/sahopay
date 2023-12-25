@@ -11,7 +11,7 @@ List<PaymentParams>  paymentParamsFromMap(List list) => List<PaymentParams>.from
   });
 
   factory PaymentParams.fromJson(Map<String, dynamic> json) => PaymentParams(
-        name: json['name'],
+        name: json['name']?? "",
         maxSum: json['required'] ?? "",
       );
 }

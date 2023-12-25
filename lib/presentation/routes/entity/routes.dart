@@ -22,6 +22,10 @@ class Routes implements Coordinate {
     name: 'login_page',
     path: '/login',
   );
+  static const pin = Routes._(
+    name: 'pin_page',
+    path: '/pin',
+  );
    static const transfer = Routes._(
     name: 'transfer_page',
     path: '/transfer',
@@ -42,6 +46,7 @@ class Routes implements Coordinate {
     name: 'password_page',
     path: '/password',
   );
+  
 
   @override
   String toString() => 'name=$name, path=$path';

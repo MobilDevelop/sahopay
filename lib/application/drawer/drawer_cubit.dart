@@ -17,8 +17,10 @@ class DrawerCubit extends Cubit<DrawerState>{
       emit(DrawerNextTransfer());
     }else if(index==2){
       emit(DrawerNextWithdraw());
-    }else{
+    }else if (index ==3){
       emit(DrawerNextSetting());
+    }else{
+      emit(DrawerNextPin());
     }
   }
 }

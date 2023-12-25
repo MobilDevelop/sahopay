@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/application/withdraw/withdraw_cubit.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
+import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
@@ -101,6 +102,19 @@ class WithdrawPage extends StatelessWidget {
                       controller: cubit.commentController, 
                       hint: tr('universal.entercomment'), 
                       icon: AppIcons.message),
+                      // for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
+                      // Container(
+                      //   width: double.maxFinite,
+                      //   padding: EdgeInsets.only(left: ScreenSize.h16),
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Text(cubit.selectedPaymentItem!.params[i].name.toString(),style: AppTheme.data.textTheme.titleSmall),
+                      //       Gap(ScreenSize.h6),
+                      //       Text("\$ ${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}"),
+                      //     ],
+                      //   ),
+                      // ),
                       ],
                      ),
                    ),

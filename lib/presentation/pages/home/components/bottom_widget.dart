@@ -24,41 +24,50 @@ class BottomWidget extends StatelessWidget {
           Bounce(
             duration: const Duration(milliseconds: 300),
             onPressed: press,
-            child: Column(
-              mainAxisAlignment: onPress? MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: ScreenSize.h4,
-                  width: onPress? 40.w:0,
-                  margin: EdgeInsets.symmetric(horizontal: ScreenSize.w4),
-                  decoration: BoxDecoration(
-                  color: AppTheme.colors.primary,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10.r),
-                    bottomRight: Radius.circular(10.r)
-                  )
+            child: Container(
+              height: double.maxFinite,
+              width: double.maxFinite,
+              decoration: BoxDecoration(
+                color: AppTheme.colors.white,
+                borderRadius: BorderRadius.circular(10.r)
+              ),
+              child: Column(
+                mainAxisAlignment: onPress? MainAxisAlignment.spaceBetween:MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: ScreenSize.h4,
+                    width: onPress? 40.w:0,
+                    margin: EdgeInsets.symmetric(horizontal: ScreenSize.w4),
+                    decoration: BoxDecoration(
+                    color: AppTheme.colors.primary,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.r),
+                      bottomRight: Radius.circular(10.r)
+                    )
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                SvgPicture.asset(icon,
-                color: onPress?AppTheme.colors.primary:AppTheme.colors.grey,
-                height: 25.h),
-                Visibility(
-                  visible: onPress,
-                  child: Text(title,
-                  maxLines: 1,
-                  style: AppTheme.data.textTheme.bodySmall!.copyWith(color:AppTheme.colors.primary))),
-                  Gap(ScreenSize.h6),
-                  ],
-                ),
-              ],
+                  Column(
+                    children: [
+                  SvgPicture.asset(icon,
+                  color: onPress?AppTheme.colors.primary:AppTheme.colors.grey,
+                  height: 25.h),
+                  Visibility(
+                    visible: onPress,
+                    child: Text(title,
+                    maxLines: 1,
+                    style: AppTheme.data.textTheme.bodySmall!.copyWith(color:AppTheme.colors.primary))),
+                    Gap(ScreenSize.h6),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Visibility(
             visible: onPress,
             child: Container(
                 decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.r),
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,

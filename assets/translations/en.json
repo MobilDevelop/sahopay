@@ -101,7 +101,8 @@
     "setting":{
         "title":"Setting",
         "profile":"Prifile",
-        "password":"Change Password"
+        "password":"Change Password",
+        "password2":"Lock Password"
     },
     "profile":{
         "title":"Profile",

@@ -31,7 +31,10 @@ class DrawerPage extends StatelessWidget {
         context.push(Routes.withdraw.path);
       } else if(state is DrawerNextLogin){
         context.go(Routes.login.path);
+      } else if(state is DrawerNextPin){
+        context.push(Routes.pin.path);
       }
+      
     },
     child: Builder(builder: (context) {
       final cubit = context.read<DrawerCubit>();
@@ -101,6 +104,7 @@ class DrawerPage extends StatelessWidget {
               leading: SvgPicture.asset(AppIcons.setting,color: AppTheme.colors.primary,height: ScreenSize.h24),
               title: Text(tr('home.setting'),style: AppTheme.data.textTheme.bodyMedium),
             ),
+            
              Divider(
               height: 2.h,
               color: AppTheme.colors.grey,
@@ -135,13 +139,13 @@ class DrawerPage extends StatelessWidget {
                     ),
                ),
                 Gap(ScreenSize.h32)
-             ],
-           ),
-          ],
-        ),
-      ));
-    },),
-    ),
+               ],
+              ),
+            ]),
+          ),
+        );
+      }),
+      ),
     );
   }
 }

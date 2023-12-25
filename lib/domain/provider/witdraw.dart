@@ -11,7 +11,6 @@ class WithdrawService{
  Future<List<WithdrawPayment>> getPayment()async{
   try {
     Response response = await dio.get(AppContatants.withdrawPayment);
-
     return Future.value(withdrawPaymentFromMap(response.data["objectData"]));
   } catch (e) {
     return Future.value([]);

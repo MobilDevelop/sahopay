@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sahopay/presentation/pages/home/home_page.dart';
 import 'package:sahopay/presentation/pages/login/login_page.dart';
 import 'package:sahopay/presentation/pages/password/password_page.dart';
+import 'package:sahopay/presentation/pages/pin/pin_page.dart';
 import 'package:sahopay/presentation/pages/profile/profile_page.dart';
 import 'package:sahopay/presentation/pages/setting/setting_page.dart';
 import 'package:sahopay/presentation/pages/splash/splash_page.dart';
@@ -45,6 +46,14 @@ final GoRouter router = GoRouter(
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child:  const LoginPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.pin.name, 
+        path: Routes.pin.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const PinPage(),
         ),
       ),
       GoRoute(

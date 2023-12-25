@@ -56,6 +56,7 @@ class TransferPage extends StatelessWidget {
                     ),
                    child: Column(
                     children: [
+
                     TransferPaymentWidget(
                     items: cubit.itemsPayment, 
                     selectedItem: cubit.selectedPaymentItem, 
@@ -64,13 +65,14 @@ class TransferPage extends StatelessWidget {
                     hint: tr('universal.chooseyourwallet')),
                     Gap(ScreenSize.h12),
             
-                     WalletWidget(
+                    WalletWidget(
                     items: cubit.itemsWallet, 
                     selectedItem: cubit.selectedWalletItem, 
                     press: cubit.selectedWallet, 
                     title: tr('universal.yourwallet'), 
-                    hint: tr('universal.chooseyourwallet')),
-                    
+                    hint: tr('universal.chooseyourwallet'),
+                    ),
+
                     Visibility(
                       visible: cubit.selectedWalletItem!=null,
                       child: Column(
@@ -215,7 +217,7 @@ class TransferPage extends StatelessWidget {
                     ],
                    ),
                   cubit.selectedPaymentItem==null? Gap(60.h):Gap(ScreenSize.h32),
-                 Padding(
+                  Padding(
                    padding: EdgeInsets.only(bottom: ScreenSize.h32,left: ScreenSize.h10,right: ScreenSize.h10),
                    child: MainButton(text: tr('transfer.title'), onPressed:cubit.sendTransfer,leftIcon: AppIcons.send),
                  )
