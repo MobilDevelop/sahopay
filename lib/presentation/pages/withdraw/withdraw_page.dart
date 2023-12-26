@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,19 +7,21 @@ import 'package:gap/gap.dart';
 import 'package:sahopay/application/withdraw/withdraw_cubit.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
 import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
+import 'package:sahopay/presentation/pages/withdraw/components/dialog_widget.dart';
 import 'package:sahopay/presentation/pages/withdraw/components/payment_widget.dart';
 
 class WithdrawPage extends StatelessWidget {
-  const WithdrawPage({super.key});
-
+  const WithdrawPage({super.key, this.model});
+  final DashboardModel? model;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => WithdrawCubit(),
+    return BlocProvider(create: (context) => WithdrawCubit(model),
     child: BlocListener<WithdrawCubit,WithDrawState>(listener: (context, state) {
       if(state is WithDrawMessage){
         Navigator.pop(context);
@@ -32,6 +35,18 @@ class WithdrawPage extends StatelessWidget {
               ),
             ),
           );
+       }else  if(state is WithDrawDialog){
+                  AwesomeDialog(
+                  context: context,
+                  dialogType:DialogType.success,
+                  animType: AnimType.bottomSlide,
+                  body: DialogWidgetWithdraw(item: state.response),
+                  btnOkText: "OK",
+                  btnOkColor: AppTheme.colors.primary,
+                  btnOkOnPress:(){
+                    Navigator.pop(context);
+                  },
+                  ).show();
        }
     },
     child: Builder(builder: (context) {
@@ -88,20 +103,20 @@ class WithdrawPage extends StatelessWidget {
                     hint: tr('universal.chooseyourwallet')),
                     Gap(ScreenSize.h12),
                     Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(tr('withdraw.adress'),style: AppTheme.data.textTheme.bodyMedium),
-        Gap(ScreenSize.h4),
-        SizedBox(
-           child: TextField(
-           controller: cubit.addressSumController,
-           keyboardType: TextInputType.emailAddress,
-           onChanged: (value)=>cubit.calculate(),
-           textAlign: TextAlign.start,
-           decoration:  InputDecoration(
-            hintText: tr('withdraw.enteradress'),
-            contentPadding:  EdgeInsets.only(left: ScreenSize.w10,top: 23.h),
-            enabledBorder: OutlineInputBorder(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text(tr('withdraw.adress'),style: AppTheme.data.textTheme.bodyMedium),
+                    Gap(ScreenSize.h4),
+                    SizedBox(
+                    child: TextField(
+                    controller: cubit.addressSumController,
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value)=>cubit.calculate(),
+                    textAlign: TextAlign.start,
+                    decoration:  InputDecoration(
+                    hintText: tr('withdraw.enteradress'),
+                    contentPadding:  EdgeInsets.only(left: ScreenSize.w10,top: 23.h),
+                    enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide(
                              color: cubit.emailBorder? AppTheme.colors.red:AppTheme.colors.primary,
@@ -115,28 +130,28 @@ class WithdrawPage extends StatelessWidget {
                             width: cubit.emailBorder?2:1
                           )
                           ),
-           ),
-         ),
-        ),
-        Gap(ScreenSize.h4),
-        Visibility(
-          visible: cubit.emailBorder,
-          child: Text(tr('withdraw.error2'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red))),
-      ],
-    ),
-                    Gap(ScreenSize.h12),
-                    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
-        Gap(ScreenSize.h4),
-        SizedBox(
-           child: TextField(
-           controller: cubit.amountController,
-           keyboardType: TextInputType.number,
-           onChanged: (value)=>cubit.calculate(),
-           textAlign: TextAlign.start,
-           decoration:  InputDecoration(
+              ),
+             ),
+             ),
+             Gap(ScreenSize.h4),
+             Visibility(
+             visible: cubit.emailBorder,
+             child: Text(tr('withdraw.error2'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red))),
+            ],
+            ),
+            Gap(ScreenSize.h12),
+            Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text(tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
+            Gap(ScreenSize.h4),
+            SizedBox(
+            child: TextField(
+            controller: cubit.amountController,
+            keyboardType: TextInputType.number,
+            onChanged: (value)=>cubit.calculate(),
+            textAlign: TextAlign.start,
+            decoration:  InputDecoration(
             enabled: cubit.totalEnebled,
             hintText: tr('universal.enteramount'),
             contentPadding:  EdgeInsets.only(left: ScreenSize.w10,top: 23.h),
@@ -144,22 +159,22 @@ class WithdrawPage extends StatelessWidget {
             enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide(
-                           color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                          width: cubit.amountBorder?2:1
+                           color: (cubit.amountBorder || cubit.maxMoney)? AppTheme.colors.red:AppTheme.colors.primary,
+                          width: (cubit.amountBorder || cubit.maxMoney)?2:1
                           )
                           ),
-            disabledBorder: OutlineInputBorder(
+                          disabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide(
-                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: cubit.amountBorder?2:1
+                            color: (cubit.amountBorder || cubit.maxMoney)? AppTheme.colors.red:AppTheme.colors.primary,
+                            width: (cubit.amountBorder || cubit.maxMoney)?2:1
                           )
                           ),             
                           focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.r),
                           borderSide: BorderSide(
-                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: cubit.amountBorder?2:1
+                            color: (cubit.amountBorder || cubit.maxMoney)? AppTheme.colors.red:AppTheme.colors.primary,
+                            width: (cubit.amountBorder || cubit.maxMoney)?2:1
                           )
                           ),
            ),
@@ -167,8 +182,9 @@ class WithdrawPage extends StatelessWidget {
         ),
         Gap(ScreenSize.h4),
         Visibility(
-          visible: cubit.amountBorder,
-          child: Text(tr('withdraw.error'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red))),
+          visible:(cubit.amountBorder || cubit.maxMoney),
+          child: cubit.maxMoney?Text(tr('withdraw.error1'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red)) 
+          :Text(tr('withdraw.error'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red))),
       ],
     ),
                     Gap(ScreenSize.h6),
@@ -251,7 +267,9 @@ class WithdrawPage extends StatelessWidget {
                      Gap(ScreenSize.h32),
                  Padding(
                    padding: EdgeInsets.only(bottom: ScreenSize.h32,right: ScreenSize.w10,left: ScreenSize.w10),
-                   child: MainButton(text: tr('withdraw.title'), onPressed:cubit.sendInfo,leftIcon: AppIcons.withdraw),
+                   child: MainButton(text: tr('withdraw.title'), 
+                   onPressed:cubit.sendInfo,
+                   leftIcon: AppIcons.withdraw),
                  )
                 ],
               ),

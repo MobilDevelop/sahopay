@@ -1,22 +1,38 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sahopay/application/transfer/transfer_cubit.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 import 'package:sahopay/presentation/pages/transfer/components/payment_item_widget.dart';
 
-class TransferPage extends StatelessWidget {
-  const TransferPage({super.key});
+import 'components/dialog_widget.dart';
 
+class TransferPage extends StatelessWidget {
+  const TransferPage({super.key, this.model});
+  final DashboardModel? model;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => TransferCubit(),
+    return BlocProvider(create: (context) => TransferCubit(model),
      child:  BlocListener<TransferCubit,TransferState>(listener: (_, state) {
-       
+       if(state is TransferDialog){
+      AwesomeDialog(
+                  context: context,
+                  dialogType:DialogType.success,
+                  animType: AnimType.bottomSlide,
+                  body: DialogWidget(item: state.response),
+                  btnOkText: "OK",
+                  btnOkColor: AppTheme.colors.primary,
+                  btnOkOnPress:(){
+                    Navigator.pop(context);
+                  },
+                  ).show();
+       }
      },
      child: Builder(builder: (context) {
        final cubit = context.read<TransferCubit>();
@@ -140,7 +156,7 @@ class TransferPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
-                    Container(
+                        Container(
                           height: 45.h,
                           //width: double.maxFinite,
                           alignment: Alignment.center,
@@ -181,30 +197,28 @@ class TransferPage extends StatelessWidget {
                           Text(tr('universal.comission'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.black)),
                         ],
                       ),
-                    Gap(ScreenSize.h4),  
-                   
+                    Gap(ScreenSize.h4),
                     Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(tr('universal.totalsum'),style: AppTheme.data.textTheme.bodyMedium),
-        Gap(ScreenSize.h4),
-        TextField(
-          controller: cubit.totalSumController,
-          decoration:  InputDecoration(
-           hintText: tr('transfer.amount'),
-           enabled: false,
-           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
-           disabledBorder: OutlineInputBorder(
-             borderRadius: BorderRadius.circular(10.r),
-             borderSide: BorderSide(
-               color: AppTheme.colors.primary,
-                )
-           ),
-          ),
-        ),
-       
-      ],
-    ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text(tr('universal.totalsum'),style: AppTheme.data.textTheme.bodyMedium),
+                    Gap(ScreenSize.h4),
+                    TextField(
+                    controller: cubit.totalSumController,
+                    decoration:  InputDecoration(
+                    hintText: tr('transfer.amount'),
+                    enabled: false,
+                    contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+                    disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                    borderSide: BorderSide(
+                    color: AppTheme.colors.primary,
+                          ),
+                        ),
+                       ),
+                      ),
+                     ],
+                    ),
                     Gap(ScreenSize.h12),
                     DepositWriteWidget(title: tr('universal.comment'), 
                     controller: cubit.commentController, 
@@ -240,7 +254,9 @@ class TransferPage extends StatelessWidget {
                   cubit.selectedPaymentItem==null? Gap(60.h):Gap(ScreenSize.h32),
                   Padding(
                    padding: EdgeInsets.only(bottom: ScreenSize.h32,left: ScreenSize.h10,right: ScreenSize.h10),
-                   child: MainButton(text: tr('transfer.title'), onPressed:cubit.sendTransfer,leftIcon: AppIcons.send),
+                   child: MainButton(text: tr('transfer.title'), 
+                   onPressed:cubit.sendTransfer,
+                   leftIcon: AppIcons.send),
                  )
                 ],
               ),
@@ -256,3 +272,4 @@ class TransferPage extends StatelessWidget {
     );
   }
 }
+

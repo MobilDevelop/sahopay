@@ -4,6 +4,7 @@ import 'package:sahopay/domain/my_dio/my_dio.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
+import 'package:sahopay/infrastructure/models/withdraw/withdraw_response.dart';
 
 class WithdrawService{
   final Dio dio = Mydio().dio();
@@ -37,12 +38,12 @@ class WithdrawService{
   }
  }
 
- Future<ServerMessage> sendInfo(Map<String,dynamic> param)async{
+ Future<WithdrawResponse> sendInfo(Map<String,dynamic> param)async{
   try {
     Response response = await dio.post(AppContatants.withdrawPost,data: param);
-    return Future.value(ServerMessage.fromJson(response.data));
+    return Future.value(WithdrawResponse.fromJson(response.data));
   } catch (e) {
-      return Future.value(ServerMessage(message: "error", code: -1));
+      return Future.error("");
   }
  }
 }

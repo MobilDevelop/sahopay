@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:sahopay/application/deposit/deposit_cubit.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
@@ -13,11 +14,11 @@ import 'package:sahopay/presentation/pages/deposit/components/deposit_item_payme
 import 'components/deposit_write_widget.dart';
 
 class DepositPage extends StatelessWidget {
-  const DepositPage({super.key});
-
+  const DepositPage({super.key, this.model});
+  final DashboardModel? model;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => DepositCubit(),
+    return BlocProvider(create: (context) => DepositCubit(model),
      child:  BlocListener<DepositCubit,DepositState>(listener: (_, state) {
        if(state is DepositMessage){
          ScaffoldMessenger.of(context).showSnackBar(

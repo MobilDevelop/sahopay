@@ -8,17 +8,24 @@ import 'package:sahopay/application/dashboard/dashboard_state.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
-
+import 'package:sahopay/presentation/routes/index_routes.dart';
 import 'components/card_widget.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({super.key, required this.press});
+  const Dashboard({super.key, required this.press, required this.nextDeposit});
    final VoidCallback press;
+   final Function nextDeposit;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => DashboardCubit(),
      child:  BlocListener<DashboardCubit,DashboardState>(listener: (_, state) {
-       
+       if(state is DashboardNextTransfer){
+        context.push(Routes.transfer.path,extra: state.model);
+       }else if(state is DashboardNextWithDraw){
+        context.push(Routes.withdraw.path,extra: state.model);
+       }else if(state is DashboardNextDeposit){
+        nextDeposit(state.model);
+       }
      },
      child: Builder(builder: (context) {
        final cubit = context.read<DashboardCubit>();
@@ -42,7 +49,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Gap(ScreenSize.h14),
                   for(int i=0;i<cubit.items.length;i++)
-                   CardWidget(item: cubit.items[i], index: i, backgroundColor:AppContatants.backgroundColor[i]),
+                   CardWidget(item: cubit.items[i], index: i, backgroundColor:AppContatants.backgroundColor[i], onPress:(int index)=>cubit.nextScreen(index,cubit.items[i])),
                    Gap(60.h)
                 ],
               ),

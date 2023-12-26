@@ -3,16 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/domain/provider/transfer.dart';
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/infrastructure/models/transfer/calc_response.dart';
 import 'package:sahopay/infrastructure/models/transfer/calculator.dart';
 import 'package:sahopay/infrastructure/models/transfer/payment.dart';
 import 'package:sahopay/infrastructure/models/transfer/post.dart';
-import 'package:sahopay/infrastructure/models/universal/server_message.dart';
+import 'package:sahopay/infrastructure/models/transfer/transfer_response.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
 class TransferCubit extends Cubit<TransferState>{
-  TransferCubit():super(TransferInitial()){
-    init();
+  TransferCubit(DashboardModel? model):super(TransferInitial()){
+    init(model);
   } 
   
   final amountController = TextEditingController();
@@ -42,44 +43,48 @@ class TransferCubit extends Cubit<TransferState>{
   type: MaskAutoCompletionType.lazy
 );
 
-  void init()async{
-
+  void init(DashboardModel? model)async{
    itemsPayment = await TransferService().getPayment();
    itemsWallet = await TransferService().getWallet();
+   
+   if(model!=null){
+    selectedWalletItem = WalletObject.fromJson(model.toJson());
+   }
+
    loading=false;
    emit(TransferInitial());
   }
 
-   void sendTransfer()async{
-       if(selectedPaymentItem!=null && selectedWalletItem!=null){
-        String amount = amountController.text.trim();
-       String recipient =accountNumber+numberController.text.trim();
-       String systemId = selectedPaymentItem!.id.toString();
-       String currensyName = selectedWalletItem!.currencyName;
-       String comment = commentController.text.trim();
+  void sendTransfer()async{
+    if(selectedPaymentItem!=null && selectedWalletItem!=null){
+      String amount = amountController.text.trim();
+      String recipient =accountNumber+numberController.text.trim();
+      String systemId = selectedPaymentItem!.id.toString();
+      String currensyName = selectedWalletItem!.currencyName;
+      String comment = commentController.text.trim();
 
-        if(recipient.length<7 ){
-          numberBorder=true;
-        }else{
-          numberBorder=false;
-        }
-        if( amount.isEmpty){
-          amountBorder=true;
-        }else{
-          amountBorder=false;
-        }
+    if(recipient.length<7 ){
+        numberBorder=true;
+      }else{
+        numberBorder=false;
+      }
+      if( amount.isEmpty){
+        amountBorder=true;
+      }else{
+        amountBorder=false;
+      }
       
         emit(TransferInitial()); 
         if(!numberBorder && !amountBorder){
          amountBorder=false;
          emit(TransferInitial());
-         bool errAmount1 = double.parse(amount)<=selectedPaymentItem!.params.first.maxSum;
+         bool errAmount1 = double.parse(amount)<=selectedPaymentItem!.params[1].maxSum;
          bool errAmount2 = double.parse(amount)>=selectedPaymentItem!.params.last.maxSum;
           if(errAmount2 && errAmount1){
             
-             loading=true;
+          loading=true;
           emit(TransferInitial());
-          ServerMessage info = await TransferService().transferSend(TransferPost(
+        TransferResponse info = await TransferService().transferSend(TransferPost( 
         amount: amount, 
         recipient: recipient, 
         recipientSystemId: systemId, 
@@ -87,7 +92,11 @@ class TransferCubit extends Cubit<TransferState>{
         comment: comment, 
         withCommission: checked).toJson());
         loading=false;
-        emit(TransferMessage(info.message)); 
+         if(info.code==200){
+          emit(TransferDialog(info));
+         }else{
+          emit(TransferInitial());
+         }
           }else{
          amountBorder=true;
          emit(TransferInitial());

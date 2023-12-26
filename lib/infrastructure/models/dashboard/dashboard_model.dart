@@ -17,6 +17,8 @@ class DashboardModel {
  required this.balance,
  });
 
+
+
  factory DashboardModel.fromJson(Map<String,dynamic> json)=>DashboardModel(
   account: json['account'], 
   currencyName: json['currencyName'], 
@@ -24,5 +26,15 @@ class DashboardModel {
   hold: json['hold'], 
   logoUrl: json['logoUrl'], 
   balance: json['balance']);
+
+ Map<String,dynamic> toJson ()=>{
+    'account':account,
+    'currencyName':currencyName,
+    'accountStatus':status,
+    "hold":hold,
+    "logoUrl":logoUrl,
+    "balance":balance
+
+ };
 
 }

@@ -3,6 +3,7 @@ import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/domain/my_dio/my_dio.dart';
 import 'package:sahopay/infrastructure/models/transfer/calc_response.dart';
 import 'package:sahopay/infrastructure/models/transfer/payment.dart';
+import 'package:sahopay/infrastructure/models/transfer/transfer_response.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
@@ -40,13 +41,13 @@ class TransferService{
   } 
  }
 
- Future<ServerMessage> transferSend(Map<String,dynamic> param)async{
+ Future<TransferResponse> transferSend(Map<String,dynamic> param)async{
   try {
     Response response = await dio.post(AppContatants.transferPost,data: param);
 
-    return Future.value(response.data);
+    return Future.value(TransferResponse.fromJson(response.data));
   } catch (e) {
-     return Future.value(ServerMessage(message: "error", code: -1));
+     return Future.error("error");
   }
  }
 

@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
               ):const SizedBox()
             ],
           ),
-          drawer: const DrawerPage(),
+          drawer: DrawerPage(profileInfo: cubit.profileInfo),
         ),
       )
       );

@@ -17,4 +17,14 @@ class DashboardCubit extends Cubit<DashboardState>{
     loading=false;
     emit(DashboardInitial());
   }
+
+  void nextScreen(int index,DashboardModel model){
+    if(index==1){
+      emit(DashboardNextTransfer(model));
+    }else if(index==3){
+      emit(DashboardNextWithDraw(model));
+    }else if(index==2){
+      emit(DashboardNextDeposit(model));
+    }
+  }
 }

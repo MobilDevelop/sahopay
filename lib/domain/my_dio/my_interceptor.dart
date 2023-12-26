@@ -19,10 +19,12 @@ class MyInterceptor extends Interceptor{
 
     String json = await  LocalSource.getInfo(key: "loginParam");
 
-    Map<String,dynamic> param = jsonDecode(json);
+    if(json.isNotEmpty){
+      Map<String,dynamic> param = jsonDecode(json);
      await RegistrationServices().login(param);
 
      EasyLoading.showInfo(tr('universal.error'));
+    }
       
     }
     super.onError(err, handler);

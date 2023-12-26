@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/domain/provider/deposit.dart';
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/infrastructure/models/deposit/deposit.dart';
 import 'package:sahopay/infrastructure/models/deposit/send_info.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
@@ -8,8 +9,8 @@ import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DepositCubit extends Cubit<DepositState>{
-  DepositCubit():super(DepositInitial()){
-    init();
+  DepositCubit(DashboardModel? model):super(DepositInitial()){
+    init(model);
   }
 
   bool loading =true;
@@ -23,9 +24,14 @@ class DepositCubit extends Cubit<DepositState>{
 
   final amountController = TextEditingController();
   
-  void init()async{
+  void init(DashboardModel? model)async{
     walletItems = await DepositService().getWallet();
     paymentItems = await DepositService().getPayment();
+    
+    if(model!=null){
+      selectedWalletItem = WalletObject.fromJson(model.toJson());
+    }
+
     loading=false;
     emit(DepositInitial());
   }
@@ -70,7 +76,6 @@ class DepositCubit extends Cubit<DepositState>{
       }else{
         errorBorder=true;
       }
-
     }
     loading =false;
     emit(DepositInitial());

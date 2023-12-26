@@ -99,6 +99,7 @@
         "adress":"Address",
         "enteradress":"Enter address",
         "error":"  You have not sufficient amount in your balance",
+        "error1":"  No specified value was entered",
         "error2":"  Address is required"
     },
     "setting":{
@@ -125,7 +126,7 @@
         "update":"Update Password"
     },
     "drawer":{
-        "exit":"CHIQISH"
+        "exit":"EXIT"
     },
     "universal":{
      "payment":"Select payment system",

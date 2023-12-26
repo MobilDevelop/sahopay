@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/presentation/assets/res/app_icons.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
@@ -11,11 +10,12 @@ import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/components/button/text_button_x.dart';
 class CardWidget extends StatelessWidget {
   const CardWidget({
-    super.key, required this.item, required this.index, required this.backgroundColor,
+    super.key, required this.item, required this.index, required this.backgroundColor, required this.onPress,
   });
   final DashboardModel item;
   final int index;
   final List<Color> backgroundColor;
+  final Function onPress;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,19 +73,19 @@ class CardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-               TextButtonX(onPressed: (){}, text: tr('home.transfer'),leftIcon:AppIcons.send,textColor: AppTheme.colors.white12),
+               TextButtonX(onPressed: ()=>onPress(1), text: tr('home.transfer'),leftIcon:AppIcons.send,textColor: AppTheme.colors.white12),
                Container(
                 width: 1,
                 height: ScreenSize.h10,
                 color: AppTheme.colors.white12,
                ),
-               TextButtonX(onPressed: (){}, text: tr('home.deposit'),leftIcon:AppIcons.money,textColor: AppTheme.colors.white12),
+               TextButtonX(onPressed: ()=>onPress(2), text: tr('home.deposit'),leftIcon:AppIcons.money,textColor: AppTheme.colors.white12),
                  Container(
                 width: 1,
                 height: ScreenSize.h10,
                 color: AppTheme.colors.white12,
                ),
-               TextButtonX(onPressed: (){}, text: tr('home.withdraw'),leftIcon:AppIcons.withdraw,textColor: AppTheme.colors.white12),
+               TextButtonX(onPressed: ()=>onPress(3), text: tr('home.withdraw'),leftIcon:AppIcons.withdraw,textColor: AppTheme.colors.white12),
               ],
             ),
           ],

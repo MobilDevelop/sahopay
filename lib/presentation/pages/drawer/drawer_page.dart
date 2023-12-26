@@ -1,3 +1,4 @@
+import 'package:gap/gap.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -5,17 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
 import 'package:sahopay/application/drawer/drawer_cubit.dart';
 import 'package:sahopay/application/drawer/drawer_state.dart';
+import 'package:sahopay/infrastructure/models/profile/profile.dart';
 import 'package:sahopay/presentation/assets/res/app_icons.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/routes/index_routes.dart';
 
 class DrawerPage extends StatelessWidget {
-  const DrawerPage({super.key});
-
+  const DrawerPage({super.key, required this.profileInfo});
+   final ProfileModel profileInfo;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => DrawerCubit(),
@@ -67,8 +68,8 @@ class DrawerPage extends StatelessWidget {
                 ),
           child: SvgPicture.asset(AppIcons.user,color: AppTheme.colors.primary),
               ),
-              title: Text("Muhammadayubxon Nomonov",style: AppTheme.data.textTheme.bodyMedium),
-              subtitle:Text("+998 90 586 79 91",style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+              title: Text("${profileInfo.lastName} \n${profileInfo.firstName}",style: AppTheme.data.textTheme.bodyMedium),
+              subtitle:Text(profileInfo.email,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
             ),
             Gap(60.h),
             Divider(

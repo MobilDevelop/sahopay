@@ -1,4 +1,6 @@
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 
+import 'index_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:sahopay/presentation/pages/home/home_page.dart';
 import 'package:sahopay/presentation/pages/login/login_page.dart';
@@ -9,7 +11,7 @@ import 'package:sahopay/presentation/pages/setting/setting_page.dart';
 import 'package:sahopay/presentation/pages/splash/splash_page.dart';
 import 'package:sahopay/presentation/pages/transfer/transfer_page.dart';
 import 'package:sahopay/presentation/pages/withdraw/withdraw_page.dart';
-import 'index_routes.dart';
+
 
 
 final GoRouter router = GoRouter(
@@ -29,7 +31,7 @@ final GoRouter router = GoRouter(
         path: Routes.transfer.path,
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child:  const TransferPage(),
+          child:   TransferPage(model: state.extra as DashboardModel?),
         ),
       ),
       GoRoute(
@@ -61,7 +63,7 @@ final GoRouter router = GoRouter(
         path: Routes.withdraw.path,
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child:  const WithdrawPage(),
+          child:   WithdrawPage(model: state.extra as DashboardModel?),
         ),
       ),
       GoRoute(

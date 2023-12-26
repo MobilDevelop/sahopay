@@ -44,14 +44,13 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
         providers: [
           BlocProvider<AppManagerCubit>(create: (context) => AppManagerCubit()..init()),
-         
-        
         ], 
         child: ScreenUtilInit(
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) => const AppWidget(),
-        ));
+      ),
+    );
   }
 }
 

@@ -7,7 +7,7 @@ class ExchangeResponse {
   String sender;
   String recipient;
   String senderCurrency;
-  String reciepientCurrency;
+  String recipientCurrency;
   double rate;
 
   ExchangeResponse({
@@ -19,9 +19,22 @@ class ExchangeResponse {
     required this.sender,
     required this.recipient,
     required this.senderCurrency,
-    required this.reciepientCurrency,
+    required this.recipientCurrency,
     required this.rate,
   });
+
+  Map<String,dynamic> toJson()=>{
+    "transId":transId,
+    "transDate":transDate,
+    "pc":pc,
+    "amount":amount,
+    "conversionAmount":conversionAmount,
+    "sender":sender,
+    "recipient":recipient,
+    "senderCurrency":senderCurrency,
+    "recipientCurrency":recipientCurrency,
+    "rate":rate,
+ };
 
   factory ExchangeResponse.fromJson(Map<String, dynamic> json) =>
       ExchangeResponse(
@@ -33,7 +46,7 @@ class ExchangeResponse {
         sender: json['sender'] ?? "",
         recipient: json['recipient'] ?? "",
         senderCurrency: json['senderCurrency'] ?? "",
-        reciepientCurrency: json['reciepientCurrency'] ?? "",
+        recipientCurrency: json['recipientCurrency'] ?? "",
         rate: json['rate'] ?? 0.00,
       );
 }

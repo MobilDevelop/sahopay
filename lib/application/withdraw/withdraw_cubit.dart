@@ -1,17 +1,21 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/domain/provider/witdraw.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/infrastructure/models/withdraw/calculator.dart';
 import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
 import 'package:sahopay/infrastructure/models/withdraw/post.dart';
+import 'package:sahopay/infrastructure/models/withdraw/withdraw_response.dart';
 
 class WithdrawCubit extends Cubit<WithDrawState>{
-  WithdrawCubit():super(WithDrawInitial()){
-    init();
+  WithdrawCubit(DashboardModel? model):super(WithDrawInitial()){
+    init(model);
   }
 
   bool checked = false;
@@ -19,6 +23,8 @@ class WithdrawCubit extends Cubit<WithDrawState>{
   bool totalEnebled = false;
   bool amountBorder =false;
   bool emailBorder =false;
+
+  bool maxMoney =false;
 
   final amountController = TextEditingController();
   final commentController = TextEditingController();
@@ -31,9 +37,14 @@ class WithdrawCubit extends Cubit<WithDrawState>{
   List<WalletObject> itemsWallet = [];
   WalletObject? selectedWalletItem;
 
-  void init()async{
+  void init(DashboardModel? model)async{
    itemsPayment = await WithdrawService().getPayment();
    itemsWallet = await WithdrawService().getWallet();
+    
+    if(model!=null){
+      selectedWalletItem = WalletObject.fromJson(model.toJson());
+    }
+
    loading=false;
    emit(WithDrawInitial());
   }
@@ -51,13 +62,13 @@ class WithdrawCubit extends Cubit<WithDrawState>{
        }
       
        if(!emailBorder && !amountBorder){
-        ServerMessage info = await WithdrawService().sendInfo(WithdrawPost(
-      amount: amountController.text.trim(), 
+      WithdrawResponse info = await WithdrawService().sendInfo(WithdrawPost(
+      amount: amount, 
       network: selectedPaymentItem!.key, 
-      address: addressSumController.text.trim(), 
+      address: address, 
       currency: selectedWalletItem!.currencyName, 
       withCommission: checked).toJson());
-      emit(WithDrawMessage(info.message));
+      emit(WithDrawDialog(info));
        }
      }
      emit(WithDrawInitial());
@@ -65,11 +76,27 @@ class WithdrawCubit extends Cubit<WithDrawState>{
   
   void calculate()async{
     if(amountController.text.trim().isNotEmpty){
-      if(double.parse(amountController.text)>selectedWalletItem!.balance){
+      
+      String amount = amountController.text.trim();
+
+      if(double.parse(amount)>selectedWalletItem!.balance){
         amountBorder=true;
       }else{
         amountBorder=false;
       }
+      
+      if(double.parse(amount)>selectedPaymentItem!.params[1].maxSum){
+        maxMoney=true;
+      }else{
+        maxMoney=false;
+      }
+
+      if(double.parse(amount)<selectedPaymentItem!.params[2].maxSum){
+        maxMoney=true;
+      }else{
+        maxMoney=false;
+      }
+
       emit(WithDrawInitial());
        String info = await WithdrawService().calculate(WithdrawCalc(
       amount: amountController.text.trim(), 
@@ -116,6 +143,7 @@ class WithdrawCubit extends Cubit<WithDrawState>{
 
   void showChecked(bool? value){
     checked =!checked;
+    calculate();
     emit(WithDrawInitial());
   }
   

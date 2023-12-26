@@ -39,8 +39,6 @@ class HistoryCubit extends Cubit<HistoryState>{
    emit(HistoryInitial());
   }
 
-
-
   void succesFilter(int type){
     page=0;
     filterType =type;
