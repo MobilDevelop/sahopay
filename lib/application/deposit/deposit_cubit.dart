@@ -15,6 +15,7 @@ class DepositCubit extends Cubit<DepositState>{
 
   bool loading =true;
   bool errorBorder =false;
+  bool enebled = false;
 
   List<WalletObject> walletItems = [];
   WalletObject? selectedWalletItem;
@@ -36,15 +37,35 @@ class DepositCubit extends Cubit<DepositState>{
     emit(DepositInitial());
   }
 
+  void onChanged(){
+    String amount = amountController.text.trim();
+    if(amount.isNotEmpty){
+      if(double.parse(amount)>selectedPaymentItem!.params[1].maxSum || double.parse(amount)<selectedPaymentItem!.params[2].maxSum){
+      errorBorder=true;
+    }else{
+      errorBorder =false;
+    }
+    }else{
+      errorBorder=false;
+    }
+     emit(DepositInitial());
+  }
+
 
   void onChangedWallet(WalletObject selectWallet){
     selectedWalletItem =selectWallet;
+    if(selectedPaymentItem!=null){
+      enebled=true;
+    }
     emit(DepositInitial());
   }
 
 
   void onChangedPayment(DepositPayment selectPayment){
     selectedPaymentItem =selectPayment;
+    if(selectedWalletItem!=null){
+      enebled=true;
+    }
     emit(DepositInitial());
   }
 

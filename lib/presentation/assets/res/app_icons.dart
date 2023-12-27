@@ -36,7 +36,7 @@ class AppIcons {
 
   static const String logo = 'assets/images/sahopay.gif';
   static const String curier = 'assets/images/curier.jpg';
-  static const String loading = 'assets/images/loading.gif';
+  static const String loading = 'assets/images/saho-loading.webp';
 
 
 

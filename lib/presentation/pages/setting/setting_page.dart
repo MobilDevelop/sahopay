@@ -59,7 +59,7 @@ class SettingPage extends StatelessWidget {
             ),
             ListTile(
               onTap: (){
-                context.push(Routes.pin.path);
+                context.push(Routes.pin.path,extra: 2);
               },
               contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
               splashColor: AppTheme.colors.primary.withOpacity(.3),

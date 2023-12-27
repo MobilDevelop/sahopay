@@ -102,7 +102,7 @@ class LoginCubit extends Cubit<LoginState>{
           emit(LoginInitial());
           bool check = await RegistrationServices().login(LoginSend(username: login, password: password).toJson());
           if(check){
-            emit(LoginNextHome());
+            emit(LoginNextPin());
           }else{
             emit(LoginError("Account not found"));
           }

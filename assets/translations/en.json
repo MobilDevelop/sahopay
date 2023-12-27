@@ -56,7 +56,9 @@
     "deposit":{
         "title":"Deposit",
         "add":"Add Deposit",
-        "select":"Select Payment System \n to see Requirement"
+        "select":"Select Payment System \n to see Requirement",
+        "error":"No specified value was entered"
+
 
     },
     "transfer":{

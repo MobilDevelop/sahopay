@@ -4,14 +4,15 @@ import 'package:gap/gap.dart';
 import 'package:sahopay/presentation/assets/res/screen_size.dart';
 import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 
-class DepositWriteWidget extends StatelessWidget {
-  const DepositWriteWidget({
-    super.key, required this.title, required this.controller, required this.hint, required this.icon, required this.hint2, required this.errorBoder, required this.enebled,
+class DepositAmountWidget extends StatelessWidget {
+  const DepositAmountWidget({
+    super.key, required this.title, required this.controller, required this.hint,required this.hint2, required this.errorBoder, required this.enebled, required this.onChanged,
   });
   final String title;
   final String hint;
   final TextEditingController controller;
-  final String icon;
+  final VoidCallback onChanged;
+
   final String hint2;
   final bool errorBoder;
   final bool enebled;
@@ -24,6 +25,8 @@ class DepositWriteWidget extends StatelessWidget {
         Gap(ScreenSize.h4),
         TextField(
           controller: controller,
+          keyboardType: TextInputType.number,
+          onChanged: (value) => onChanged(),
           decoration:  InputDecoration(
            enabled: enebled,
            hintText: hint,

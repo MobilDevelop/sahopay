@@ -8,13 +8,20 @@ import 'package:sahopay/application/withdraw/withdraw_cubit.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
+import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
+import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
-import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
 import 'package:sahopay/presentation/pages/withdraw/components/dialog_widget.dart';
-import 'package:sahopay/presentation/pages/withdraw/components/payment_widget.dart';
+import 'components/address_widget.dart';
+import 'components/amount_widget.dart';
+import 'components/bottomsheet_widget.dart';
+import 'components/payment_widget_.dart';
+import 'components/total_sum_widget.dart';
+import 'components/wallet_bottom_sheet.dart';
+import 'components/wallet_widget.dart';
 
 class WithdrawPage extends StatelessWidget {
   const WithdrawPage({super.key, this.model});
@@ -87,106 +94,31 @@ class WithdrawPage extends StatelessWidget {
                     ),
                    child: Column(
                     children: [
-                    WithdrawPaymentWidget(
-                    items: cubit.itemsPayment,
-                    selectedItem: cubit.selectedPaymentItem,
-                    press: cubit.selectedPayment, 
-                    title: tr('universal.payment'), 
-                    hint: tr('universal.chooseyourwallet')),
-                    Gap(ScreenSize.h12),
-            
-                    WalletWidget(
-                    items: cubit.itemsWallet, 
-                    selectedItem: cubit.selectedWalletItem, 
-                    press: cubit.selectedWallet, 
-                    title: tr('universal.yourwallet'), 
-                    hint: tr('universal.chooseyourwallet')),
-                    Gap(ScreenSize.h12),
-                    Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                    Text(tr('withdraw.adress'),style: AppTheme.data.textTheme.bodyMedium),
-                    Gap(ScreenSize.h4),
-                    SizedBox(
-                    child: TextField(
-                    controller: cubit.addressSumController,
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (value)=>cubit.calculate(),
-                    textAlign: TextAlign.start,
-                    decoration:  InputDecoration(
-                    hintText: tr('withdraw.enteradress'),
-                    contentPadding:  EdgeInsets.only(left: ScreenSize.w10,top: 23.h),
-                    enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                             color: cubit.emailBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: cubit.emailBorder?2:1
-                          )
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: cubit.emailBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: cubit.emailBorder?2:1
-                          )
-                          ),
-              ),
-             ),
-             ),
-             Gap(ScreenSize.h4),
-             Visibility(
-             visible: cubit.emailBorder,
-             child: Text(tr('withdraw.error2'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red))),
-            ],
-            ),
-            Gap(ScreenSize.h12),
-            Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-            Text(tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
-            Gap(ScreenSize.h4),
-            SizedBox(
-            child: TextField(
-            controller: cubit.amountController,
-            keyboardType: TextInputType.number,
-            onChanged: (value)=>cubit.calculate(),
-            textAlign: TextAlign.start,
-            decoration:  InputDecoration(
-            enabled: cubit.totalEnebled,
-            hintText: tr('universal.enteramount'),
-            contentPadding:  EdgeInsets.only(left: ScreenSize.w10,top: 23.h),
-            suffixIcon: IconButton(onPressed: cubit.pressMagnet, icon: SvgPicture.asset(AppIcons.magnet,color: AppTheme.colors.red,height: ScreenSize.h16)),
-            enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                           color: (cubit.amountBorder || cubit.maxMoney)? AppTheme.colors.red:AppTheme.colors.primary,
-                          width: (cubit.amountBorder || cubit.maxMoney)?2:1
-                          )
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: (cubit.amountBorder || cubit.maxMoney)? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: (cubit.amountBorder || cubit.maxMoney)?2:1
-                          )
-                          ),             
-                          focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: (cubit.amountBorder || cubit.maxMoney)? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: (cubit.amountBorder || cubit.maxMoney)?2:1
-                          )
-                          ),
-           ),
-         ),
-        ),
-        Gap(ScreenSize.h4),
-        Visibility(
-          visible:(cubit.amountBorder || cubit.maxMoney),
-          child: cubit.maxMoney?Text(tr('withdraw.error1'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red)) 
-          :Text(tr('withdraw.error'),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red))),
-      ],
-    ),
+
+                    PaymentWidgetWithdraw(payment:cubit.selectedPaymentItem, press: () { 
+                      showModalBottomSheet(context: context, 
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (context) => WithdrawBottomsheet(items: cubit.itemsPayment, onTap:(WithdrawPayment payment){
+                        Navigator.pop(context);
+                        cubit.selectedPayment(payment);
+                      }));
+                     },),
+
+                   WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
+                    showModalBottomSheet(context: context, 
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (context) => WalletBottomSheet(items:cubit.itemsWallet, onTap:(WalletObject wallet){
+                      Navigator.pop(context);
+                      cubit.selectedWallet(wallet);
+                    }));
+                    }),
+                    
+                   AddressWidgetWithdraw(cubit: cubit),
+
+                   AmountWidgetWithdraw(cubit: cubit),
+
                     Gap(ScreenSize.h6),
                     Row(
                         children: [
@@ -195,43 +127,13 @@ class WithdrawPage extends StatelessWidget {
                         ],
                       ), 
                     Gap(ScreenSize.h4),
-                    Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(tr('universal.totalsum'),style: AppTheme.data.textTheme.bodyMedium),
-        Gap(ScreenSize.h4),
-        Container(
-          height: 40.h,
-          //width: double.maxFinite,
-          padding: EdgeInsets.symmetric(horizontal:ScreenSize.w6),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: AppTheme.colors.white,
-            border: Border.all(
-              color: AppTheme.colors.primary,
-            ),
-            borderRadius: BorderRadius.circular(10.r)
-          ),
-         child: TextField(
-           controller: cubit.totalSumController,
-           keyboardType: TextInputType.number,
-           decoration:  InputDecoration(
-             enabled: false,
-            hintText: tr('transfer.amount'),
-            contentPadding: const EdgeInsets.all(0),
-            enabledBorder: InputBorder.none,
-            focusedBorder: InputBorder.none,
-           ),
-         ), 
-        ),
-      ],
-    ),
+                    TotalSummWidgetWithdraw(cubit: cubit),
                    
-                    Gap(ScreenSize.h12),
+                   
                     DepositWriteWidget(title: tr('universal.comment'), 
                     controller: cubit.commentController, 
                     hint: tr('universal.entercomment'), 
-                    icon: AppIcons.message, errorBoder: false, hint2: '',),
+                    icon: AppIcons.message, errorBoder: false, hint2: '', enebled: true,),
                     ]
                    ),
                  ),

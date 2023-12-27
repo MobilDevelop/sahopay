@@ -79,26 +79,10 @@ class TransferPage extends StatelessWidget {
                     ),
                    child: Column(
                     children: [
-
-                    // TransferPaymentWidget(
-                    // items: cubit.itemsPayment, 
-                    // selectedItem: cubit.selectedPaymentItem, 
-                    // press:cubit.selectedPayment, 
-                    // title: tr('universal.payment'), 
-                    // hint: tr('universal.chooseyourwallet')),
                     
                     PaymentWidgetTransfer(payment: cubit.selectedPaymentItem),
             
-                    // WalletWidget(
-                    // items: cubit.itemsWallet, 
-                    // selectedItem: cubit.selectedWalletItem, 
-                    // press: cubit.selectedWallet, 
-                    // title: tr('universal.yourwallet'), 
-                    // hint: tr('universal.chooseyourwallet'),
-                    // ),
-
                     Gap(ScreenSize.h12),
-
 
                     SelectWalletWidget(selectedWalletItem: cubit.selectedWalletItem, press: () { 
                       showModalBottomSheet(context: context, 
@@ -146,7 +130,7 @@ class TransferPage extends StatelessWidget {
                     DepositWriteWidget(title: tr('universal.comment'), 
                     controller: cubit.commentController, 
                     hint: tr('universal.entercomment'), 
-                    icon: AppIcons.message, errorBoder: false, hint2: '',),
+                    icon: AppIcons.message, errorBoder: false, hint2: '', enebled: true,),
                     ],
                    ),
                  ),

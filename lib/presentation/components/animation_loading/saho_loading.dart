@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gif/gif.dart';
 import 'package:sahopay/presentation/assets/res/app_icons.dart';
+import 'package:sahopay/presentation/assets/res/screen_size.dart';
+import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 
 
 class SahoLoading extends StatelessWidget {
@@ -8,9 +9,12 @@ class SahoLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Gif(image: const AssetImage(AppIcons.loading),
-    autostart: Autostart.loop,
-    //color: AppTheme.colors.green,
-    fit: BoxFit.fitWidth);
+    return Container(
+     height: double.maxFinite,
+     width: double.maxFinite,
+     color: AppTheme.colors.grey.withOpacity(.4),
+     alignment: Alignment.center,
+     padding: EdgeInsets.all(ScreenSize.h32),
+     child: Image.asset(AppIcons.loading,fit: BoxFit.contain));
   }
 }

@@ -8,3 +8,5 @@ class PinMessage extends PinState{
 }
 
 class PinNextHome extends PinState{}
+
+class PinClose extends PinState{}

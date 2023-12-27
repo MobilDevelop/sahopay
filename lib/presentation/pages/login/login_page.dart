@@ -19,8 +19,8 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(create: (context) => LoginCubit(),
     child:  BlocListener<LoginCubit,LoginState>(listener: (context, state) {
-      if(state is LoginNextHome){
-        context.go(Routes.home.path);
+      if(state is LoginNextPin){
+        context.go(Routes.pin.path,extra: 3);
       }else if(state is LoginError){
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

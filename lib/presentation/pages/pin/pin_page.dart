@@ -14,10 +14,12 @@ class PinPage extends StatelessWidget {
   final int type;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create:(context) => PinCubit(),
+    return BlocProvider(create:(context) => PinCubit(type),
     child: BlocListener<PinCubit,PinState>(listener: (_, state) {
       if(state is PinNextHome){
         context.go(Routes.home.path);
+      }else if(state is PinClose){
+        Navigator.pop(context);
       }
     },
     child: Builder(builder: (context) {
@@ -26,15 +28,21 @@ class PinPage extends StatelessWidget {
         appBar: type==1? AppBar(
           backgroundColor: AppTheme.colors.background,
           elevation: 0,
-          title: Text("Enter pin code",style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
-        ): AppBar(
-          backgroundColor: AppTheme.colors.primary,
+          title: Text(cubit.title,style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
+        ): type==2? AppBar(
+          backgroundColor: AppTheme.colors.white,
           leading: IconButton(onPressed: (){
             Navigator.pop(context); 
-          }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.white)),
+          }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.primary)),
           elevation: 0,
-          title: Text("Pin",style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          title: Text(cubit.title,style: AppTheme.data.textTheme.displaySmall!.copyWith(color: AppTheme.colors.primary)),
+        ):AppBar(
+           backgroundColor: AppTheme.colors.white,
+          elevation: 0,
+          title: Text(cubit.title,style: AppTheme.data.textTheme.displaySmall!.copyWith(color: AppTheme.colors.primary)),
         ),
+
+
         body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -4,7 +4,6 @@ import 'package:sahopay/domain/my_dio/my_dio.dart';
 import 'package:sahopay/infrastructure/models/transfer/calc_response.dart';
 import 'package:sahopay/infrastructure/models/transfer/payment.dart';
 import 'package:sahopay/infrastructure/models/transfer/transfer_response.dart';
-import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 
 

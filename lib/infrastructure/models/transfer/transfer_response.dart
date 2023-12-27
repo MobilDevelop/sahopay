@@ -24,7 +24,7 @@ class TransferResponse {
   });
 
 
- factory TransferResponse.fromJson(Map<String, dynamic> json) => TransferResponse(
+ factory TransferResponse.fromJson(Map<String, dynamic> json) => json["code"]==200? TransferResponse(
         transId: json['objectData']['transId']?? -1,
         transDate: json['objectData']['transDate'] ?? "",
         pc: json['objectData']['pc'] ?? "",
@@ -35,5 +35,14 @@ class TransferResponse {
         recipientCurrency: json['objectData']['recipientCurrency']??"", 
         code: json['code'],
         message: json['message']
-      );
+      ):TransferResponse(code: json['code'], 
+      message: json['message'], 
+      transId: -1, 
+      transDate: "", 
+      pc: "", 
+      amount: -1, 
+      sender: "", 
+      recipient: "", 
+      senderCurrency: "", 
+      recipientCurrency: "");
 }

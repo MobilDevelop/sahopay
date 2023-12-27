@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/domain/provider/transfer.dart';
@@ -28,6 +29,7 @@ class TransferCubit extends Cubit<TransferState>{
   bool loading = true;
   bool numberBorder = false;
   bool amountBorder = false;
+  bool enebled = false;
 
   List<TransferPayment> itemsPayment = [];
   TransferPayment? selectedPaymentItem;
@@ -79,9 +81,6 @@ class TransferCubit extends Cubit<TransferState>{
         if(!numberBorder && !amountBorder){
          amountBorder=false;
          emit(TransferInitial());
-         bool errAmount1 = double.parse(amount)<=selectedPaymentItem!.params[1].maxSum;
-         bool errAmount2 = double.parse(amount)>=selectedPaymentItem!.params.last.maxSum;
-          if(errAmount2 && errAmount1){
             
           loading=true;
           emit(TransferInitial());
@@ -94,11 +93,9 @@ class TransferCubit extends Cubit<TransferState>{
         withCommission: checked).toJson());
          if(info.code==200){
           emit(TransferDialog(info));
+         }else{
+          EasyLoading.showInfo(info.message);
          }
-          }else{
-         amountBorder=true;
-         emit(TransferInitial());
-        }
         }
       }
       loading=false;
@@ -123,9 +120,24 @@ class TransferCubit extends Cubit<TransferState>{
   }
 
    void onSubmitted(String value){
-    if(selectedWalletItem!=null){
+     
+     String amount = amountController.text.trim();
+
+      if(amount.isNotEmpty){
+         bool errAmount1 = double.parse(amount)<=selectedPaymentItem!.params[1].maxSum;
+         bool errAmount2 = double.parse(amount)>=selectedPaymentItem!.params.last.maxSum;
+     
+     if(!errAmount1 || !errAmount2){
+      amountBorder=true;
+     }else{
+      amountBorder=false;
       setCalculator();
-    }
+     }
+      }else{
+        amountBorder=false;
+        totalSumController.clear();
+      }
+       emit(TransferInitial());
   }
 
   void onChanged(String value){
@@ -160,6 +172,7 @@ class TransferCubit extends Cubit<TransferState>{
   void selectedWallet(WalletObject wallet) {
     selectedWalletItem = wallet;
     accountNumber = selectedWalletItem!.account.substring(0,1);
+    enebled=true;
     emit(TransferInitial());
   }
 

@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/drawer/drawer_state.dart';
-import 'package:sahopay/domain/provider/drawer.dart';
 import 'package:sahopay/infrastructure/local_source/local_source.dart';
-import 'package:sahopay/infrastructure/models/profile/profile.dart';
 
 class DrawerCubit extends Cubit<DrawerState>{
   DrawerCubit():super(DrawerInitial());

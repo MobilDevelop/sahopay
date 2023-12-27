@@ -26,12 +26,21 @@ class EnterAmountWidget extends StatelessWidget {
           alignment: Alignment.center,
           child: TextField(
           controller: cubit.amountController,
+          keyboardType: TextInputType.number,
           onChanged: (value)=>cubit.onSubmitted(value),
           decoration:  InputDecoration(
+          enabled: cubit.enebled,
           hintText: tr('universal.enteramount'),
           suffixIcon: IconButton(onPressed: cubit.pressMagnet, icon: SvgPicture.asset(AppIcons.magnet,color: AppTheme.colors.red,height: ScreenSize.h16)),
           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w12),
           enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.r),
+          borderSide: BorderSide(
+            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
+            width: cubit.amountBorder?2:1
+          )
+          ),
+          disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(
             color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,

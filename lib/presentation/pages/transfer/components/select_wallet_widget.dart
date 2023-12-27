@@ -35,14 +35,12 @@ class SelectWalletWidget extends StatelessWidget {
               ),
              borderRadius: BorderRadius.circular(10.r) 
             ),
-            child: selectedWalletItem==null? Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(tr('universal.chooseyourwallet'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey),),
-                  Icon(Icons.arrow_drop_down,size: ScreenSize.h24),
-                ],
-              ),
+            child: selectedWalletItem==null? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(tr('universal.chooseyourwallet'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey),),
+                Icon(Icons.arrow_drop_down,size: ScreenSize.h20,color: AppTheme.colors.grey),
+              ],
             ): Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

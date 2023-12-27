@@ -6,13 +6,16 @@ import 'package:sahopay/application/deposit/deposit_cubit.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
+import 'package:sahopay/infrastructure/models/deposit/deposit.dart';
+import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
-import 'package:sahopay/presentation/components/wallet_widget.dart';
-import 'package:sahopay/presentation/pages/deposit/components/deposit_item_payment.dart';
-import 'components/deposit_write_widget.dart';
-
+import 'package:sahopay/presentation/pages/deposit/components/amount_widget.dart';
+import 'package:sahopay/presentation/pages/deposit/components/payment_widget.dart';
+import 'package:sahopay/presentation/pages/deposit/components/paymet_bottom_sheet.dart';
+import 'package:sahopay/presentation/pages/withdraw/components/wallet_widget.dart';
+import '../withdraw/components/wallet_bottom_sheet.dart';
 class DepositPage extends StatelessWidget {
   const DepositPage({super.key, this.model});
   final DashboardModel? model;
@@ -73,25 +76,37 @@ class DepositPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                          children: [ 
                           Column(children: [
-                          WalletWidget(items: cubit.walletItems,
-                          selectedItem: cubit.selectedWalletItem,
-                          hint: tr('universal.chooseyourwallet'), 
-                          title: tr('universal.yourwallet'),
-                          press:cubit.onChangedWallet),
+
+                    WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
+                    showModalBottomSheet(context: context, 
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                    builder: (context) => WalletBottomSheet(items:cubit.walletItems, onTap:(WalletObject wallet){
+                      Navigator.pop(context);
+                      cubit.onChangedWallet(wallet);
+                    }));
+                    }),
                           Gap(ScreenSize.h14),
                           
-                          DepositItemPayment(items: cubit.paymentItems,
-                          selectedItem: cubit.selectedPaymentItem,
-                          hint: tr('universal.chooseyourwallet'), 
-                          title: tr('universal.payment'),
-                          press:cubit.onChangedPayment),
+                          
+                          PaymentWidgetDeposit(payment: cubit.selectedPaymentItem, press: () {
+                             showModalBottomSheet(context: context, 
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (context) => DepositBottomsheet(items: cubit.paymentItems, onTap:(DepositPayment payment){
+                        Navigator.pop(context);
+                        cubit.onChangedPayment(payment);
+                      }));
+                          },),
+                          
                           Gap(ScreenSize.h14),
-                           DepositWriteWidget(title: tr('universal.amount'), 
+
+                           DepositAmountWidget(title: tr('universal.amount'), 
                            controller: cubit.amountController, 
                            hint: tr('universal.enteramount'), 
-                           icon: AppIcons.dollar1, 
                            errorBoder: cubit.errorBorder,
-                           hint2: "errorrrr",
+                           hint2: tr('deposit.error'), 
+                           enebled: cubit.enebled, onChanged:cubit.onChanged, 
                            ),
                           ]),
                          ],
