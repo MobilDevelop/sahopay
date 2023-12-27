@@ -8,10 +8,10 @@ class SplashCubit extends Cubit<SplashState>{
     bool loading = false;
   void init()async{
       Future.delayed(const Duration(seconds: 4),()async{
-        String token = await LocalSource.getInfo(key: 'token');
+        String token = await LocalSource.getInfo(key: 'checkTokenAuth');
         if(token.isEmpty){
          emit(SplashNextLogin());
-        }else{
+        }else {
           emit(SplashNextHome());
         }
         

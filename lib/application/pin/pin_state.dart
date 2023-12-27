@@ -6,3 +6,5 @@ class PinMessage extends PinState{
   String message;
   PinMessage(this.message);
 }
+
+class PinNextHome extends PinState{}

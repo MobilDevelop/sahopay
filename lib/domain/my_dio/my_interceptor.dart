@@ -36,7 +36,7 @@ class MyInterceptor extends Interceptor{
     options.headers['Content-Type'] = 'application/json';
     options.headers['Accept'] = 'application/json'; 
     options.headers['Origin'] = 'https://sahopay.com'; 
-    options.headers['Authorization'] = await LocalSource.getInfo(key: 'token');
+    options.headers['Authorization'] = await LocalSource.getInfo(key: 'checkTokenAuth');
     options.baseUrl = dotenv.env['mainUrl']!;
     super.onRequest(options, handler);
   }

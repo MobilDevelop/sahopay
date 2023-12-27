@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
                 padding: EdgeInsets.only(left: ScreenSize.w6,right:ScreenSize.w6),
                 decoration: BoxDecoration(
-                  color: AppTheme.colors.white.withOpacity(.9),
+                  color: AppTheme.colors.white,
                   border: Border.all(
                     color: AppTheme.colors.primary
                   ),

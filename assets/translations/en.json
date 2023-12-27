@@ -129,7 +129,7 @@
         "exit":"EXIT"
     },
     "universal":{
-     "payment":"Select payment system",
+     "payment":" Payment system",
      "yourwallet":"Your Wallet",
      "amount":"  Amount",
      "enteramount":" Enter Amount",

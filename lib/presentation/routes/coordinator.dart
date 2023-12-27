@@ -55,7 +55,7 @@ final GoRouter router = GoRouter(
         path: Routes.pin.path,
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child:  const PinPage(),
+          child:   PinPage(type: state.extra as int),
         ),
       ),
       GoRoute(

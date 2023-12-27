@@ -46,9 +46,10 @@ class TransferCubit extends Cubit<TransferState>{
   void init(DashboardModel? model)async{
    itemsPayment = await TransferService().getPayment();
    itemsWallet = await TransferService().getWallet();
-   
+   selectedPaymentItem = itemsPayment[0];
    if(model!=null){
     selectedWalletItem = WalletObject.fromJson(model.toJson());
+    accountNumber = selectedWalletItem!.account.substring(0,1);
    }
 
    loading=false;
@@ -91,11 +92,8 @@ class TransferCubit extends Cubit<TransferState>{
         senderCurrencyName: currensyName, 
         comment: comment, 
         withCommission: checked).toJson());
-        loading=false;
          if(info.code==200){
           emit(TransferDialog(info));
-         }else{
-          emit(TransferInitial());
          }
           }else{
          amountBorder=true;
@@ -103,7 +101,11 @@ class TransferCubit extends Cubit<TransferState>{
         }
         }
       }
+      loading=false;
+      emit(TransferInitial());
     }
+
+
     void setCalculator()async{
     String amount = amountController.text.trim();
     if(amount.length>=2){

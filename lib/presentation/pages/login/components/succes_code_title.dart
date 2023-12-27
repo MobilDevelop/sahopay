@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
 class SuccesCodeTitle extends StatelessWidget {
@@ -18,8 +16,8 @@ class SuccesCodeTitle extends StatelessWidget {
     Gap(ScreenSize.h4),
     Text(tr('login_page.wehave'),style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
     Gap(ScreenSize.h4),
-    Text(tr('login_page.pleaseenter') ,style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
+    Text(tr('login_page.pleaseender') ,style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
       ],
     );
-  }
+  } 
 }

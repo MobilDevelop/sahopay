@@ -42,6 +42,7 @@ class DrawerPage extends StatelessWidget {
       return BlocBuilder<DrawerCubit,DrawerState>(builder: (_, state) => Drawer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
            Column(
             children: [
@@ -81,7 +82,7 @@ class DrawerPage extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
               splashColor: AppTheme.colors.primary.withOpacity(.3),
               leading: SvgPicture.asset(AppIcons.send,color: AppTheme.colors.primary,height: ScreenSize.h24),
-              title: Text(tr('home.transfer'),style: AppTheme.data.textTheme.bodyMedium),
+              title: Text(tr('home.transfer'),style: AppTheme.data.textTheme.headlineMedium),
             ),
              Divider(
               height: 2.h,
@@ -92,7 +93,7 @@ class DrawerPage extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
               splashColor: AppTheme.colors.primary.withOpacity(.3),
               leading: SvgPicture.asset(AppIcons.withdraw,color: AppTheme.colors.primary,height: ScreenSize.h24),
-              title: Text(tr('home.withdraw'),style: AppTheme.data.textTheme.bodyMedium),
+              title: Text(tr('home.withdraw'),style: AppTheme.data.textTheme.headlineMedium),
             ),
              Divider(
               height: 2.h,
@@ -103,7 +104,7 @@ class DrawerPage extends StatelessWidget {
               contentPadding: EdgeInsets.symmetric(horizontal: ScreenSize.w8,vertical: 0),
               splashColor: AppTheme.colors.primary.withOpacity(.3),
               leading: SvgPicture.asset(AppIcons.setting,color: AppTheme.colors.primary,height: ScreenSize.h24),
-              title: Text(tr('home.setting'),style: AppTheme.data.textTheme.bodyMedium),
+              title: Text(tr('home.setting'),style: AppTheme.data.textTheme.headlineMedium),
             ),
             
              Divider(
@@ -131,8 +132,9 @@ class DrawerPage extends StatelessWidget {
                 ).show();
                     },
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                         Gap(ScreenSize.w24),
                         SvgPicture.asset(AppIcons.logout,color: AppTheme.colors.red,height: ScreenSize.h24),
                         Gap(ScreenSize.w12),
                         Text(tr('drawer.exit'),style: AppTheme.data.textTheme.displayLarge!.copyWith(color: AppTheme.colors.red),),

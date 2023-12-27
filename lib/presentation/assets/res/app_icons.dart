@@ -26,26 +26,10 @@ class AppIcons {
   static const String message= 'assets/icons/message.svg';
   static const String profile= 'assets/icons/profile.svg';
   static const String key= 'assets/icons/key.svg';
-  static const String cardSvg= 'assets/icons/card.svg';
+  static const String cardSvg= 'assets/icons/card1.svg';
   static const String right = 'assets/icons/right.svg';
   static const String magnet = 'assets/icons/magnet.svg';
   static const String fingerprint = 'assets/icons/fingerprint.svg';
-
-
-  static const String card = 'assets/images/card_background.jpg';
-  static const String card1= 'assets/images/card1.jpg';
-  static const String card2= 'assets/images/card2.jpeg';
-  static const String card3= 'assets/images/card3.jpg';
-  static const String card5= 'assets/images/card5.jpeg';
-  static const String card6= 'assets/images/card6.jpg';
-  static const String card7= 'assets/images/card7.jpg';
-  static const String card8= 'assets/images/card8.jpg';
-  static const String card9= 'assets/images/card9.jpeg';
-  static const String card10= 'assets/images/card10.jpeg';
-  static const String card11= 'assets/images/card11.jpeg';
-  static const String card12= 'assets/images/card12.jpeg';
-  static const String card13= 'assets/images/card13.jpeg';
-  static const String card14= 'assets/images/card14.jpg';
 
 
 

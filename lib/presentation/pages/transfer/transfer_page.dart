@@ -1,3 +1,5 @@
+
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,13 +7,17 @@ import 'package:sahopay/application/transfer/transfer_cubit.dart';
 import 'package:sahopay/application/transfer/transfer_state.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
+import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
-import 'package:sahopay/presentation/components/wallet_widget.dart';
 import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
-import 'package:sahopay/presentation/pages/transfer/components/payment_item_widget.dart';
+import 'package:sahopay/presentation/pages/transfer/components/select_wallet_widget.dart';
 
+import 'components/account_number_widget.dart';
 import 'components/dialog_widget.dart';
+import 'components/enter_amount_widget.dart';
+import 'components/payment_widget.dart';
+import 'components/transfer_bottomsheet.dart';
 
 class TransferPage extends StatelessWidget {
   const TransferPage({super.key, this.model});
@@ -44,6 +50,7 @@ class TransferPage extends StatelessWidget {
           }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.white)),
           elevation: 0,
           title: Text(tr('transfer.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          centerTitle: true,
         ),
         body: Stack(
           children: [
@@ -68,129 +75,45 @@ class TransferPage extends StatelessWidget {
                    offset: Offset(5.w, 10.h)
                      )
                    ],
-                      borderRadius: BorderRadius.circular(10.r)
+                      borderRadius: BorderRadius.circular(7.r)
                     ),
                    child: Column(
                     children: [
 
-                    TransferPaymentWidget(
-                    items: cubit.itemsPayment, 
-                    selectedItem: cubit.selectedPaymentItem, 
-                    press:cubit.selectedPayment, 
-                    title: tr('universal.payment'), 
-                    hint: tr('universal.chooseyourwallet')),
-                    Gap(ScreenSize.h12),
+                    // TransferPaymentWidget(
+                    // items: cubit.itemsPayment, 
+                    // selectedItem: cubit.selectedPaymentItem, 
+                    // press:cubit.selectedPayment, 
+                    // title: tr('universal.payment'), 
+                    // hint: tr('universal.chooseyourwallet')),
+                    
+                    PaymentWidgetTransfer(payment: cubit.selectedPaymentItem),
             
-                    WalletWidget(
-                    items: cubit.itemsWallet, 
-                    selectedItem: cubit.selectedWalletItem, 
-                    press: cubit.selectedWallet, 
-                    title: tr('universal.yourwallet'), 
-                    hint: tr('universal.chooseyourwallet'),
-                    ),
+                    // WalletWidget(
+                    // items: cubit.itemsWallet, 
+                    // selectedItem: cubit.selectedWalletItem, 
+                    // press: cubit.selectedWallet, 
+                    // title: tr('universal.yourwallet'), 
+                    // hint: tr('universal.chooseyourwallet'),
+                    // ),
+
+                    Gap(ScreenSize.h12),
+
+
+                    SelectWalletWidget(selectedWalletItem: cubit.selectedWalletItem, press: () { 
+                      showModalBottomSheet(context: context, 
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (context) => BottomsheetWidgetTransfer(items: cubit.itemsWallet, onTap:(WalletObject wallet)=>cubit.selectedWallet(wallet)));
+                     },),
 
                     Visibility(
                       visible: cubit.selectedWalletItem!=null,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Gap(ScreenSize.h12),
-                          Text( tr('transfer.number'),style: AppTheme.data.textTheme.bodyMedium),
-                          Gap(ScreenSize.h4),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                height: 40.h,
-                                width: 40.h,
-                                margin: EdgeInsets.only(right: ScreenSize.h6),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: cubit.numberBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                                    width: cubit.numberBorder?2:1
-                                  ),
-                                  borderRadius: BorderRadius.circular(10.r)
-                                ),
-                                alignment: Alignment.center,
-                                child: cubit.selectedWalletItem==null?const Center():Text(cubit.accountNumber,style: AppTheme.data.textTheme.headlineMedium),
-                              ),
-                              Expanded(
-                                child: Container(
-                                height: 40.h,
-                                padding: EdgeInsets.symmetric(horizontal:ScreenSize.w6),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                color: AppTheme.colors.white,
-                                                  border: Border.all(
-                                                 color: cubit.numberBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                                                 width: cubit.numberBorder?2:1
-                                                  ),
-                                                  borderRadius: BorderRadius.circular(10.r)
-                                                  ),
-                                                  child: TextField(
-                                                  controller: cubit.numberController,
-                                                 // onChanged: cubit.onChanged,
-                                                  inputFormatters: [
-                                                   cubit.maskFormatter
-                                                  ],
-                                                  decoration:  const InputDecoration(
-                                                  contentPadding: EdgeInsets.all(0),
-                                                  enabledBorder: InputBorder.none,
-                                                  focusedBorder: InputBorder.none,
-                                                 ),
-                                                  ), 
-                                  ),
-                              ),
-                            ],
-                          ),
-                          Gap(ScreenSize.h4),
-                           Visibility(
-                            visible: cubit.numberBorder,
-                            child: Text( tr('transfer.error'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.red))),
-                        ],
-                      ),
+                      child: AccountNumberWidget(cubit: cubit),
                     ),
 
-                    Gap(ScreenSize.h10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(tr('universal.amount'),style: AppTheme.data.textTheme.bodyMedium),
-                        Container(
-                          height: 45.h,
-                          //width: double.maxFinite,
-                          alignment: Alignment.center,
-                          child: TextField(
-                          controller: cubit.amountController,
-                          onChanged: (value)=>cubit.onSubmitted(value),
-                          decoration:  InputDecoration(
-                          hintText: tr('universal.enteramount'),
-                          suffixIcon: IconButton(onPressed: cubit.pressMagnet, icon: SvgPicture.asset(AppIcons.magnet,color: AppTheme.colors.red,height: ScreenSize.h16)),
-                          contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w12),
-                          enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: cubit.amountBorder?2:1
-                          )
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                          borderSide: BorderSide(
-                            color: cubit.amountBorder? AppTheme.colors.red:AppTheme.colors.primary,
-                            width: cubit.amountBorder?2:1
-                          )
-                          ),
-                              ),
-                            ), 
-                          ),
-                        Gap(ScreenSize.h4),
-                           Visibility(
-                            visible: (cubit.amountBorder && cubit.amountController.text.trim().isEmpty),
-                            child: Text( tr('transfer.error2'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.red))),  
-                      ],
-                    ),
-                    Gap(ScreenSize.h6),
+                    EnterAmountWidget(cubit: cubit),
+                   
                     Row(
                         children: [
                           Checkbox(value: cubit.checked, onChanged: cubit.showChecked,activeColor: AppTheme.colors.primary),
@@ -272,4 +195,6 @@ class TransferPage extends StatelessWidget {
     );
   }
 }
+
+
 

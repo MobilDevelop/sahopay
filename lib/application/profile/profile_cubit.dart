@@ -19,6 +19,7 @@ class ProfileCubit extends Cubit<ProfileState>{
   final referalController = TextEditingController();
 
   bool check = false;
+  bool loading =false;
 
   ProfileModel? profileInfo;
 
@@ -32,12 +33,18 @@ class ProfileCubit extends Cubit<ProfileState>{
   }
 
   void setProfile() async {
-     
+     loading=true;
+     emit(ProfileInitial());
      String firstName = firtnameController.text.trim();
      String lastName = lastnameController.text.trim();
 
     ServerMessage resopons = await ProfileService().setProfile(UpdateProfile(firstName: firstName, lastName: lastName).toJson());
     EasyLoading.showSuccess(resopons.message);
+    if(resopons.code==200){
+      emit(ProfileClose());
+    }
+    loading=false;
+    emit(ProfileInitial());
     
   }
 

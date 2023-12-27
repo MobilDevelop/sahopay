@@ -15,10 +15,10 @@ class ProfileModel {
   });
 
  factory ProfileModel.fromJson(Map<String,dynamic> json)=>ProfileModel(
-  email: json['email'], 
-  firstName: json['firstName'], 
-  lastName: json['lastName'], 
-  clientId: json['clientId'],
+  email: json['email']??"", 
+  firstName: json['firstName']??"", 
+  lastName: json['lastName']??"", 
+  clientId: json['clientId']??"",
   );
 
 }
