@@ -180,4 +180,16 @@ class TransferCubit extends Cubit<TransferState>{
     setCalculator();
     emit(TransferInitial());
   }
+
+  Future listRefresh()async{
+    selectedWalletItem=null;
+    amountController.clear();
+    numberController.clear();
+    checked=false;
+    numberBorder=false;
+    amountBorder=false;
+    loading=true;
+    emit(TransferInitial());
+    init(null);
+  }
 }

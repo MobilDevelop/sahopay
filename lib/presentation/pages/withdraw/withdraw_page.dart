@@ -69,111 +69,114 @@ class WithdrawPage extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h16),
-                   margin: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h10),
-                    decoration: BoxDecoration(
-                      color: AppTheme.colors.white ,
-                      border: Border.all(
-                        color: AppTheme.colors.primary,
-                        width: .5
+            RefreshIndicator(
+              onRefresh: cubit.listRefresh,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                   Container(
+                    padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h16),
+                     margin: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h10),
+                      decoration: BoxDecoration(
+                        color: AppTheme.colors.white ,
+                        border: Border.all(
+                          color: AppTheme.colors.primary,
+                          width: .5
+                        ),
+                        boxShadow: [
+                     BoxShadow(
+                     color: AppTheme.colors.grey.withOpacity(.6),
+                     blurRadius: 15,
+                     spreadRadius: 10,
+                     offset: Offset(5.w, 10.h)
+                       )
+                     ],
+                        borderRadius: BorderRadius.circular(10.r)
                       ),
-                      boxShadow: [
-                   BoxShadow(
-                   color: AppTheme.colors.grey.withOpacity(.6),
-                   blurRadius: 15,
-                   spreadRadius: 10,
-                   offset: Offset(5.w, 10.h)
-                     )
-                   ],
-                      borderRadius: BorderRadius.circular(10.r)
-                    ),
-                   child: Column(
-                    children: [
-
-                    PaymentWidgetWithdraw(payment:cubit.selectedPaymentItem, press: () { 
+                     child: Column(
+                      children: [
+            
+                      PaymentWidgetWithdraw(payment:cubit.selectedPaymentItem, press: () { 
+                        showModalBottomSheet(context: context, 
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true,
+                        builder: (context) => WithdrawBottomsheet(items: cubit.itemsPayment, onTap:(WithdrawPayment payment){
+                          Navigator.pop(context);
+                          cubit.selectedPayment(payment);
+                        }));
+                       },),
+            
+                     WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
                       showModalBottomSheet(context: context, 
                       backgroundColor: Colors.transparent,
                       isScrollControlled: true,
-                      builder: (context) => WithdrawBottomsheet(items: cubit.itemsPayment, onTap:(WithdrawPayment payment){
+                      builder: (context) => WalletBottomSheet(items:cubit.itemsWallet, onTap:(WalletObject wallet){
                         Navigator.pop(context);
-                        cubit.selectedPayment(payment);
+                        cubit.selectedWallet(wallet);
                       }));
-                     },),
-
-                   WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
-                    showModalBottomSheet(context: context, 
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                    builder: (context) => WalletBottomSheet(items:cubit.itemsWallet, onTap:(WalletObject wallet){
-                      Navigator.pop(context);
-                      cubit.selectedWallet(wallet);
-                    }));
-                    }),
-                    
-                   AddressWidgetWithdraw(cubit: cubit),
-
-                   AmountWidgetWithdraw(cubit: cubit),
-
-                    Gap(ScreenSize.h6),
-                    Row(
-                        children: [
-                          Checkbox(value: cubit.checked, onChanged: cubit.showChecked,activeColor: AppTheme.colors.primary),
-                          Text(tr('universal.comission'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.black)),
-                        ],
-                      ), 
-                    Gap(ScreenSize.h4),
-                    TotalSummWidgetWithdraw(cubit: cubit),
-                   
-                   
-                    // DepositWriteWidget(title: tr('universal.comment'), 
-                    // controller: cubit.commentController, 
-                    // hint: tr('universal.entercomment'), 
-                    // icon: AppIcons.message, errorBoder: false, hint2: '', enebled: true,),
-                    ]
+                      }),
+                      
+                     AddressWidgetWithdraw(cubit: cubit),
+            
+                     AmountWidgetWithdraw(cubit: cubit),
+            
+                      Gap(ScreenSize.h6),
+                      Row(
+                          children: [
+                            Checkbox(value: cubit.checked, onChanged: cubit.showChecked,activeColor: AppTheme.colors.primary),
+                            Text(tr('universal.comission'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.black)),
+                          ],
+                        ), 
+                      Gap(ScreenSize.h4),
+                      TotalSummWidgetWithdraw(cubit: cubit),
+                     
+                     
+                      // DepositWriteWidget(title: tr('universal.comment'), 
+                      // controller: cubit.commentController, 
+                      // hint: tr('universal.entercomment'), 
+                      // icon: AppIcons.message, errorBoder: false, hint2: '', enebled: true,),
+                      ]
+                     ),
                    ),
-                 ),
-                 Gap(ScreenSize.h32),
-                    cubit.selectedPaymentItem!=null?Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
-                      child: Text("Wthdraw with ${cubit.selectedPaymentItem!.systemName}",
-                      style: AppTheme.data.textTheme.displaySmall,
+                   Gap(ScreenSize.h32),
+                      cubit.selectedPaymentItem!=null?Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
+                        child: Text("Wthdraw with ${cubit.selectedPaymentItem!.systemName}",
+                        style: AppTheme.data.textTheme.displaySmall,
+                        ),
+                      ),  
+                      Gap(ScreenSize.h10),  
+                      for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
+                      Container(
+                      width: double.maxFinite,
+                      padding: EdgeInsets.only(left: ScreenSize.h16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(cubit.selectedPaymentItem!.params[i].name.toString(),style: AppTheme.data.textTheme.titleSmall),
+                          Gap(ScreenSize.h4),
+                          Text("\$ ${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}"),
+                          Gap(ScreenSize.h8),
+                        ],
                       ),
-                    ),  
-                    Gap(ScreenSize.h10),  
-                    for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
-                    Container(
-                    width: double.maxFinite,
-                    padding: EdgeInsets.only(left: ScreenSize.h16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(cubit.selectedPaymentItem!.params[i].name.toString(),style: AppTheme.data.textTheme.titleSmall),
-                        Gap(ScreenSize.h4),
-                        Text("\$ ${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}"),
-                        Gap(ScreenSize.h8),
-                      ],
-                    ),
-                    ),],
-                    ):Text(tr("withdraw.select"),
-                    style: AppTheme.data.textTheme.displaySmall,
-                    textAlign: TextAlign.center,
-                    ),
-                     Gap(ScreenSize.h32),
-                 Padding(
-                   padding: EdgeInsets.only(bottom: ScreenSize.h32,right: ScreenSize.w10,left: ScreenSize.w10),
-                   child: MainButton(text: tr('withdraw.title'), 
-                   onPressed:cubit.sendInfo,
-                   leftIcon: AppIcons.withdraw),
-                 )
-                ],
+                      ),],
+                      ):Text(tr("withdraw.select"),
+                      style: AppTheme.data.textTheme.displaySmall,
+                      textAlign: TextAlign.center,
+                      ),
+                       Gap(ScreenSize.h32),
+                   Padding(
+                     padding: EdgeInsets.only(bottom: ScreenSize.h32,right: ScreenSize.w10,left: ScreenSize.w10),
+                     child: MainButton(text: tr('withdraw.title'), 
+                     onPressed:cubit.sendInfo,
+                     leftIcon: AppIcons.withdraw),
+                   )
+                  ],
+                ),
               ),
             ),
             Visibility(

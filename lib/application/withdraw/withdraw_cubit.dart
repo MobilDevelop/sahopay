@@ -148,5 +148,18 @@ class WithdrawCubit extends Cubit<WithDrawState>{
     calculate();
     emit(WithDrawInitial());
   }
+
+  Future listRefresh()async{
+    selectedPaymentItem=null;
+    selectedWalletItem=null;
+    amountBorder=false;
+    emailBorder=false;
+    checked=false;
+    addressSumController.clear();
+    amountController.clear();
+    loading=true;
+    emit(WithDrawInitial());
+    init(null);
+  }
   
 }

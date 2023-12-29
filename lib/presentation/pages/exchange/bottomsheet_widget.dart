@@ -4,16 +4,18 @@ import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
-class WalletBottomSheet extends StatelessWidget {
-  const WalletBottomSheet({
+class BottomsheetWidget extends StatelessWidget {
+  const BottomsheetWidget({
     super.key, required this.items, required this.onTap,
   });
+
   final List<WalletObject> items;
   final Function onTap;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300.h,
+        height: 350.h,
     padding: EdgeInsets.only(top: ScreenSize.h10),
     decoration: BoxDecoration(
      color: AppTheme.colors.background,
@@ -54,7 +56,7 @@ class WalletBottomSheet extends StatelessWidget {
                                     Container(
                                       height: 35.h,
                                       width: 35.h,
-                                      padding: EdgeInsets.all(ScreenSize.h6),
+                                      padding: EdgeInsets.all(ScreenSize.h4),
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           color: AppTheme.colors.grey

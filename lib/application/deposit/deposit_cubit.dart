@@ -106,4 +106,14 @@ class DepositCubit extends Cubit<DepositState>{
     loading =false;
     emit(DepositInitial());
   }
+
+  Future listRefresh()async{
+    loading=true;
+    selectedPaymentItem=null;
+    selectedWalletItem=null;
+    errorBorder=false;
+    amountController.clear();
+    emit(DepositInitial());
+    init(null);
+  }
 }

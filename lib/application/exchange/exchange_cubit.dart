@@ -59,7 +59,7 @@ class ExchangeCubit extends Cubit<ExchangeState>{
 
   void setCalculator()async{
     String amount = amountController.text.trim();
-    if(amount.length>2){
+    if(amount.length>2 ){
       calculatorValue = await ExchangeService().calculator(ExchangeCall(currencyKey: "${selectedSenderItem!.currencyName}2${selectedRecieverItem!.currencyName}", 
       senderAmount: amount).toJson());
     }
@@ -79,8 +79,10 @@ class ExchangeCubit extends Cubit<ExchangeState>{
     }else{
       senderItemEmpty=false;
       senderBorderColor=false;
-      amountController.text= selectedSenderItem!.balance.toString();
+     if(selectedRecieverItem!=null){
+       amountController.text= selectedSenderItem!.balance.toString();
       setCalculator();
+     }
     }
     emit(ExchangeInitial());
   }
@@ -117,5 +119,37 @@ class ExchangeCubit extends Cubit<ExchangeState>{
       }
     }
      emit(ExchangeInitial());
+  }
+
+  void exchange(){
+    if(selectedSenderItem==null || selectedSenderItem==selectedRecieverItem){
+      senderBorderColor=true;
+    }else{
+      senderBorderColor=false;
+    }
+    if(selectedRecieverItem==null || selectedSenderItem==selectedRecieverItem){
+      recieverBorderColor=true;
+    }else{
+      recieverBorderColor=false;
+    }
+
+    if(!senderBorderColor && !recieverBorderColor){
+      WalletObject newWallet = selectedSenderItem!;
+      selectedSenderItem=selectedRecieverItem;
+      selectedRecieverItem=newWallet;
+
+    }
+    emit(ExchangeInitial());
+  }
+
+  Future listRefresh()async{
+    selectedSenderItem=null;
+    selectedRecieverItem=null;
+    senderBorderColor=false;
+    recieverBorderColor=false;
+    amountController.clear();
+    loading=true;
+    emit(ExchangeInitial());
+    init();
   }
 }

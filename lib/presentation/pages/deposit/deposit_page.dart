@@ -47,98 +47,101 @@ class DepositPage extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h12),
-                    margin: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10,top: ScreenSize.h8),
-                    decoration: BoxDecoration(
-                      color: AppTheme.colors.white ,
-                      border: Border.all(
-                        color: AppTheme.colors.primary,
-                        width: .5
+            RefreshIndicator(
+              onRefresh: cubit.listRefresh,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                     Container(
+                      padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h12),
+                      margin: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10,top: ScreenSize.h8),
+                      decoration: BoxDecoration(
+                        color: AppTheme.colors.white ,
+                        border: Border.all(
+                          color: AppTheme.colors.primary,
+                          width: .5
+                        ),
+                        boxShadow: [
+                     BoxShadow(
+                     color: AppTheme.colors.grey.withOpacity(.6),
+                     blurRadius: 15,
+                     spreadRadius: 10,
+                     offset: Offset(5.w, 10.h)
+                  )
+                  ],
+                 borderRadius: BorderRadius.circular(10.r)
                       ),
-                      boxShadow: [
-                   BoxShadow(
-                   color: AppTheme.colors.grey.withOpacity(.6),
-                   blurRadius: 15,
-                   spreadRadius: 10,
-                   offset: Offset(5.w, 10.h)
-                )
-                ],
-               borderRadius: BorderRadius.circular(10.r)
-                    ),
-                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [ 
-                        Column(children: [
-
-                  WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
-                  showModalBottomSheet(context: context, 
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                  builder: (context) => WalletBottomSheet(items:cubit.walletItems, onTap:(WalletObject wallet){
-                    Navigator.pop(context);
-                    cubit.onChangedWallet(wallet);
-                  }));
-                  }),
-                        Gap(ScreenSize.h14),
-                        
-                        
-                        PaymentWidgetDeposit(payment: cubit.selectedPaymentItem, press: () {
-                           showModalBottomSheet(context: context, 
+                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [ 
+                          Column(children: [
+            
+                    WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
+                    showModalBottomSheet(context: context, 
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
-                    builder: (context) => DepositBottomsheet(items: cubit.paymentItems, onTap:(DepositPayment payment){
+                    builder: (context) => WalletBottomSheet(items:cubit.walletItems, onTap:(WalletObject wallet){
                       Navigator.pop(context);
-                      cubit.onChangedPayment(payment);
+                      cubit.onChangedWallet(wallet);
                     }));
-                        },),
-                        
-                        Gap(ScreenSize.h14),
-
-                         DepositAmountWidget(title: tr('universal.amount'), 
-                         controller: cubit.amountController, 
-                         hint: tr('universal.enteramount'), 
-                         errorBoder: cubit.errorBorder,
-                         hint2: tr('deposit.error'), 
-                         enebled: cubit.enebled, onChanged:cubit.onChanged, 
-                         ),
-                        ]),
-                       ],
+                    }),
+                          Gap(ScreenSize.h14),
+                          
+                          
+                          PaymentWidgetDeposit(payment: cubit.selectedPaymentItem, press: () {
+                             showModalBottomSheet(context: context, 
+                      backgroundColor: Colors.transparent,
+                      isScrollControlled: true,
+                      builder: (context) => DepositBottomsheet(items: cubit.paymentItems, onTap:(DepositPayment payment){
+                        Navigator.pop(context);
+                        cubit.onChangedPayment(payment);
+                      }));
+                          },),
+                          
+                          Gap(ScreenSize.h14),
+            
+                           DepositAmountWidget(title: tr('universal.amount'), 
+                           controller: cubit.amountController, 
+                           hint: tr('universal.enteramount'), 
+                           errorBoder: cubit.errorBorder,
+                           hint2: tr('deposit.error'), 
+                           enebled: cubit.enebled, onChanged:cubit.onChanged, 
+                           ),
+                          ]),
+                         ],
+                       ),
                      ),
-                   ),
-                   cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
-                   cubit.selectedPaymentItem==null?Text( tr('deposit.select'),
-                   style: AppTheme.data.textTheme.displaySmall): Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("   Withdraw with ${cubit.selectedPaymentItem!.systemName}",style: AppTheme.data.textTheme.headlineMedium),
-                      Gap(ScreenSize.h10),
-                      for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
-                      Container(
-                        width: double.maxFinite,
-                        padding: EdgeInsets.only(left: ScreenSize.h16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(cubit.selectedPaymentItem!.params[i].name,style: AppTheme.data.textTheme.headlineMedium),
-                            Gap(ScreenSize.h6),
-                            Text("${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}  USDT"),
-                          ],
+                     cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
+                     cubit.selectedPaymentItem==null?Text( tr('deposit.select'),
+                     style: AppTheme.data.textTheme.displaySmall): Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("   Withdraw with ${cubit.selectedPaymentItem!.systemName}",style: AppTheme.data.textTheme.headlineMedium),
+                        Gap(ScreenSize.h10),
+                        for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
+                        Container(
+                          width: double.maxFinite,
+                          padding: EdgeInsets.only(left: ScreenSize.h16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(cubit.selectedPaymentItem!.params[i].name,style: AppTheme.data.textTheme.headlineMedium),
+                              Gap(ScreenSize.h6),
+                              Text("${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}  USDT"),
+                            ],
+                          ),
                         ),
+                      ],
+                     ),
+                    cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: ScreenSize.h20,left: ScreenSize.w10,right: ScreenSize.w10),
+                        child: MainButton(text:tr('deposit.add'), onPressed:cubit.sendDeposit,leftIcon: AppIcons.money),
                       ),
-                    ],
-                   ),
-                  cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: ScreenSize.h20,left: ScreenSize.w10,right: ScreenSize.w10),
-                      child: MainButton(text:tr('deposit.add'), onPressed:cubit.sendDeposit,leftIcon: AppIcons.money),
-                    ),
-                    Gap(60.h)
-                ],
+                      Gap(60.h)
+                  ],
+                ),
               ),
             ),
             Visibility(

@@ -43,6 +43,7 @@ class WithdrawWalletWidget extends StatelessWidget {
              Container(
                height: 35.h,
                width: 35.h,
+               padding: EdgeInsets.all(ScreenSize.h6),
                decoration: BoxDecoration(
            border: Border.all(
              color: AppTheme.colors.grey

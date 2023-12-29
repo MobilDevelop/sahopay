@@ -54,6 +54,7 @@ class CardWidget extends StatelessWidget {
               leading: Container(
               height: 40.h,
               width: 40.h,
+              padding: EdgeInsets.all(ScreenSize.h4),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppTheme.colors.white.withOpacity(.5),
