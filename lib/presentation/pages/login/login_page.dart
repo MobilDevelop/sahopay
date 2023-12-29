@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Gap(50.h),
                     cubit.checkPassword?const CheckPasswordWidget():  const SuccesCodeTitle(),
-                    Gap(90.h),
+                  Gap(90.h),
                    SuccesCodePincodeWidget(controller: cubit.succesCodeController, 
                    visible:cubit.checkPassword,
                    passwordController: cubit.passwordController,
@@ -164,9 +164,9 @@ class LoginPage extends StatelessWidget {
                             onChanged: cubit.showChecked,
                             activeColor: AppTheme.colors.primary), 
                           ),
-                          Text(tr('login_page.agree'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
+                          Text(tr('login_page.agree'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey)),
                           Gap(ScreenSize.w10),
-                          Text (tr('login_page.terms'),style: AppTheme.data.textTheme.titleMedium!.copyWith(color: AppTheme.colors.primary)),
+                          Text (tr('login_page.terms'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary)),
                         ],
                       ),
                       Visibility(

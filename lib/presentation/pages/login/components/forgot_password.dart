@@ -13,7 +13,7 @@ class ForgotPassword extends StatelessWidget {
     Gap(ScreenSize.h32),
     Text(tr('login_page.reset'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
     Gap(ScreenSize.h4),
-    Text((tr('login_page.resetwith')) ,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
+    Text((tr('login_page.resetwith')),textAlign: TextAlign.center ,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
      Gap(ScreenSize.h32),
       ],
     );

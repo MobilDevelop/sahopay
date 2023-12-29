@@ -25,12 +25,13 @@ class DepositAmountWidget extends StatelessWidget {
         Gap(ScreenSize.h4),
         TextField(
           controller: controller,
+          
           keyboardType: TextInputType.number,
           onChanged: (value) => onChanged(),
           decoration:  InputDecoration(
            enabled: enebled,
            hintText: hint,
-           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h10),
            enabledBorder: OutlineInputBorder(
              borderRadius: BorderRadius.circular(10.r),
              borderSide: BorderSide(

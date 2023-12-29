@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,45 +21,45 @@ class DialogWidget extends StatelessWidget {
       height: 200.h,
       child: Column(
         children: [
-          Text("Payed Successfully",style: AppTheme.data.textTheme.displaySmall),
+          Text(tr("transfer.payed"),style: AppTheme.data.textTheme.labelSmall),
           Gap(ScreenSize.h20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.amount"),style: AppTheme.data.textTheme.headlineMedium),
-              Text("${item.amount} ${item.senderCurrency}",style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.amount"),style: AppTheme.data.textTheme.labelSmall),
+              Text("${item.amount} ${item.senderCurrency}",style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.sender"),style: AppTheme.data.textTheme.displaySmall),
-              Text(item.sender,style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.sender"),style: AppTheme.data.textTheme.labelSmall),
+              Text(item.sender,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.reciever"),style: AppTheme.data.textTheme.displaySmall),
-              Text(item.recipient,style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.reciever"),style: AppTheme.data.textTheme.labelSmall),
+              Text(item.recipient,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.pc"),style: AppTheme.data.textTheme.displaySmall),
-              Text(item.pc,style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.pc"),style: AppTheme.data.textTheme.labelSmall),
+              Text(item.pc,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text (tr("history.date"),style: AppTheme.data.textTheme.displaySmall),
-              Text(Helper.dateTimeFormat(item.transDate),style: AppTheme.data.textTheme.titleSmall),
+              Text (tr("history.date"),style: AppTheme.data.textTheme.labelSmall),
+              Text(Helper.dateTimeFormat(item.transDate),style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
         ],

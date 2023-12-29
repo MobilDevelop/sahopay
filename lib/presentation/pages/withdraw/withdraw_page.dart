@@ -13,7 +13,6 @@ import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/main_button.dart';
-import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widget.dart';
 import 'package:sahopay/presentation/pages/withdraw/components/dialog_widget.dart';
 import 'components/address_widget.dart';
 import 'components/amount_widget.dart';
@@ -66,6 +65,7 @@ class WithdrawPage extends StatelessWidget {
             Navigator.pop(context);
           }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.white)),
           title: Text(tr('withdraw.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          centerTitle: true,
         ),
         body: Stack(
           children: [
@@ -130,10 +130,10 @@ class WithdrawPage extends StatelessWidget {
                     TotalSummWidgetWithdraw(cubit: cubit),
                    
                    
-                    DepositWriteWidget(title: tr('universal.comment'), 
-                    controller: cubit.commentController, 
-                    hint: tr('universal.entercomment'), 
-                    icon: AppIcons.message, errorBoder: false, hint2: '', enebled: true,),
+                    // DepositWriteWidget(title: tr('universal.comment'), 
+                    // controller: cubit.commentController, 
+                    // hint: tr('universal.entercomment'), 
+                    // icon: AppIcons.message, errorBoder: false, hint2: '', enebled: true,),
                     ]
                    ),
                  ),
@@ -162,7 +162,7 @@ class WithdrawPage extends StatelessWidget {
                       ],
                     ),
                     ),],
-                    ):Text("Select Payment System to see Requirement",
+                    ):Text(tr("withdraw.select"),
                     style: AppTheme.data.textTheme.displaySmall,
                     textAlign: TextAlign.center,
                     ),

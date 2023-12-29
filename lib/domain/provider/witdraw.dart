@@ -43,7 +43,7 @@ class WithdrawService{
     Response response = await dio.post(AppContatants.withdrawPost,data: param);
     return Future.value(WithdrawResponse.fromJson(response.data));
   } catch (e) {
-      return Future.error("");
+      return Future.value(WithdrawResponse(transactionStatus: "", pc: "", sender: "", recipient: "", amount: -1, commission: -1, message:e.toString(), code: -1));
   }
  }
 }

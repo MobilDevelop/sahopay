@@ -8,7 +8,6 @@ import 'package:sahopay/application/dashboard/dashboard_state.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
-import 'package:sahopay/presentation/components/animation_loading/saho_loading.dart';
 import 'package:sahopay/presentation/routes/index_routes.dart';
 import 'components/card_widget.dart';
 
@@ -41,19 +40,27 @@ class Dashboard extends StatelessWidget {
             }
           ),
           title: Text(tr('dashboard.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
+          centerTitle: true,
         ),
         body: Stack(
           alignment: Alignment.center,
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Gap(ScreenSize.h14),
-                  for(int i=0;i<cubit.items.length;i++)
-                   CardWidget(item: cubit.items[i], index: i, backgroundColor:AppContatants.backgroundColor[i], onPress:(int index)=>cubit.nextScreen(index,cubit.items[i])),
-                   Gap(60.h)
-                ],
-              ),
+            Column(
+              children: [
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: cubit.listRefresh,
+                    child: ListView.builder(
+                    itemCount: cubit.items.length,
+                    itemBuilder: (context, index) => 
+                    CardWidget(item: cubit.items[index], 
+                    index: index, 
+                    backgroundColor:AppContatants.backgroundColor[index], 
+                    onPress:(int current)=>cubit.nextScreen(current,cubit.items[index])))
+                  ),
+                ),
+                Gap(60.h)
+              ],
             ),
             Visibility(
               visible:  cubit.loading,

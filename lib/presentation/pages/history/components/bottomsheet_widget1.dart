@@ -29,6 +29,7 @@ class BottomsheetWidget1 extends StatelessWidget {
         child: Row(
           children: [
             SvgPicture.asset(icon,color: selected?AppTheme.colors.white:AppTheme.colors.black,height: ScreenSize.h18),
+            Gap(ScreenSize.w10),
             Text(title,style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: selected?AppTheme.colors.white:AppTheme.colors.black))
           ],
         ),  

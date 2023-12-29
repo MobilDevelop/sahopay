@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/home/home_state.dart';
@@ -9,6 +8,7 @@ import 'package:sahopay/presentation/pages/dashboard/dashboard.dart';
 import 'package:sahopay/presentation/pages/deposit/deposit_page.dart';
 import 'package:sahopay/presentation/pages/exchange/exchange_page.dart';
 import 'package:sahopay/presentation/pages/history/history_page.dart';
+import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
 class HomeCubit extends Cubit<HomeState>{
   HomeCubit():super(HomeInitial()){
@@ -52,14 +52,20 @@ class HomeCubit extends Cubit<HomeState>{
   }
 
   Future<bool> onWillPop() async {
-    DateTime now = DateTime.now();
+   if(currentPage==0){
+     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
         now.difference(currentBackPressTime) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
-      EasyLoading.showToast('Dasturdan chiqish uchun yana bir marta bosing!');
+      EasyLoading.showToast(tr("home.exit"));
       return Future.value(false);
     }
     return Future.value(true);
+   }else{
+    currentPage=0;
+    nextScreen(0);
+    return Future.value(false);
+   }
   }
   
 }

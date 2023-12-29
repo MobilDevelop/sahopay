@@ -22,8 +22,8 @@ class AccountNumberWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Container(
-              height: 35.h,
-              width: 35.h,
+              height: 48,
+              width: 50,
               margin: EdgeInsets.only(right: ScreenSize.h6),
               decoration: BoxDecoration(
                 border: Border.all(

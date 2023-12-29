@@ -38,6 +38,7 @@ class PasswordPage extends StatelessWidget {
             Navigator.pop(context);
           }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.white)),
           title: Text(tr('password.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          centerTitle: true,
         ),
         body: Stack(
           children: [

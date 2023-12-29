@@ -47,6 +47,7 @@ class DrawerPage extends StatelessWidget {
            Column(
             children: [
                Gap(60.h),
+            
             ListTile(
               leading: Container(
                 height: 45.h,
@@ -72,6 +73,12 @@ class DrawerPage extends StatelessWidget {
               title: Text("${profileInfo.lastName} \n${profileInfo.firstName}",style: AppTheme.data.textTheme.bodyMedium),
               subtitle:Text(profileInfo.email,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
             ),
+            Gap(ScreenSize.h4),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: ScreenSize.w16),
+              alignment: Alignment.centerLeft,
+              child: Text("Id: ${profileInfo.clientId}",style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+            ),   
             Gap(60.h),
             Divider(
               height: 2.h,
@@ -122,10 +129,10 @@ class DrawerPage extends StatelessWidget {
                 context: context,
                 dialogType: DialogType.warning,
                 animType: AnimType.bottomSlide,
-                title: 'Rostdan ham',
-                desc: 'chiqmoqchimisiz?',
-                btnCancelText: "YO'Q",
-                btnOkText: "HA",
+                title:  tr("drawer.really"),
+                desc: tr("drawer.isExit"),
+                btnCancelText: tr("drawer.no"),
+                btnOkText: tr("drawer.yes"),
                 btnCancelOnPress: () {
                 },
                 btnOkOnPress:cubit.logOut,

@@ -6,7 +6,9 @@
       "exchange":"Exchange",
       "history":"History",
       "setting":"Setting",
-      "withdraw":"Withdraw"
+      "withdraw":"Withdraw",
+      "exit":"Click again to exit the program!"
+
     },
     "login_page":{
         "login":" Email",
@@ -65,6 +67,8 @@
         "title":"Transfer",
         "amount":"Total Amount",
         "number":" Account Number",
+        "with":"Transfer with",
+        "payed":"Payed Successfully",
         "error":"Account number is required",
         "error2":"Amount is required"
     },
@@ -92,14 +96,18 @@
         "amount":"Amount",
         "sender":"Sender",
         "reciever":"Reciever",
-        "pc":"Pc",
+        "pc":"PS",
         "date":"Date",
+        "waiting":"  WAITING",
+        "error":"Error",
+        "succes":"Success",
         "comment":"  Comment"
     },
     "withdraw":{
         "title":"Withdraw",
         "adress":"Address",
         "enteradress":"Enter address",
+        "select":"Select Payment System to see Requirement",
         "error":"  You have not sufficient amount in your balance",
         "error1":"  No specified value was entered",
         "error2":"  Address is required"
@@ -128,7 +136,11 @@
         "update":"Update Password"
     },
     "drawer":{
-        "exit":"EXIT"
+        "exit":"EXIT",
+        "really":"Are you really to",
+        "isExit":"log out?",
+        "no":"NO",
+        "yes":"OK"
     },
     "universal":{
      "payment":" Payment system",
@@ -141,12 +153,23 @@
      "entercomment":" Enter your comment",
      "choosewallet":"Choose wallet",
      "chooseyourwallet":"Choose your wallet",
-     "error":"Qayta so'rov yuboring",
-     "fillInfo":"fill in the information"
+     "error":"Please, send a request again",
+     "fillInfo":"Fill in the information"
     },
     "error":{
-        "location":"Iltimos dasturdan foydaylanish uchun joylashuv ma'lumotlarini yoqing",
-        "workhome":"Iltimos dasturdan foydaylanish uchun ish joyingizda bo'ling"
+        "location":"Please, enable location data to use the app",
+        "workhome":"Please be at work to use the program"
+    },
+    "pin":{
+        "fill":"Fill in the information",
+        "character":"Password must be at least 6 character",
+        "notfound":"Account not found",
+        "enterPass":"Enter password",
+        "saved":"Saved successfully",
+        "confirmPass":"Confirm new password",
+        "enterNewPass":"Enter new password"
     }
+  
+    
     
 }

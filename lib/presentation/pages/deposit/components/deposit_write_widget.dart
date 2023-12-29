@@ -27,7 +27,7 @@ class DepositWriteWidget extends StatelessWidget {
           decoration:  InputDecoration(
            enabled: enebled,
            hintText: hint,
-           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+           contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h10),
            enabledBorder: OutlineInputBorder(
              borderRadius: BorderRadius.circular(10.r),
              borderSide: BorderSide(

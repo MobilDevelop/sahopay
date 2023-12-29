@@ -32,7 +32,7 @@ class EnterAmountWidget extends StatelessWidget {
           enabled: cubit.enebled,
           hintText: tr('universal.enteramount'),
           suffixIcon: IconButton(onPressed: cubit.pressMagnet, icon: SvgPicture.asset(AppIcons.magnet,color: AppTheme.colors.red,height: ScreenSize.h16)),
-          contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w12),
+          contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w12,vertical: ScreenSize.h10),
           enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(
@@ -59,8 +59,8 @@ class EnterAmountWidget extends StatelessWidget {
           ),
         Gap(ScreenSize.h4),
            Visibility(
-            visible: (cubit.amountBorder && cubit.amountController.text.trim().isEmpty),
-            child: Text( tr('transfer.error2'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.red))), 
+            visible: (cubit.amountBorder),
+            child: Text(cubit.amountController.text.trim().isEmpty?tr('transfer.error2'):tr("withdraw.error1"),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.red))), 
              Gap(ScreenSize.h6), 
       ],
     );

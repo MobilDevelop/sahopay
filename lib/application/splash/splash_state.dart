@@ -4,6 +4,8 @@ class SplashInitial extends SplashState{}
 
 class SplashNextHome extends SplashState{}
 
+class SplashNextPin extends SplashState{}
+
 class SplashNextLogin extends SplashState{}
 
 class SplashError extends SplashState{

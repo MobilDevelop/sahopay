@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/profile/profile_state.dart';
@@ -52,6 +53,11 @@ class ProfileCubit extends Cubit<ProfileState>{
     firtnameController.clear();
     lastnameController.clear();
     emit(ProfileInitial());
+  }
+
+  void copyText()async{
+    await Clipboard.setData(ClipboardData(text: referalController.text));
+   EasyLoading.showSuccess("Success");
   }
   
 

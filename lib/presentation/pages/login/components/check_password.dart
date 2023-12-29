@@ -12,7 +12,7 @@ class CheckPasswordWidget extends StatelessWidget {
       children: [
     Gap(ScreenSize.h32),
     Gap(ScreenSize.h32),
-    Text( tr('login_page.wesend') ,style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
+    Text( tr('login_page.wesend'),textAlign: TextAlign.center ,style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
     Gap(ScreenSize.h4),
     Text( tr('login_page.enteryour'),style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
       ],

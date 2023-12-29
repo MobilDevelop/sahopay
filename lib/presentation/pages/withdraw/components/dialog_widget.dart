@@ -18,37 +18,37 @@ class DialogWidgetWithdraw extends StatelessWidget {
       height: 200.h,
       child: Column(
         children: [
-          Text("Payed Successfully",style: AppTheme.data.textTheme.displaySmall),
+          Text(tr("transfer.payed"),style: AppTheme.data.textTheme.labelSmall),
           Gap(ScreenSize.h20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.amount"),style: AppTheme.data.textTheme.headlineMedium),
-              Text("${item.amount}",style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.amount"),style: AppTheme.data.textTheme.labelSmall),
+              Text("${item.amount}",style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.sender"),style: AppTheme.data.textTheme.displaySmall),
-              Text(item.sender,style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.sender"),style: AppTheme.data.textTheme.labelSmall),
+              Text(item.sender,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.reciever"),style: AppTheme.data.textTheme.displaySmall),
-              Text(item.recipient,style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.reciever"),style: AppTheme.data.textTheme.labelSmall),
+              Text(item.recipient,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
           Gap(ScreenSize.h4),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.pc"),style: AppTheme.data.textTheme.displaySmall),
-              Text(item.pc,style: AppTheme.data.textTheme.titleSmall),
+              Text(tr("history.pc"),style: AppTheme.data.textTheme.labelSmall),
+              Text(item.pc,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
         ],

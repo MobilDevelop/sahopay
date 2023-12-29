@@ -25,21 +25,19 @@ class PinPage extends StatelessWidget {
     child: Builder(builder: (context) {
       final cubit = context.read<PinCubit>();
       return BlocBuilder<PinCubit,PinState>(builder: (_, state) =>  Scaffold(
-        appBar: type==1? AppBar(
-          backgroundColor: AppTheme.colors.background,
-          elevation: 0,
-          title: Text(cubit.title,style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
-        ): type==2? AppBar(
+        appBar: type==2? AppBar(
           backgroundColor: AppTheme.colors.white,
           leading: IconButton(onPressed: (){
             Navigator.pop(context); 
           }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.primary)),
           elevation: 0,
           title: Text(cubit.title,style: AppTheme.data.textTheme.displaySmall!.copyWith(color: AppTheme.colors.primary)),
+          centerTitle: true,
         ):AppBar(
            backgroundColor: AppTheme.colors.white,
           elevation: 0,
           title: Text(cubit.title,style: AppTheme.data.textTheme.displaySmall!.copyWith(color: AppTheme.colors.primary)),
+          centerTitle: true,
         ),
 
 
@@ -94,7 +92,7 @@ class PinPage extends StatelessWidget {
                   children: [
                     NumbersWidget(title: '', onTap: cubit.writeText),
                     NumbersWidget(title: '0', onTap: cubit.writeText),
-                    NumbersWidget(title: '-', icon: cubit.clearCheck?AppIcons.back:AppIcons.fingerprint, onTap: cubit.writeText),
+                    NumbersWidget(title: '-', icon: cubit.clearCheck?AppIcons.back:type==1? AppIcons.fingerprint:AppIcons.back, onTap: cubit.writeText),
                   ],
                 ),
                 Gap(ScreenSize.h32)

@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
-import 'package:sahopay/infrastructure/models/history/get_transactions.dart';
+import 'package:sahopay/infrastructure/models/history/get_exchange.dart.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
-class DialogWidget extends StatelessWidget {
-  const DialogWidget({
+class ExchangeDialogWidget extends StatelessWidget {
+  const ExchangeDialogWidget({
     super.key, required this.item,
   });
-  final HistoryTransaction item;
+  final HistoryExchange item;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
       child: Column(
         children: [
-          Text(item.trasactionStatus==tr("history.waiting")?tr("history.error"):tr("history.succes"),style: AppTheme.data.textTheme.displaySmall),
+          Text(item.trasactionStatus=="WAITING"?tr("history.error"):tr("history.succes"),style: AppTheme.data.textTheme.displaySmall),
           Gap(ScreenSize.h20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.amount"),style: AppTheme.data.textTheme.labelSmall),
-              Text("${item.amount} ${item.senderCurrency}",style: AppTheme.data.textTheme.labelSmall),
+              Text(tr("history.amount"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+              Row(
+                children: [
+                  Text("${item.amount}${item.senderCurrency}",style: AppTheme.data.textTheme.labelSmall),
+                  Gap(2.w),
+                   SvgPicture.asset(AppIcons.exchange3,color: AppTheme.colors.primary,height: ScreenSize.h12),
+                  Gap(2.w),
+                  Text("${item.conversionAmount} ${item.recipientCurrency}",style: AppTheme.data.textTheme.labelSmall),
+                ],
+              ),
             ],
           ),
           Gap(ScreenSize.h4),
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.sender"),style: AppTheme.data.textTheme.labelSmall),
+              Text(tr("history.sender"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
               Text(item.sender,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -35,7 +44,7 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.reciever"),style: AppTheme.data.textTheme.labelSmall),
+              Text(tr("history.reciever"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
               Text(item.recipient,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -43,7 +52,7 @@ class DialogWidget extends StatelessWidget {
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.pc"),style: AppTheme.data.textTheme.labelSmall),
+              Text(tr("history.pc"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
               Text(item.pc,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -51,7 +60,7 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text (tr("history.date"),style: AppTheme.data.textTheme.labelSmall),
+              Text (tr("history.date"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
               Text(Helper.dateTimeFormat(item.date),style: AppTheme.data.textTheme.labelSmall),
             ],
           ),

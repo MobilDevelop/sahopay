@@ -16,9 +16,11 @@ class SplashPage extends StatelessWidget {
     return BlocProvider(create: (context) => SplashCubit(),
      child: BlocListener<SplashCubit,SplashState>(listener: (_, state) {
        if(state is SplashNextHome){
-        context.go(Routes.pin.path,extra: 1);
+        context.go(Routes.home.path);
 
-       }else if(state is SplashNextLogin){
+       } else if(state is SplashNextPin){
+          context.go(Routes.pin.path,extra: 1);
+       } else if(state is SplashNextLogin){
         context.go(Routes.login.path);
         
        }else if(state is SplashError){

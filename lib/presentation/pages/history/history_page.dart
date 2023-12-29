@@ -6,13 +6,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/application/history/history_cubit.dart';
 import 'package:sahopay/application/history/history_state.dart';
-import 'package:sahopay/infrastructure/models/history/history_item.dart';
+import 'package:sahopay/infrastructure/models/history/get_transactions.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
+import 'package:sahopay/presentation/pages/history/components/exchange_dialog.dart';
 import 'components/bottomsheet_widget.dart';
 import 'components/bottomsheet_widget1.dart';
 import 'components/dialog_widget.dart';
+import 'components/exchange_widget.dart';
 import 'components/history_item_widget.dart';
+import 'components/referal_widget.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -30,10 +33,12 @@ class HistoryPage extends StatelessWidget {
           backgroundColor: AppTheme.colors.primary,
           elevation: 0,
           title: Text(tr('history.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          centerTitle: true,
           actions: [
             IconButton(onPressed: (){
               showModalBottomSheet(
                 backgroundColor: Colors.transparent,
+                isScrollControlled: true,
                 context: context, builder: (context) => BottomsheetWidget(onPress:(int type)=>cubit.succesFilter(type), type: cubit.filterType));
             }, icon: SvgPicture.asset(AppIcons.filter,color: AppTheme.colors.white))
           ],
@@ -61,11 +66,11 @@ class HistoryPage extends StatelessWidget {
               Gap(ScreenSize.w8),
               BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==3, title: tr('history.ruble'), press: ()=>cubit.chooseType(3)),
                Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.dollar, selected: cubit.changetype==4, title: tr('history.dollor'), press: ()=>cubit.chooseType(4)),
+              BottomsheetWidget1(icon: AppIcons.crypto, selected: cubit.changetype==4, title: "USDT", press: ()=>cubit.chooseType(4)),
               Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.euro, selected: cubit.changetype==5, title: tr('history.euro'), press: ()=>cubit.chooseType(5)),
+              BottomsheetWidget1(icon: AppIcons.crypto, selected: cubit.changetype==5, title: "UZST", press: ()=>cubit.chooseType(5)),
               Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==6, title: tr('history.ruble'), press: ()=>cubit.chooseType(6)),
+              BottomsheetWidget1(icon: AppIcons.crypto, selected: cubit.changetype==6, title: "SPY", press: ()=>cubit.chooseType(6)),
               
             ],
           ),
@@ -73,32 +78,55 @@ class HistoryPage extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-              child: NotificationListener<ScrollNotification>(
-              onNotification: (notification){
-              if(notification.metrics.pixels==notification.metrics.maxScrollExtent){
-               if(!cubit.loading){
-                 cubit.init("");
-                }
-                 return true;
-               }
-               return false;
-                },
-              child: ListView.builder(
-                itemCount: cubit.items.length,
-                itemBuilder:(context, index) => HistoryItemWidget(
-                  press: (HistoryItem item) { 
-                 AwesomeDialog(
-                  context: context,
-                  dialogType: cubit.items[index].trasactionStatus=="WAITING"? DialogType.error:DialogType.success,
-                  animType: AnimType.bottomSlide,
+              child: RefreshIndicator(
+                onRefresh: cubit.listRefresh,
+                child: NotificationListener<ScrollNotification>(
+                onNotification: (notification){
+                if(notification.metrics.pixels==notification.metrics.maxScrollExtent){
+                 if(!cubit.loading){
+                   cubit.init();
+                  }
+                   return true;
+                 }
+                 return false;
+                  },
+                child: cubit.screenType==1?ListView.builder(
+                  itemCount: cubit.transactionItems.length,
+                  itemBuilder:(context, index) => HistoryItemWidget(
+                    press: (HistoryTransaction item) { 
+                   AwesomeDialog(
+                    context: context,
+                    dialogType: cubit.transactionItems[index].trasactionStatus==tr("history.waiting")? DialogType.error:DialogType.success,
+                    animType: AnimType.bottomSlide,
+                    
+                    body: DialogWidget(item: item),
+                    btnOkText: tr("history.ok"),
+                    btnOkColor: AppTheme.colors.primary,
+                    btnOkOnPress:(){}, 
+                    ).show();
+                   }, item: cubit.transactionItems[index])):cubit.screenType==2?
+                   
+                   ListView.builder(
+                    itemCount: cubit.exchangeItems.length,
+                    itemBuilder: (context, index) => ExchangeWidget(item: cubit.exchangeItems[index], 
+                    press: () { 
+                        AwesomeDialog(
+                    context: context,
+                    dialogType: cubit.exchangeItems[index].trasactionStatus==tr("history.waiting")? DialogType.error:DialogType.success,
+                    animType: AnimType.bottomSlide,
+                    body: ExchangeDialogWidget(item: cubit.exchangeItems[index]),
+                    btnOkText: tr("history.ok"),
+                    btnOkColor: AppTheme.colors.primary,
+                    btnOkOnPress:(){},
+                    ).show();
+                     })):
                   
-                  body: DialogWidget(item: item),
-                  btnOkText: "OK",
-                  btnOkColor: AppTheme.colors.primary,
-                  btnOkOnPress:(){},
-                  ).show();
-                 }, item: cubit.items[index])),
-            ),)
+                   ListView.builder(
+                    itemCount: cubit.referalsItems.length,
+                    itemBuilder: (context, index) => ReferalsWidget(item: cubit.referalsItems[index]))
+                          ),
+              ),),
+              Gap(70.h)
               ],
             ),
             Visibility(
@@ -114,4 +142,8 @@ class HistoryPage extends StatelessWidget {
     );
   }
 }
+
+
+
+
 

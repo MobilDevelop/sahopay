@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/login/login_state.dart';
@@ -46,7 +47,7 @@ class LoginCubit extends Cubit<LoginState>{
     if(onRegistration){
       if(login.isEmpty || password.isEmpty || confirm.isEmpty){
        loading=false;
-       emit(LoginError("Fill in the information"));
+       emit(LoginError(tr("universal.fillInfo")));
     }else{
        if(Helper.isEmail(login)){
         borderEmail=true;
@@ -83,7 +84,7 @@ class LoginCubit extends Cubit<LoginState>{
     else{
       if(login.isEmpty || password.isEmpty){
        loading=false;
-       emit(LoginError("Ma'lumotlarni to'ldiring"));
+       emit(LoginError(tr("universal.fillInfo")));
 
     }else{
       if(Helper.isEmail(login)){
@@ -104,7 +105,7 @@ class LoginCubit extends Cubit<LoginState>{
           if(check){
             emit(LoginNextPin());
           }else{
-            emit(LoginError("Account not found"));
+            emit(LoginError(tr("pin.notfound")));
           }
        }
     }
@@ -138,7 +139,7 @@ class LoginCubit extends Cubit<LoginState>{
     String code = succesCodeController.text.trim();
     emit(LoginInitial());
     if(code.length<6){
-      emit(LoginError("Password must be at least 6 character"));
+      emit(LoginError(tr("pin.character")));
     }else{
       String password = passwordController.text.trim();
       String confirm = confirmPasswordController.text.trim();

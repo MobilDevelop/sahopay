@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:gap/gap.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
-import 'package:sahopay/infrastructure/models/history/history_item.dart';
+import 'package:sahopay/infrastructure/models/history/get_transactions.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 
 class HistoryItemWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class HistoryItemWidget extends StatelessWidget {
     super.key, required this.press, required this.item,
   });
   final Function press;
-  final HistoryItem item;
+  final HistoryTransaction item;
   @override
   Widget build(BuildContext context) {
     return Bounce(
@@ -42,30 +42,19 @@ class HistoryItemWidget extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  height: 30.h,
-                  width: 30.h,
-                  margin: EdgeInsets.only(right: ScreenSize.h6),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppTheme.colors.primary.withOpacity(.2),
-                    border: Border.all(
-                      color: AppTheme.colors.primary
-                    ),
-                    borderRadius: BorderRadius.circular(8.r)
-                  ),
-                  child: Text(item.sender.substring(0,1),style: AppTheme.data.textTheme.headlineMedium!.copyWith(color: AppTheme.colors.primary)),
-                ),
+              
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        flex: 3,
-                        child: Text(item.recipient,maxLines: 1,overflow: TextOverflow.ellipsis,style: AppTheme.data.textTheme.titleSmall)),
-                      Expanded(
-                        flex: 2,
-                        child:Text(Helper.timeFormat(item.date),textAlign: TextAlign.end,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey))),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Sender:",style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+                          Text(item.sender,style: AppTheme.data.textTheme.titleSmall),
+                        ],
+                      ),
+                      Text(Helper.timeFormat(item.date),textAlign: TextAlign.end,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
                     ],
                   ),
                 ),
@@ -75,13 +64,15 @@ class HistoryItemWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  flex: 3,
-                  child: Text(item.sender,maxLines: 1,overflow: TextOverflow.ellipsis,style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey))),
-                Expanded(
-                  flex: 2,
-                  child: Text( "${item.transactionType}${item.amount} ${item.senderCurrency}",textAlign: TextAlign.end,
-                  style: AppTheme.data.textTheme.titleSmall!.copyWith(color: item.transactionType=="-"? AppTheme.colors.red:AppTheme.colors.green))),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                     Text("Receiver:",style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+                    Text(item.recipient,style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.black)),
+                  ],
+                ),
+                Text( "${item.transactionType}${item.amount} ${item.senderCurrency}",textAlign: TextAlign.end,
+                style: AppTheme.data.textTheme.titleSmall!.copyWith(color: item.transactionType=="-"? AppTheme.colors.red:AppTheme.colors.green)),
               ],
             ),
             Gap(ScreenSize.h8),
@@ -94,9 +85,9 @@ class HistoryItemWidget extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h4),
                   decoration: BoxDecoration(
-                    color: item.trasactionStatus=="WAITING"? AppTheme.colors.yellow.withOpacity(.1):AppTheme.colors.green.withOpacity(.1),
+                    color: item.trasactionStatus==tr("history.waiting")? AppTheme.colors.yellow.withOpacity(.1):AppTheme.colors.green.withOpacity(.1),
                     border: Border.all(
-                      color: item.trasactionStatus=="WAITING"? AppTheme.colors.yellow:AppTheme.colors.green,
+                      color: item.trasactionStatus==tr("history.waiting")? AppTheme.colors.yellow:AppTheme.colors.green,
                       width: .7
                     ),
                   borderRadius: BorderRadius.circular(8

@@ -36,14 +36,13 @@ class PaymentWidgetTransfer extends StatelessWidget {
     Row(
       children: [
         Container(
-                    height: 33.h,
-                    width: 33.h,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-        color: AppTheme.colors.grey.withOpacity(.6),
-        width: 1.5
-                      ),
-                      borderRadius: BorderRadius.circular(10.r)
+              height: 33.h,
+              width: 33.h,
+              decoration: BoxDecoration(
+                border: Border.all(
+                color: AppTheme.colors.grey.withOpacity(.6),
+                width: 1.5),
+                borderRadius: BorderRadius.circular(10.r)
                     ),
                     // child: Image.network(AppContatants.imageUrl+selectedWalletItem!.logoUrl,errorBuilder: (context, error, stackTrace) => Padding(
                     //     padding: const EdgeInsets.all(8.0),

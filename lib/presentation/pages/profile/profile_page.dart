@@ -8,7 +8,6 @@ import 'package:sahopay/application/profile/profile_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/border_button.dart';
-
 import 'components/profile_widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -33,6 +32,7 @@ class ProfilePage extends StatelessWidget {
             Navigator.pop(context);
           }, icon: SvgPicture.asset(AppIcons.back,color: AppTheme.colors.white)),
           title: Text(tr('profile.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          centerTitle: true,
         ),
         body: Stack(
           children: [
@@ -100,15 +100,14 @@ class ProfilePage extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(15.r)
                   ),
-                  child: TextField(
-                    enabled: cubit.check,
-                    controller: cubit.referalController,
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(0),
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none
-                    ),
-                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(cubit.referalController.text,style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.grey)),
+                      IconButton(onPressed:()=>cubit.copyText(), icon:SvgPicture.asset(AppIcons.copy,height: ScreenSize.h24))
+                    ],
+                  )
+                  
                 ),
               ],
                   ),

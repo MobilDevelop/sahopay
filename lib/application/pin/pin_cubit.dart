@@ -1,8 +1,11 @@
-import 'dart:convert';
+// ignore_for_file: avoid_print
 
+import 'dart:convert';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:sahopay/application/pin/pin_state.dart';
 import 'package:sahopay/domain/provider/registration.dart';
+import 'package:sahopay/infrastructure/helper/local_auth.dart';
 import 'package:sahopay/infrastructure/local_source/local_source.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 import 'package:vibration/vibration.dart';
@@ -21,24 +24,28 @@ class PinCubit extends Cubit<PinState>{
 
   int screenType =0;
 
-  String title = "";
+  String title = tr("pin.enterPass");
   String newPassword ="";
   String currentPassword ="";
+
+  final LocalAuthentication auth = LocalAuthentication();
+
     
     void init(int type)async{
-      switch (type) {
-        case 1:title= "Enter password"; break;
-        case 2:title= "Enter password"; break;
-        case 3:title= "Enter new password"; break;
-        
-      }
+        if(type==1){
+           final authenticate = await LocalAuth.authenticate();
+           if(authenticate){
+            emit(PinNextHome());
+           }
+        }
       screenType = type;
-      currentPassword = await LocalSource.getInfo(key: 'ScreenPassword');
+      currentPassword = await LocalSource.getInfo(key: "ScreenPassword");
       emit(PinInitial());
     }
 
   void writeText(String letter)async{
-    if(letter=="-"){
+    if(text.length<4){
+      if(letter=="-"){
       errorBorder=false;
       if(clearCheck){
       
@@ -46,7 +53,12 @@ class PinCubit extends Cubit<PinState>{
        if(text.isEmpty){
       }
       }else{
-        print("finger");
+        if(screenType==1){
+          final authenticate = await LocalAuth.authenticate();
+          if(authenticate){
+            emit(PinNextHome());
+           }
+        }
       }
     }
     
@@ -73,6 +85,7 @@ class PinCubit extends Cubit<PinState>{
     
   }
   emit(PinInitial());
+    }
   }
 
 
@@ -81,7 +94,7 @@ class PinCubit extends Cubit<PinState>{
       
      if(newPassword==text){
       await LocalSource.putInfo(key: "ScreenPassword", json: newPassword);
-         EasyLoading.showSuccess("Saved successfully");
+         EasyLoading.showSuccess(tr("pin.saved"));
         emit(PinNextHome());
      }else{
       error();
@@ -91,7 +104,7 @@ class PinCubit extends Cubit<PinState>{
      }else{
       newPassword = text;
       text="";
-      title = "Confirm new password";
+      title = tr("pin.confirmPass");
       confirmPass=true;
      }
      emit(PinInitial());
@@ -106,7 +119,7 @@ class PinCubit extends Cubit<PinState>{
        
       if(newPassword==text){
          await LocalSource.putInfo(key: "ScreenPassword", json: newPassword);
-         EasyLoading.showSuccess("Saved successfully");
+         EasyLoading.showSuccess(tr("pin.saved"));
           emit(PinClose());
       }else{
         error();
@@ -114,13 +127,13 @@ class PinCubit extends Cubit<PinState>{
       }else{
       newPassword=text;
       text='';
-      title = "Confirm new password";
+      title = tr("pin.confirmPass");
       confirmPass=true;
       }
 
      }else{
        if(text==currentPassword){
-       title = "Enter new password";
+       title = tr("pin.enterNewPass");
       text="";
       newPass=true;
       }else{

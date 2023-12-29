@@ -1,12 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/domain/provider/witdraw.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
-import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/infrastructure/models/withdraw/calculator.dart';
 import 'package:sahopay/infrastructure/models/withdraw/payment.dart';
@@ -60,8 +57,13 @@ class WithdrawCubit extends Cubit<WithDrawState>{
        }else{
         emailBorder=false;
        }
+
+       if(amount.isEmpty){
+        amountBorder=true;
+       }
       
        if(!emailBorder && !amountBorder){
+        
       WithdrawResponse info = await WithdrawService().sendInfo(WithdrawPost(
       amount: amount, 
       network: selectedPaymentItem!.key, 

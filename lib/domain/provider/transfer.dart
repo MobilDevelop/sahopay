@@ -46,7 +46,7 @@ class TransferService{
 
     return Future.value(TransferResponse.fromJson(response.data));
   } catch (e) {
-     return Future.error("error");
+     return Future.value(TransferResponse(code: -1, message:e.toString(), transId: -1, transDate: "", pc:"", amount:-1, sender: "", recipient: "", senderCurrency: "", recipientCurrency: ""));
   }
  }
 

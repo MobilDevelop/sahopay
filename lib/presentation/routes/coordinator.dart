@@ -16,6 +16,7 @@ import 'package:sahopay/presentation/pages/withdraw/withdraw_page.dart';
 
 final GoRouter router = GoRouter(
     initialLocation: Routes.splash.path,
+    
     debugLogDiagnostics: true,
     routes: <GoRoute>[
       GoRoute(

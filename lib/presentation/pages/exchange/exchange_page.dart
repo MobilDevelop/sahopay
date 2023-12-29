@@ -41,6 +41,7 @@ class ExchangePage extends StatelessWidget {
           backgroundColor: AppTheme.colors.primary,
           elevation: 0,
           title: Text(tr('exchange.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
+          centerTitle: true,
         ),
         body: Stack(
           children: [

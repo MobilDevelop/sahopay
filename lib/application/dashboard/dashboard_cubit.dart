@@ -27,4 +27,10 @@ class DashboardCubit extends Cubit<DashboardState>{
       emit(DashboardNextDeposit(model));
     }
   }
+
+  Future listRefresh()async{
+    loading=true;
+    emit(DashboardInitial());
+    init();
+  }
 }

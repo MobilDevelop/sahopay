@@ -52,6 +52,7 @@ class TransferCubit extends Cubit<TransferState>{
    if(model!=null){
     selectedWalletItem = WalletObject.fromJson(model.toJson());
     accountNumber = selectedWalletItem!.account.substring(0,1);
+    enebled=true;
    }
 
    loading=false;
@@ -71,10 +72,8 @@ class TransferCubit extends Cubit<TransferState>{
       }else{
         numberBorder=false;
       }
-      if( amount.isEmpty){
+      if(amount.isEmpty){
         amountBorder=true;
-      }else{
-        amountBorder=false;
       }
       
         emit(TransferInitial()); 

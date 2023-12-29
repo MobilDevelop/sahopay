@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/deposit/deposit_state.dart';
 import 'package:sahopay/domain/provider/deposit.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
@@ -92,8 +93,12 @@ class DepositCubit extends Cubit<DepositState>{
         network: selectedPaymentItem!.key, 
         walletCurrensyName: selectedWalletItem!.currencyName).toJson());
         
-    final Uri _url = Uri.parse(url);
-     await launchUrl(_url);
+        if(url.isNotEmpty){
+          final Uri _url = Uri.parse(url);
+          await launchUrl(_url);
+        }else{
+          EasyLoading.showInfo("Error");
+        }
       }else{
         errorBorder=true;
       }

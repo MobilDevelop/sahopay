@@ -17,6 +17,7 @@ class AppIcons {
   static const String filter = 'assets/icons/filter.svg';
   static const String referal = 'assets/icons/referral.svg';
   static const String exchange2 = 'assets/icons/exchange2.svg';
+  static const String exchange3 = 'assets/icons/exchange3.svg';
   static const String bag = 'assets/icons/bag.svg';
   static const String dollar = 'assets/icons/dollar.svg';
   static const String euro = 'assets/icons/euro.svg';
@@ -30,6 +31,8 @@ class AppIcons {
   static const String right = 'assets/icons/right.svg';
   static const String magnet = 'assets/icons/magnet.svg';
   static const String fingerprint = 'assets/icons/fingerprint.svg';
+  static const String crypto = 'assets/icons/crypto.svg';
+  static const String copy = 'assets/icons/copy.svg';
 
 
 

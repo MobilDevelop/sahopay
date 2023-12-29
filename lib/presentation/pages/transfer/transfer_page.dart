@@ -28,16 +28,16 @@ class TransferPage extends StatelessWidget {
      child:  BlocListener<TransferCubit,TransferState>(listener: (_, state) {
        if(state is TransferDialog){
       AwesomeDialog(
-                  context: context,
-                  dialogType:DialogType.success,
-                  animType: AnimType.bottomSlide,
-                  body: DialogWidget(item: state.response),
-                  btnOkText: "OK",
-                  btnOkColor: AppTheme.colors.primary,
-                  btnOkOnPress:(){
-                    Navigator.pop(context);
-                  },
-                  ).show();
+            context: context,
+            dialogType:DialogType.success,
+            animType: AnimType.bottomSlide,
+            body: DialogWidget(item: state.response),
+            btnOkText: tr("drawer.yes"),
+            btnOkColor: AppTheme.colors.primary,
+            btnOkOnPress:(){
+            Navigator.pop(context);
+          },
+        ).show();
        }
      },
      child: Builder(builder: (context) {
@@ -115,7 +115,7 @@ class TransferPage extends StatelessWidget {
                     decoration:  InputDecoration(
                     hintText: tr('transfer.amount'),
                     enabled: false,
-                    contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+                    contentPadding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10,vertical: ScreenSize.h10),
                     disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.r),
                     borderSide: BorderSide(
@@ -141,7 +141,7 @@ class TransferPage extends StatelessWidget {
                         width: double.maxFinite,
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: ScreenSize.w20),
-                        child: Text("Transfer with",style: AppTheme.data.textTheme.headlineMedium)),
+                        child: Text(tr("transfer.with"),style: AppTheme.data.textTheme.headlineMedium)),
                         Gap(ScreenSize.h14),
                       for(int i=0;i<cubit.selectedPaymentItem!.params.length;i++)
                       Container(
