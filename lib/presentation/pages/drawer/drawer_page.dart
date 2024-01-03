@@ -47,38 +47,54 @@ class DrawerPage extends StatelessWidget {
            Column(
             children: [
                Gap(60.h),
-            
-            ListTile(
-              leading: Container(
-                height: 45.h,
-                width: 45.h,
-                padding: EdgeInsets.all(ScreenSize.h4),
-                decoration:  BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppTheme.colors.background,
-                  border: Border.all(
-                    color: AppTheme.colors.primary
+             Container(
+              padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+               child: Row(
+                children: [
+                  Container(
+                  height: 45.h,
+                  width: 45.h,
+                  padding: EdgeInsets.all(ScreenSize.h4),
+                  decoration:  BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppTheme.colors.background,
+                    border: Border.all(
+                      color: AppTheme.colors.primary
+                    ),
+                    boxShadow: [
+                         BoxShadow(
+                color: AppTheme.colors.grey.withOpacity(.6),
+                blurRadius: 8,
+                spreadRadius: 3,
+                offset: Offset(3.w, 4.h)
+                         )
+                       ],
                   ),
-                  boxShadow: [
-            BoxShadow(
-              color: AppTheme.colors.grey.withOpacity(.6),
-              blurRadius: 8,
-              spreadRadius: 3,
-              offset: Offset(3.w, 4.h)
-            )
-          ],
+                       child: SvgPicture.asset(AppIcons.user,color: AppTheme.colors.primary),
                 ),
-          child: SvgPicture.asset(AppIcons.user,color: AppTheme.colors.primary),
+                Gap(ScreenSize.w10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${profileInfo.lastName} \n${profileInfo.firstName}",style: AppTheme.data.textTheme.bodyMedium),
+                      Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("Id: ${profileInfo.clientId}",style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.black)),
+                  Gap(ScreenSize.w10),
+                  InkWell(
+                    onTap:()=>cubit.copyText(profileInfo.clientId),
+                    child: SvgPicture.asset(AppIcons.copy,height: ScreenSize.h20))
+                ],
               ),
-              title: Text("${profileInfo.lastName} \n${profileInfo.firstName}",style: AppTheme.data.textTheme.bodyMedium),
-              subtitle:Text(profileInfo.email,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
-            ),
-            Gap(ScreenSize.h4),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: ScreenSize.w16),
-              alignment: Alignment.centerLeft,
-              child: Text("Id: ${profileInfo.clientId}",style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
-            ),   
+                      Text(profileInfo.email,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+                    ],
+                  ),
+                )
+                ],
+               ),
+             ), 
             Gap(60.h),
             Divider(
               height: 2.h,

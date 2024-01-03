@@ -19,6 +19,7 @@ class DialogWidget extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: 200.h,
+      padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
       child: Column(
         children: [
           Text(tr("transfer.payed"),style: AppTheme.data.textTheme.labelSmall),

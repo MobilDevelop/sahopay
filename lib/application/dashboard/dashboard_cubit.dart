@@ -1,4 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/dashboard/dashboard_state.dart';
 import 'package:sahopay/domain/provider/dashboard.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
@@ -32,5 +34,9 @@ class DashboardCubit extends Cubit<DashboardState>{
     loading=true;
     emit(DashboardInitial());
     init();
+  }
+  void copyText(String text)async{
+    await Clipboard.setData(ClipboardData(text:text));
+   EasyLoading.showSuccess("Success");
   }
 }

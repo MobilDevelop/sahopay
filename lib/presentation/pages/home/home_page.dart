@@ -33,9 +33,9 @@ class HomePage extends StatelessWidget {
                 height: 55.h,
                 width: double.maxFinite,
                 margin: EdgeInsets.only(bottom: ScreenSize.h16,left: ScreenSize.w18,right: ScreenSize.w18),
-                padding: EdgeInsets.only(left: ScreenSize.w6,right:ScreenSize.w6),
+                //padding: EdgeInsets.only(left: ScreenSize.w10,right:ScreenSize.w10),
                 decoration: BoxDecoration(
-                  color: AppTheme.colors.white,
+                  color: AppTheme.colors.white.withOpacity(.6),
                   border: Border.all(
                     color: AppTheme.colors.primary
                   ),
@@ -44,10 +44,26 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    BottomWidget(icon: AppIcons.dashboard, title: tr('home.dashboard'), onPress: cubit.currentPage==0, press: ()=>cubit.nextScreen(0)),
-                    BottomWidget(icon: AppIcons.money, title: tr('home.deposit'), onPress: cubit.currentPage==1, press: ()=>cubit.nextScreen(1)),
-                    BottomWidget(icon: AppIcons.exchange, title: tr('home.exchange'), onPress: cubit.currentPage==2, press: ()=>cubit.nextScreen(2),size: "test"),
-                    BottomWidget(icon: AppIcons.history, title: tr('home.history'), onPress: cubit.currentPage==3, press: ()=>cubit.nextScreen(3)),
+                    BottomWidget(icon: AppIcons.dashboard, 
+                    title: tr('home.dashboard'),
+                    type: 1,
+                    onPress: cubit.currentPage==0, 
+                    press: ()=>cubit.nextScreen(0)),
+                    BottomWidget(icon: AppIcons.money, 
+                    title: tr('home.deposit'),
+                    type: 0,
+                    onPress: cubit.currentPage==1, 
+                    press: ()=>cubit.nextScreen(1)),
+                    BottomWidget(icon: AppIcons.exchange, 
+                    title: tr('home.exchange'), 
+                    onPress: cubit.currentPage==2,
+                    type: 0,
+                    press: ()=>cubit.nextScreen(2),size: "test"),
+                    BottomWidget(icon: AppIcons.history, 
+                    title: tr('home.history'),
+                    type: 2,
+                    onPress: cubit.currentPage==3, 
+                    press: ()=>cubit.nextScreen(3)),
                   ],
                 ),
               ):const SizedBox()

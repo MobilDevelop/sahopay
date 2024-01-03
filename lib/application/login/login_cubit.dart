@@ -11,6 +11,7 @@ import 'package:sahopay/infrastructure/models/login/registration_send_info.dart'
 import 'package:sahopay/infrastructure/models/login/set_password.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/presentation/pages/login/components/captcha_widget.dart';
+import 'package:timer_count_down/timer_controller.dart';
 
 class LoginCubit extends Cubit<LoginState>{
   LoginCubit():super(LoginInitial());
@@ -22,6 +23,7 @@ class LoginCubit extends Cubit<LoginState>{
   bool checked = false;
   bool forgotPassword = false;
   bool succesCode = false;
+  bool showResend = false;
 
   bool borderEmail =false;
   bool borderPassword =false;
@@ -29,12 +31,16 @@ class LoginCubit extends Cubit<LoginState>{
   bool borderCheck =false;
   bool checkPassword = false;
 
+  String timer = "01:00";
+
   final loginController=TextEditingController();
   final passwordController=TextEditingController();
   final confirmPasswordController=TextEditingController();
   final referalController=TextEditingController();
   final captchaController=TextEditingController();
   final succesCodeController=TextEditingController();
+
+  final timerController = CountdownController(autoStart: true);
 
 
   void checkInfo(context)async{
@@ -71,8 +77,8 @@ class LoginCubit extends Cubit<LoginState>{
        }
 
       if(!borderPassword && !borderConfirm && !borderCheck && !borderEmail){
-        GetCaptcha  captcha = await RegistrationServices().getCaptcha();
-         showDialog(context: context, builder: (context) => CaptchaWidget(image: captcha.photoUrl,controller: captchaController, press:(){
+         showDialog(context: context, builder: (context) => CaptchaWidget(
+         controller: captchaController, press:(GetCaptcha captcha){
           Navigator.pop(context);
           loading =true;
           emit(LoginInitial());
@@ -129,6 +135,7 @@ class LoginCubit extends Cubit<LoginState>{
     if(getInfo.code==200){
       succesCode=true;
       checkPassword=false;
+      timerController.start();
     }             
     emit(LoginInitial());
   }
@@ -184,14 +191,14 @@ class LoginCubit extends Cubit<LoginState>{
       loading = true;
       emit(LoginInitial());
       String email = loginController.text.trim();
-       if(Helper.isEmail(email)){
+       if(email.isEmpty){
         borderEmail=true;
        }else{
         borderEmail=false;
        }
       if(!borderEmail){
-           GetCaptcha  captcha = await RegistrationServices().getCaptcha();
-      showDialog(context: context, builder: (context) => CaptchaWidget(image: captcha.photoUrl,controller: captchaController, press:(){
+      showDialog(context: context, builder: (context) => CaptchaWidget(
+      controller: captchaController, press:(GetCaptcha captcha){
           Navigator.pop(context);
           loading =true;
           emit(LoginInitial());
@@ -204,12 +211,14 @@ class LoginCubit extends Cubit<LoginState>{
 
  
   void checkForgotPassword(GetCaptcha captcha,String mail)async{
-    ServerMessage info = await RegistrationServices().forgotPass(ForgotPasswordJson(answer: captchaController.text.trim(), mail: mail, randomId: captcha.randomId).toJson());
+    ServerMessage info = await RegistrationServices().forgotPass(ForgotPasswordJson(answer: captchaController.text.trim(), 
+    mail: mail, randomId: captcha.randomId).toJson());
     loading=false;
     if(info.code==200){
       onRegistration=false;
       forgotPassword=false;
       succesCode =true;
+      timerController.start();
       checkPassword=true;
     }
     emit(LoginError(info.message));
@@ -243,5 +252,35 @@ class LoginCubit extends Cubit<LoginState>{
   void showForgotPassword(){
     forgotPassword =!forgotPassword;
     emit(LoginInitial());
+  }
+
+  void backPress(){
+    succesCode=false;
+    forgotPassword=true;
+    emit(LoginInitial());
+  }
+
+  void resendCodeShow()async{
+    showResend=true;
+    emit(LoginInitial());  
+  }
+
+  void resendCode(context)async{
+    if(showResend){
+       String email = loginController.text.trim();
+       captchaController.clear();
+         showDialog(context: context, builder: (context) => CaptchaWidget(
+      controller: captchaController, 
+      press:(GetCaptcha captcha){
+          Navigator.pop(context);
+          loading =true;
+          emit(LoginInitial());
+          if(checkPassword){
+            registration(captcha);
+          }else{
+            checkForgotPassword(captcha,email);
+          }
+         }));
+      }
   }
 }

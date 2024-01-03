@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sahopay/application/pin/pin_cubit.dart';
 import 'package:sahopay/application/pin/pin_state.dart';
+import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 import 'package:sahopay/presentation/pages/pin/components/numbers_widget.dart';
 import 'package:sahopay/presentation/pages/pin/components/pin_text_widget.dart';
@@ -42,62 +43,69 @@ class PinPage extends StatelessWidget {
 
 
         body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
           children: [
-          Container(
-            margin: EdgeInsets.only(top: 100.h, left: 40.w, right: 40.w),
-            child:Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:  [
-                PinTextWidget(check: cubit.text.isNotEmpty, errorBorder: cubit.errorBorder),
-                PinTextWidget(check: cubit.text.length>1, errorBorder: cubit.errorBorder),
-                PinTextWidget(check: cubit.text.length>2, errorBorder: cubit.errorBorder),
-                PinTextWidget(check: cubit.text.length>3, errorBorder: cubit.errorBorder),
-              ],
-            )
-          ),
-          Column(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    NumbersWidget(title: '1', onTap:cubit.writeText),
-                    NumbersWidget(title: '2', onTap:cubit.writeText),
-                    NumbersWidget(title: '3', onTap:cubit.writeText),
+              Container(
+                margin: EdgeInsets.only(top: 100.h, left: 40.w, right: 40.w),
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    PinTextWidget(check: cubit.text.isNotEmpty, errorBorder: cubit.errorBorder),
+                    PinTextWidget(check: cubit.text.length>1, errorBorder: cubit.errorBorder),
+                    PinTextWidget(check: cubit.text.length>2, errorBorder: cubit.errorBorder),
+                    PinTextWidget(check: cubit.text.length>3, errorBorder: cubit.errorBorder),
                   ],
-                ),
-                Gap(ScreenSize.h16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                )
+              ),
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    NumbersWidget(title: '4', onTap:cubit.writeText),
-                    NumbersWidget(title: '5', onTap:cubit.writeText),
-                    NumbersWidget(title: '6', onTap:cubit.writeText),
-                  ],
-                ),
-                Gap(ScreenSize.h16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    NumbersWidget(title: '7', onTap: cubit.writeText),
-                    NumbersWidget(title: '8', onTap: cubit.writeText),
-                    NumbersWidget(title: '9', onTap: cubit.writeText),
-                  ],
-                ),
-                Gap(ScreenSize.h16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    NumbersWidget(title: '', onTap: cubit.writeText),
-                    NumbersWidget(title: '0', onTap: cubit.writeText),
-                    NumbersWidget(title: '-', icon: cubit.clearCheck?AppIcons.back:type==1? AppIcons.fingerprint:AppIcons.back, onTap: cubit.writeText),
-                  ],
-                ),
-                Gap(ScreenSize.h32)
-                  ]),  
-                ]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NumbersWidget(title: '1', onTap:cubit.writeText),
+                        NumbersWidget(title: '2', onTap:cubit.writeText),
+                        NumbersWidget(title: '3', onTap:cubit.writeText),
+                      ],
+                    ),
+                    Gap(ScreenSize.h16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NumbersWidget(title: '4', onTap:cubit.writeText),
+                        NumbersWidget(title: '5', onTap:cubit.writeText),
+                        NumbersWidget(title: '6', onTap:cubit.writeText),
+                      ],
+                    ),
+                    Gap(ScreenSize.h16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NumbersWidget(title: '7', onTap: cubit.writeText),
+                        NumbersWidget(title: '8', onTap: cubit.writeText),
+                        NumbersWidget(title: '9', onTap: cubit.writeText),
+                      ],
+                    ),
+                    Gap(ScreenSize.h16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NumbersWidget(title: '', onTap: cubit.writeText),
+                        NumbersWidget(title: '0', onTap: cubit.writeText),
+                        NumbersWidget(title: '-', icon: cubit.clearCheck?AppIcons.back:type==1? AppIcons.fingerprint:AppIcons.back, onTap: cubit.writeText),
+                      ],
+                    ),
+                    Gap(ScreenSize.h32)
+                      ]),  
+                    ]),
+              Visibility(
+                visible: cubit.loading,
+                child: const Loading())
+          ],
+        ),
               ),
             ),
           );

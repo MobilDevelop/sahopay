@@ -89,8 +89,8 @@ class DepositPage extends StatelessWidget {
                           Gap(ScreenSize.h14),
                           
                           
-                          PaymentWidgetDeposit(payment: cubit.selectedPaymentItem, press: () {
-                             showModalBottomSheet(context: context, 
+                      PaymentWidgetDeposit(payment: cubit.selectedPaymentItem, press: () {
+                      showModalBottomSheet(context: context, 
                       backgroundColor: Colors.transparent,
                       isScrollControlled: true,
                       builder: (context) => DepositBottomsheet(items: cubit.paymentItems, onTap:(DepositPayment payment){
@@ -112,7 +112,7 @@ class DepositPage extends StatelessWidget {
                          ],
                        ),
                      ),
-                     cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
+                     cubit.selectedPaymentItem==null? Gap(80.h):Gap(ScreenSize.h20),
                      cubit.selectedPaymentItem==null?Text( tr('deposit.select'),
                      style: AppTheme.data.textTheme.displaySmall): Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,23 +123,25 @@ class DepositPage extends StatelessWidget {
                         Container(
                           width: double.maxFinite,
                           padding: EdgeInsets.only(left: ScreenSize.h16),
+                          margin: EdgeInsets.only(bottom: ScreenSize.h4),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(cubit.selectedPaymentItem!.params[i].name,style: AppTheme.data.textTheme.headlineMedium),
-                              Gap(ScreenSize.h6),
-                              Text("${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}  USDT"),
+                              Text(cubit.selectedPaymentItem!.params[i].name,style: AppTheme.data.textTheme.labelLarge),
+                              Gap(2.h),
+                              Text("${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}  USDT",
+                              style:AppTheme.data.textTheme.bodyMedium),
                             ],
                           ),
                         ),
                       ],
                      ),
-                    cubit.selectedPaymentItem==null? Gap(100.h):Gap(ScreenSize.h32),
+                    cubit.selectedPaymentItem==null? Gap(60.h):Gap(ScreenSize.h20),
                       Padding(
                         padding: EdgeInsets.only(bottom: ScreenSize.h20,left: ScreenSize.w10,right: ScreenSize.w10),
                         child: MainButton(text:tr('deposit.add'), onPressed:cubit.sendDeposit,leftIcon: AppIcons.money),
                       ),
-                      Gap(60.h)
+                      Gap(80.h)
                   ],
                 ),
               ),

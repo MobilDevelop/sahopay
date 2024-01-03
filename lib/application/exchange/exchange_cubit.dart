@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/exchange/exchange_state.dart';
 import 'package:sahopay/domain/provider/exchange.dart';
 import 'package:sahopay/infrastructure/models/exchange/calculator_value.dart';
 import 'package:sahopay/infrastructure/models/exchange/currency.dart';
 import 'package:sahopay/infrastructure/models/exchange/exchange_rates.dart';
+import 'package:sahopay/infrastructure/models/exchange/exchange_response.dart';
 import 'package:sahopay/infrastructure/models/exchange/post.dart';
-import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
@@ -44,17 +45,25 @@ class ExchangeCubit extends Cubit<ExchangeState>{
   }
 
   void buttonExchange()async{
+    loading=true;
+    emit(ExchangeInitial());
     String amount = amountController.text.trim();
     String comment = commentController.text.trim();
     if(!senderBorderColor && !recieverBorderColor && amount.isNotEmpty){
-      ServerMessage info =  await ExchangeService().sendInfo(ExchangePost(
+      ExchangeResponse info =  await ExchangeService().sendInfo(ExchangePost(
       currencyKey: "${selectedSenderItem!.currencyName}2${selectedRecieverItem!.currencyName}", 
       senderAmount: amount, 
       comment: comment).toJson());
-      emit(ExchangeMessage(info.message));
+      if(info.code==200){
+        emit(ExchangeDialog(info));
+      }else{
+        EasyLoading.showInfo(info.message);
+      }
     }else{
       emit(ExchangeMessage(tr('universal.fillInfo')));
     }
+    loading=false;
+    emit(ExchangeInitial());
   }
 
   void setCalculator()async{

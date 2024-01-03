@@ -32,14 +32,17 @@ class AppIcons {
   static const String magnet = 'assets/icons/magnet.svg';
   static const String fingerprint = 'assets/icons/fingerprint.svg';
   static const String crypto = 'assets/icons/crypto.svg';
+  static const String crypto1 = 'assets/icons/crypto1.svg';
+  static const String crypto2 = 'assets/icons/crypto2.svg';
   static const String copy = 'assets/icons/copy.svg';
+  static const String refresh = 'assets/icons/refresh.svg';
 
 
 
 
   static const String logo = 'assets/images/sahopay.gif';
   static const String curier = 'assets/images/curier.jpg';
-  static const String loading = 'assets/images/saho-loading.webp';
+  static const String loading = 'assets/images/sahopay.webp';
 
 
 

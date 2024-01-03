@@ -6,19 +6,20 @@ import 'package:sahopay/presentation/assets/asset_index.dart';
 
 class BottomsheetWidget2 extends StatelessWidget {
   const BottomsheetWidget2({
-    super.key, required this.selected, required this.icon, required this.title, required this.press,
+    super.key, required this.selected, required this.icon, required this.title, required this.press, this.center,
   });
   final bool selected;
   final String icon;
   final String title;
   final VoidCallback press;
+  final String? center;
   @override
   Widget build(BuildContext context) {
     return Bounce(
       duration: const Duration(milliseconds: 300),
       onPressed: press,
       child: Container(
-                  height: 45.h,
+                  height: 40.h,
                   width: double.maxFinite,
                   padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
                   decoration: BoxDecoration(
@@ -29,6 +30,7 @@ class BottomsheetWidget2 extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.r)
                   ),
                   child: Row(
+                      mainAxisAlignment: center!=null?MainAxisAlignment.center:MainAxisAlignment.start,
                       children: [
                         SvgPicture.asset(icon,color: selected?AppTheme.colors.white:AppTheme.colors.black,height: ScreenSize.h24),
                         Gap(ScreenSize.w10),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/withdraw/withdraw_state.dart';
 import 'package:sahopay/domain/provider/witdraw.dart';
-import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
 import 'package:sahopay/infrastructure/models/universal/wallet_object.dart';
 import 'package:sahopay/infrastructure/models/withdraw/calculator.dart';
@@ -52,7 +52,7 @@ class WithdrawCubit extends Cubit<WithDrawState>{
       String amount = amountController.text.trim();
      if(selectedPaymentItem!=null && selectedWalletItem!=null){
        
-      if(Helper.isEmail(address)){
+      if(address.isEmpty){
         emailBorder=true;
        }else{
         emailBorder=false;
@@ -70,7 +70,11 @@ class WithdrawCubit extends Cubit<WithDrawState>{
       address: address, 
       currency: selectedWalletItem!.currencyName, 
       withCommission: checked).toJson());
-      emit(WithDrawDialog(info));
+       if(info.code==200){
+        emit(WithDrawDialog(info));
+       }else{
+        EasyLoading.showInfo(info.message);
+       }
        }
      }
      emit(WithDrawInitial());

@@ -94,6 +94,11 @@ class DepositCubit extends Cubit<DepositState>{
         walletCurrensyName: selectedWalletItem!.currencyName).toJson());
         
         if(url.isNotEmpty){
+          selectedPaymentItem=null;
+          selectedWalletItem=null;
+          amountController.clear();
+          loading =false;
+          emit(DepositInitial());
           final Uri _url = Uri.parse(url);
           await launchUrl(_url);
         }else{

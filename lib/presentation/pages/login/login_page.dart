@@ -47,9 +47,9 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Gap(50.h),
+                    cubit.checkPassword?Gap(10.h):Gap(40.h),
                     cubit.checkPassword?const CheckPasswordWidget():  const SuccesCodeTitle(),
-                  Gap(90.h),
+                    cubit.checkPassword?Gap(40.h):Gap(60.h),
                    SuccesCodePincodeWidget(controller: cubit.succesCodeController, 
                    visible:cubit.checkPassword,
                    passwordController: cubit.passwordController,
@@ -59,8 +59,15 @@ class LoginPage extends StatelessWidget {
                    borderColorPass: cubit.borderPassword,
                    borderColorConfirm: cubit.borderConfirm,
                    pressPass:(int index)=>cubit.visiblePassword(index)),
-                   cubit.checkPassword? Gap(80.h):Gap(120.h),
-                   SuccesCodeBottomWidget(resendPress: () {  }, succesPress:cubit.emailSuccesCode, visible:cubit.checkPassword)
+                   cubit.checkPassword?Gap(30.h):Gap(120.h),
+                   SuccesCodeBottomWidget(
+                    controller: cubit.timerController ,
+                    resendPress:()=>cubit.resendCode(context), 
+                    backPress:cubit.backPress,
+                   succesPress:cubit.emailSuccesCode, 
+                   visible:cubit.checkPassword, 
+                   showResend: cubit.showResend,
+                   resendShow:cubit.resendCodeShow)
                   ],
                 ),
               ),

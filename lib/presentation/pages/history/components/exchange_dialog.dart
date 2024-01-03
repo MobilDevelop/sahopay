@@ -64,10 +64,20 @@ class ExchangeDialogWidget extends StatelessWidget {
               Text(Helper.dateTimeFormat(item.date),style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
-          Gap(ScreenSize.h14),
-         Text( tr("history.comment"),style: AppTheme.data.textTheme.labelSmall),
-         Gap(ScreenSize.h6),
-         Text(item.comment,style: AppTheme.data.textTheme.labelSmall)
+          Gap(ScreenSize.h8),
+         Visibility(
+          visible: item.comment.isNotEmpty,
+           child: Row(
+             children: [
+               Text( tr("history.comment"),
+               style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+               Gap(ScreenSize.w14),
+               Expanded(child: Text(item.comment,
+               textAlign: TextAlign.end,
+               style: AppTheme.data.textTheme.labelSmall))
+             ],
+           ),
+         ),
         ],
       ),
     );

@@ -16,9 +16,9 @@ class BottomsheetWidget1 extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       onPressed: press,
       child: Container(
-        height: 30.h,
-        width: 100.w,
-         padding: EdgeInsets.only(left: ScreenSize.w6),
+        height: 35.h,
+        //width: 100.w,
+         padding: EdgeInsets.only(left: ScreenSize.w12,right: ScreenSize.w12),
         decoration: BoxDecoration(
           color: selected?AppTheme.colors.primary:AppTheme.colors.white,
           border: Border.all(

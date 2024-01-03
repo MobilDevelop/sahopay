@@ -22,7 +22,7 @@ class BottomsheetWidget extends StatelessWidget {
     child: Builder(builder: (context) {
       final cubit = context.read<HistoryBottomsheetCubit>();
       return BlocBuilder<HistoryBottomsheetCubit,HistoryBottomsheetState>(builder: (context, state) => Container(
-     height: 250.h,
+     height: 300.h,
               width: double.maxFinite,
               padding: EdgeInsets.only(left: ScreenSize.w10,right: ScreenSize.w10),
               decoration: BoxDecoration(
@@ -55,28 +55,92 @@ class BottomsheetWidget extends StatelessWidget {
             ),
             child: Column(
               children: [
-              BottomsheetWidget2(icon: AppIcons.bag, selected: cubit.changed==0, title:tr('history.transactions'), press: (){
+              BottomsheetWidget2(icon: AppIcons.bag, 
+              selected: cubit.changed==0, 
+              title:tr('history.all'),
+              center: "center",
+              press: (){
                 cubit.chooseChangeg(0);
                 onPress(cubit.changed);
                 Navigator.pop(context);
               }),
+              Gap(ScreenSize.h14),
+               Row(
+                 children: [
+                   Expanded(
+                     child: BottomsheetWidget2(icon: AppIcons.dollar, 
+                     selected: cubit.changed==1, 
+                     title:tr('history.dollor'), press: (){
+                      cubit.chooseChangeg(1);
+                      onPress(cubit.changed);
+                      Navigator.pop(context);
+                     }),
+                   ),
+                   Gap(ScreenSize.w10),
+                    Expanded(
+                      child: BottomsheetWidget2(icon: AppIcons.euro, 
+                      selected: cubit.changed==2,
+                       title:tr('history.euro'), press: (){
+                      cubit.chooseChangeg(2);
+                      onPress(cubit.changed);
+                      Navigator.pop(context);
+                      }),
+                    ),
+                 ],
+               ),
+                Gap(ScreenSize.h14),
+               Row(
+                 children: [
+                   Expanded(
+                     child: BottomsheetWidget2(icon: AppIcons.ruble, 
+                     selected: cubit.changed==3, 
+                     title:tr('history.ruble'), press: (){
+                      cubit.chooseChangeg(3);
+                      onPress(cubit.changed);
+                      Navigator.pop(context);
+                     }),
+                   ),
+                   Gap(ScreenSize.w10),
+                    Expanded(
+                      child: BottomsheetWidget2(icon: AppIcons.crypto, 
+                      selected: cubit.changed==4, 
+                      title:"USDT", press: (){
+                      cubit.chooseChangeg(4);
+                      onPress(cubit.changed);
+                      Navigator.pop(context);
+                      }),
+                    ),
+                 ],
+               ),
+               Gap(ScreenSize.h14),
+               Row(
+                 children: [
+                   Expanded(
+                     child: BottomsheetWidget2(icon: AppIcons.crypto1, 
+                     selected: cubit.changed==5, 
+                     title:"UZST", press: (){
+                      cubit.chooseChangeg(5);
+                      onPress(cubit.changed);
+                      Navigator.pop(context);
+                     }),
+                   ),
+                   Gap(ScreenSize.w10),
+                    Expanded(
+                      child: BottomsheetWidget2(icon: AppIcons.crypto2, 
+                      selected: cubit.changed==6, 
+                      title:"SPY", press: (){
+                      cubit.chooseChangeg(6);
+                      onPress(cubit.changed);
+                      Navigator.pop(context);
+                      }),
+                    ),
+                 ],
+               ),
               Gap(ScreenSize.h10),
-               BottomsheetWidget2(icon: AppIcons.exchange2, selected: cubit.changed==1, title:tr('history.exchanges'), press: (){
-                cubit.chooseChangeg(1);
-                onPress(cubit.changed);
-                Navigator.pop(context);
-               }),
-              Gap(ScreenSize.h10),
-               BottomsheetWidget2(icon: AppIcons.referal, selected: cubit.changed==2, title:tr('history.referals'), press: (){
-                cubit.chooseChangeg(2);
-                onPress(cubit.changed);
-                Navigator.pop(context);
-               }),
+              
               ],
             ),
           ),
-          Gap(ScreenSize.h32),
-         
           ],
         ),
           // Row(

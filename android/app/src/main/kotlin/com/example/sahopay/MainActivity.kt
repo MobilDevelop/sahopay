@@ -1,4 +1,4 @@
-package com.example.sahopay
+package com.flutter.sahopay
 
 import io.flutter.embedding.android.FlutterActivity
 

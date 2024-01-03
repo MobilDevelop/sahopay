@@ -20,7 +20,7 @@ class SuccesCodePincodeWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+          padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
           child: PinCodeTextField(
           appContext: context,            
           length: 6,
@@ -63,7 +63,7 @@ class SuccesCodePincodeWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
             child: Column(
             children: [
-               Gap(ScreenSize.h32),
+               Gap(ScreenSize.h10),
               TextWidget(controller: passwordController,
                       title:  tr('login_page.pass'), 
                       hintText: tr('login_page.error2'),
@@ -81,7 +81,7 @@ class SuccesCodePincodeWidget extends StatelessWidget {
                     showText:()=>pressPass(2)),     
             ],
                   ),
-          ))
+          )),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sahopay/application/exchange/exchange_cubit.dart';
@@ -9,6 +10,8 @@ import 'package:sahopay/presentation/pages/deposit/components/deposit_write_widg
 import 'package:sahopay/presentation/pages/exchange/bottomsheet_widget.dart';
 import 'package:sahopay/presentation/pages/exchange/components/item_widget.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
+
+import 'components/dialog_widget.dart';
 
 class ExchangePage extends StatelessWidget {
   const ExchangePage({super.key});
@@ -28,6 +31,17 @@ class ExchangePage extends StatelessWidget {
               ),
             ),
           );
+       } else if(state is ExchangeDialog){
+         AwesomeDialog(
+            context: context,
+            dialogType:DialogType.success,
+            animType: AnimType.bottomSlide,
+            body: DialogWidgetExchange(item: state.info),
+            btnOkText: tr("drawer.yes"),
+            btnOkColor: AppTheme.colors.primary,
+            btnOkOnPress:(){
+          },
+        ).show();
        }
      },
      child: Builder(builder: (context) {
@@ -121,6 +135,7 @@ class ExchangePage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: TextField(
                           controller: cubit.amountController,
+                          keyboardType: TextInputType.number,
                           onSubmitted: (value)=>cubit.onSubmitted(value),
                           decoration:  InputDecoration(
                           hintText: tr('universal.enteramount'),
@@ -192,8 +207,7 @@ class ExchangePage extends StatelessWidget {
                      padding: EdgeInsets.only(bottom: ScreenSize.h10,left: ScreenSize.w10,right: ScreenSize.w10),
                      child: MainButton(text: tr('exchange.title'), onPressed:cubit.buttonExchange,leftIcon: AppIcons.exchange),
                    ),
-                   Gap(ScreenSize.h32),
-                   Gap(ScreenSize.h32),
+                   Gap(80.h),
                    ]
                   ),
                 ),

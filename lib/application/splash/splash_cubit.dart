@@ -9,7 +9,7 @@ class SplashCubit extends Cubit<SplashState>{
   void init()async{
       Future.delayed(const Duration(seconds: 4),()async{
         String token = await LocalSource.getInfo(key: 'checkTokenAuth');
-        String currentPassword = await LocalSource.getInfo(key: "ScreenPassword");
+        String currentPassword = await LocalSource.getInfo(key: "passCode");
         if(token.isEmpty){
          emit(SplashNextLogin());
         }else {

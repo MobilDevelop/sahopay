@@ -16,6 +16,7 @@ class DialogWidgetWithdraw extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       height: 200.h,
+      padding: EdgeInsets.symmetric(horizontal: ScreenSize.h14),
       child: Column(
         children: [
           Text(tr("transfer.payed"),style: AppTheme.data.textTheme.labelSmall),

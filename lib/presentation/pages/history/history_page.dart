@@ -35,46 +35,43 @@ class HistoryPage extends StatelessWidget {
           title: Text(tr('history.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.white)),
           centerTitle: true,
           actions: [
-            IconButton(onPressed: (){
-              showModalBottomSheet(
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                context: context, builder: (context) => BottomsheetWidget(onPress:(int type)=>cubit.succesFilter(type), type: cubit.filterType));
-            }, icon: SvgPicture.asset(AppIcons.filter,color: AppTheme.colors.white))
+            Visibility(
+              visible: cubit.filterType==0,
+              child: IconButton(onPressed: (){
+                showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  context: context, builder: (context) => BottomsheetWidget(
+                  onPress:(int type)=>cubit.chooseType(type), 
+                  type: cubit.changetype));
+              }, icon: SvgPicture.asset(AppIcons.filter,color: AppTheme.colors.white)),
+            )
           ],
         ),
         body:  Stack(
           children: [
             Column(
               children: [
-                Visibility(
-                  visible: cubit.filterType==0,
-                  child: Container(
-                    height: 45.h,
-                    width: double.maxFinite,
-                    margin: EdgeInsets.only(top: ScreenSize.h4),
-                     padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child:  Row(
+                Container(
+                  height: 45.h,
+                  width: double.maxFinite,
+                  margin: EdgeInsets.only(top: ScreenSize.h4),
+                   padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child:  Row(
             children: [
-              BottomsheetWidget1(icon: AppIcons.bag, selected: cubit.changetype==0, title: tr('history.all'), press:()=>cubit.chooseType(0)),
+              BottomsheetWidget1(icon: AppIcons.bag, 
+              selected: cubit.filterType==0, title: tr('history.transactions'), press:()=>cubit.succesFilter(0)),
               Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.dollar, selected: cubit.changetype==1, title: tr('history.dollor'), press: ()=>cubit.chooseType(1)),
+              BottomsheetWidget1(icon: AppIcons.exchange2, 
+              selected: cubit.filterType==1, title: tr('history.exchanges'), press: ()=>cubit.succesFilter(1)),
               Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.euro, selected: cubit.changetype==2, title: tr('history.euro'), press: ()=>cubit.chooseType(2)),
-              Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.ruble, selected: cubit.changetype==3, title: tr('history.ruble'), press: ()=>cubit.chooseType(3)),
-               Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.crypto, selected: cubit.changetype==4, title: "USDT", press: ()=>cubit.chooseType(4)),
-              Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.crypto, selected: cubit.changetype==5, title: "UZST", press: ()=>cubit.chooseType(5)),
-              Gap(ScreenSize.w8),
-              BottomsheetWidget1(icon: AppIcons.crypto, selected: cubit.changetype==6, title: "SPY", press: ()=>cubit.chooseType(6)),
+              BottomsheetWidget1(icon: AppIcons.referal, 
+              selected: cubit.filterType==2, title: tr('history.referals'), press: ()=>cubit.succesFilter(2)),
               
             ],
           ),
-                    ),
                   ),
                 ),
                 Expanded(
@@ -91,12 +88,15 @@ class HistoryPage extends StatelessWidget {
                  return false;
                   },
                 child: cubit.screenType==1?ListView.builder(
-                  itemCount: cubit.transactionItems.length,
-                  itemBuilder:(context, index) => HistoryItemWidget(
+                  itemCount: cubit.transactionItems.length+1,
+                  itemBuilder:(context, index){
+                    if(index<cubit.transactionItems.length){
+                      return HistoryItemWidget(
                     press: (HistoryTransaction item) { 
                    AwesomeDialog(
                     context: context,
-                    dialogType: cubit.transactionItems[index].trasactionStatus==tr("history.waiting")? DialogType.error:DialogType.success,
+                    dialogType: cubit.transactionItems[index].trasactionStatus=="WAITING"? 
+                    DialogType.error:DialogType.success,
                     animType: AnimType.bottomSlide,
                     
                     body: DialogWidget(item: item),
@@ -104,11 +104,18 @@ class HistoryPage extends StatelessWidget {
                     btnOkColor: AppTheme.colors.primary,
                     btnOkOnPress:(){}, 
                     ).show();
-                   }, item: cubit.transactionItems[index])):cubit.screenType==2?
+                   }, item: cubit.transactionItems[index]);
+                    }else{
+                      return Gap(50.h);
+                    }
+                  }
+                   ):cubit.screenType==2?
                    
                    ListView.builder(
-                    itemCount: cubit.exchangeItems.length,
-                    itemBuilder: (context, index) => ExchangeWidget(item: cubit.exchangeItems[index], 
+                    itemCount: cubit.exchangeItems.length+1,
+                    itemBuilder: (context, index){
+                      if(index<cubit.exchangeItems.length){
+                        return ExchangeWidget(item: cubit.exchangeItems[index], 
                     press: () { 
                         AwesomeDialog(
                     context: context,
@@ -119,14 +126,23 @@ class HistoryPage extends StatelessWidget {
                     btnOkColor: AppTheme.colors.primary,
                     btnOkOnPress:(){},
                     ).show();
-                     })):
+                     });
+                      }else{
+                        return Gap(50.h);
+                      }
+                    }):
                   
                    ListView.builder(
-                    itemCount: cubit.referalsItems.length,
-                    itemBuilder: (context, index) => ReferalsWidget(item: cubit.referalsItems[index]))
+                    itemCount: cubit.referalsItems.length+1,
+                    itemBuilder: (context, index){
+                      if(index<cubit.referalsItems.length){
+                        return ReferalsWidget(item: cubit.referalsItems[index]);
+                      }else{
+                        return Gap(50.h);
+                      }
+                    })
                           ),
               ),),
-              Gap(70.h)
               ],
             ),
             Visibility(

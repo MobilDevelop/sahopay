@@ -19,7 +19,7 @@ class RegistrationSendInfo{
     'answer':answer,
     'email':email,
     'password':password,
-    'referalCode':referalCode,
+    'referralCode':referalCode,
     'termsAndCondition':termsAndCantion,
     'captchaRandomId':captchaRandomId
   };

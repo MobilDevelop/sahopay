@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
-import 'package:sahopay/infrastructure/models/history/get_transactions.dart';
+import 'package:sahopay/infrastructure/models/exchange/exchange_response.dart';
 import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
-class DialogWidget extends StatelessWidget {
-  const DialogWidget({
+class DialogWidgetExchange extends StatelessWidget {
+  const DialogWidgetExchange({
     super.key, required this.item,
   });
-  final HistoryTransaction item;
+  final ExchangeResponse item;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
       child: Column(
         children: [
-          Text(item.trasactionStatus=="WAITING"?tr("history.error"):tr("history.succes"),style: AppTheme.data.textTheme.displaySmall),
+          Text(tr("history.succes"),style: AppTheme.data.textTheme.displaySmall),
           Gap(ScreenSize.h20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.amount"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+              Text(tr("history.amount"),style: AppTheme.data.textTheme.labelSmall),
               Text("${item.amount} ${item.senderCurrency}",style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -27,7 +27,7 @@ class DialogWidget extends StatelessWidget {
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.sender"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+              Text(tr("history.sender"),style: AppTheme.data.textTheme.labelSmall),
               Text(item.sender,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -35,7 +35,7 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.reciever"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+              Text(tr("history.reciever"),style: AppTheme.data.textTheme.labelSmall),
               Text(item.recipient,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -43,7 +43,7 @@ class DialogWidget extends StatelessWidget {
            Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(tr("history.pc"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
+              Text(tr("history.pc"),style: AppTheme.data.textTheme.labelSmall),
               Text(item.pc,style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
@@ -51,24 +51,10 @@ class DialogWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text (tr("history.date"),style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
-              Text(Helper.dateTimeFormat(item.date),style: AppTheme.data.textTheme.labelSmall),
+              Text (tr("history.date"),style: AppTheme.data.textTheme.labelSmall),
+              Text(Helper.dateTimeFormat(item.transDate),style: AppTheme.data.textTheme.labelSmall),
             ],
           ),
-          Gap(ScreenSize.h8),
-         Visibility(
-          visible: item.comment.isNotEmpty,
-           child: Row(
-             children: [
-               Text( tr("history.comment"),
-               style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.grey)),
-               Gap(ScreenSize.w14),
-               Expanded(child: Text(item.comment,
-               textAlign: TextAlign.end,
-               style: AppTheme.data.textTheme.labelSmall))
-             ],
-           ),
-         ),
         ],
       ),
     );

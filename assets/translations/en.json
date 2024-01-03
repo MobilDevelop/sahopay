@@ -101,7 +101,7 @@
         "waiting":"  WAITING",
         "error":"Error",
         "succes":"Success",
-        "comment":"  Comment"
+        "comment":"Comment"
     },
     "withdraw":{
         "title":"Withdraw",

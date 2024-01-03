@@ -18,6 +18,7 @@ class PinCubit extends Cubit<PinState>{
   String text = "";
   bool clearCheck =false;
   bool errorBorder=false;
+  bool loading =false;
 
   bool newPass = false;
   bool confirmPass = false;
@@ -39,7 +40,7 @@ class PinCubit extends Cubit<PinState>{
            }
         }
       screenType = type;
-      currentPassword = await LocalSource.getInfo(key: "ScreenPassword");
+      currentPassword = await LocalSource.getInfo(key: "passCode");
       emit(PinInitial());
     }
 
@@ -75,7 +76,7 @@ class PinCubit extends Cubit<PinState>{
     }
     if(text.length==4){
       emit(PinInitial());
-       await Future.delayed(const Duration(milliseconds: 300));
+       await Future.delayed(const Duration(milliseconds: 100));
       switch (screenType) {
         case 1:nextPage(); break;
         case 2:setPassword(); break;
@@ -93,7 +94,7 @@ class PinCubit extends Cubit<PinState>{
      if(confirmPass){
       
      if(newPassword==text){
-      await LocalSource.putInfo(key: "ScreenPassword", json: newPassword);
+      await LocalSource.putInfo(key: "passCode", json: newPassword);
          EasyLoading.showSuccess(tr("pin.saved"));
         emit(PinNextHome());
      }else{
@@ -118,7 +119,7 @@ class PinCubit extends Cubit<PinState>{
       if(confirmPass){
        
       if(newPassword==text){
-         await LocalSource.putInfo(key: "ScreenPassword", json: newPassword);
+         await LocalSource.putInfo(key: "passCode", json: newPassword);
          EasyLoading.showSuccess(tr("pin.saved"));
           emit(PinClose());
       }else{
@@ -148,9 +149,11 @@ class PinCubit extends Cubit<PinState>{
   
   void nextPage()async{
     if(text==currentPassword){
-      errorBorder=false;
+    errorBorder=false;
     String json = await  LocalSource.getInfo(key: "loginParam");
     if(json.isNotEmpty){
+      loading =true;
+      emit(PinInitial());
       Map<String,dynamic> param = jsonDecode(json);
      await RegistrationServices().login(param);
        }
@@ -158,6 +161,8 @@ class PinCubit extends Cubit<PinState>{
       }else{
     error();
     }
+    loading =false;
+    emit(PinInitial());
   }
 
 

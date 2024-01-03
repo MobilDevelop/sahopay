@@ -12,12 +12,13 @@ import 'package:sahopay/presentation/assets/theme/app_theme.dart';
 import 'package:sahopay/presentation/components/button/text_button_x.dart';
 class CardWidget extends StatelessWidget {
   const CardWidget({
-    super.key, required this.item, required this.index, required this.backgroundColor, required this.onPress,
+    super.key, required this.item, required this.index, required this.backgroundColor, required this.onPress, required this.copyText,
   });
   final DashboardModel item;
   final int index;
   final List<Color> backgroundColor;
   final Function onPress;
+  final Function copyText;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -69,7 +70,15 @@ class CardWidget extends StatelessWidget {
         errorBuilder: (context, error, stackTrace) =>SvgPicture.asset(AppIcons.cardSvg,color: AppTheme.colors.primary,height: ScreenSize.h24)), 
             ),
             title: Text(tr('dashboard.number'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white12)),
-            subtitle: Text(item.account,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.white12)),
+            subtitle: Row(
+              children: [
+                Text(item.account,style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.white12)),
+                Gap(ScreenSize.w6),
+                InkWell(
+                    onTap:()=>copyText(item.account),
+                    child: SvgPicture.asset(AppIcons.copy,height: ScreenSize.h16,color: AppTheme.colors.black25))
+              ],
+            ),
             ),
             Gap(ScreenSize.h6),
             Text(tr('dashboard.balance'),style: AppTheme.data.textTheme.titleSmall!.copyWith(color: AppTheme.colors.white12)),
@@ -79,19 +88,23 @@ class CardWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-               TextButtonX(onPressed: ()=>onPress(1), text: tr('home.transfer'),leftIcon:AppIcons.send,textColor: AppTheme.colors.white12),
+               TextButtonX(onPressed: ()=>onPress(1), text: tr('home.transfer'),
+               leftIcon:AppIcons.send,textColor: AppTheme.colors.white12),
                Container(
                 width: 1,
                 height: ScreenSize.h10,
                 color: AppTheme.colors.white12,
                ),
-               TextButtonX(onPressed: ()=>onPress(2), text: tr('home.deposit'),leftIcon:AppIcons.money,textColor: AppTheme.colors.white12),
+               TextButtonX(onPressed: ()=>onPress(2), text: tr('home.deposit'),
+               leftIcon:AppIcons.money,textColor: AppTheme.colors.white12),
                  Container(
                 width: 1,
                 height: ScreenSize.h10,
                 color: AppTheme.colors.white12,
                ),
-               TextButtonX(onPressed: ()=>onPress(3), text: tr('home.withdraw'),leftIcon:AppIcons.withdraw,textColor: AppTheme.colors.white12),
+               TextButtonX(onPressed: ()=>onPress(3), text: tr('home.withdraw'),
+               leftIcon:AppIcons.withdraw,textColor: AppTheme.colors.white12
+               ),
               ],
             ),
           ],

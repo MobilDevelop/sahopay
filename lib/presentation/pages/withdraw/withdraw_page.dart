@@ -145,7 +145,7 @@ class WithdrawPage extends StatelessWidget {
                         children: [
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: ScreenSize.w12),
-                        child: Text("Wthdraw with ${cubit.selectedPaymentItem!.systemName}",
+                        child: Text("Withdraw with ${cubit.selectedPaymentItem!.systemName}",
                         style: AppTheme.data.textTheme.displaySmall,
                         ),
                       ),  
@@ -157,9 +157,15 @@ class WithdrawPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(cubit.selectedPaymentItem!.params[i].name.toString(),style: AppTheme.data.textTheme.titleSmall),
+                          Text(cubit.selectedPaymentItem!.params[i].name.toString().
+                          substring(0,cubit.selectedPaymentItem!.params[i].name.length-1),
+                          style: AppTheme.data.textTheme.titleSmall),
                           Gap(ScreenSize.h4),
-                          Text("\$ ${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())}"),
+                          Text("${Helper.toProcessCost(cubit.selectedPaymentItem!.params[i].maxSum.toString())} ${
+                            cubit.selectedPaymentItem!.params[i].name.toString().
+                          substring(cubit.selectedPaymentItem!.params[i].name.length-1,
+                          cubit.selectedPaymentItem!.params[i].name.length)
+                          }"),
                           Gap(ScreenSize.h8),
                         ],
                       ),

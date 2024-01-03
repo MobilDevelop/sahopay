@@ -38,7 +38,6 @@ class ProfilePage extends StatelessWidget {
           children: [
             SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
@@ -117,13 +116,7 @@ class ProfilePage extends StatelessWidget {
                   Gap(200.h),
                 Container(
                   margin: EdgeInsets.only(left: ScreenSize.w14,right: ScreenSize.w14,bottom: ScreenSize.h24),
-                  child: Row(
-                    children: [
-                      Expanded(child: BorderButton(onPressed:cubit.clear, text: tr('profile.clear'),borderColor: AppTheme.colors.red)),
-                      Gap(ScreenSize.w10),
-                      Expanded(child: BorderButton(onPressed:cubit.setProfile, text: tr('profile.update'))),
-                    ],
-                  ),
+                  child: BorderButton(onPressed:cubit.setProfile, text: tr('profile.update')),
                 )
                 ],
               ),

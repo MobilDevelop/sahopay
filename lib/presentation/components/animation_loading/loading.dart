@@ -30,16 +30,19 @@ class Loading extends StatelessWidget {
        case 16:current = Center(child: LoadingAnimationWidget.halfTriangleDot(color: AppTheme.colors.secondary, size: 120));break;
      }
      return Container(
-      //padding: EdgeInsets.all(ScreenSize.h32),
-      child: Container(
-        color: AppTheme.colors.grey.withOpacity(.1),
-        child: ClipRect(
-          child: BackdropFilter(
-               filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-               child: current
-               ),
-        ),
-      ),
+       color: AppTheme.colors.grey.withOpacity(.1),
+       child: ClipRect(
+         child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+              child: Container(
+                alignment: Alignment.center,
+               child: LoadingAnimationWidget.discreteCircle(color: AppTheme.colors.primary, 
+               secondRingColor: AppTheme.colors.white,
+               thirdRingColor: AppTheme.colors.white,
+               size: 50)
+              )
+              ),
+       ),
      );
   }
 }

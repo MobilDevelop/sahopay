@@ -14,7 +14,7 @@ class WalletObject {
     required this.currencyName,
     required this.accountStatus,
     required this.hold,
-    required this.logoUrl,
+    required this.logoUrl, 
     required this.balance,
   });
   factory WalletObject.fromJson(Map<String, dynamic> json) => WalletObject(

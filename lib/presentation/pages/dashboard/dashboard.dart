@@ -51,15 +51,20 @@ class Dashboard extends StatelessWidget {
                   child: RefreshIndicator(
                     onRefresh: cubit.listRefresh,
                     child: ListView.builder(
-                    itemCount: cubit.items.length,
-                    itemBuilder: (context, index) => 
-                    CardWidget(item: cubit.items[index], 
+                    itemCount: cubit.items.length+1,
+                    itemBuilder: (context, index){ 
+                     if(index<cubit.items.length){
+                      return CardWidget(item: cubit.items[index], 
                     index: index, 
                     backgroundColor:AppContatants.backgroundColor[index], 
-                    onPress:(int current)=>cubit.nextScreen(current,cubit.items[index])))
+                    onPress:(int current)=>cubit.nextScreen(current,cubit.items[index]), 
+                    copyText: (String text)=>cubit.copyText(text));
+                     }else{
+                      return Gap(70.h);
+                     }
+                     })
                   ),
                 ),
-                Gap(60.h)
               ],
             ),
             Visibility(
