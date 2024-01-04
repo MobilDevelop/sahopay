@@ -6,6 +6,11 @@ class LoginInitial extends LoginState{}
 
 class LoginNextPin extends LoginState{}
 
+class LoginNextForgot extends LoginState{
+  String email;
+  LoginNextForgot(this.email);
+}
+
 class LoginError extends LoginState{
   String message;
   LoginError(this.message); 

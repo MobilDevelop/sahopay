@@ -46,6 +46,18 @@ class Routes implements Coordinate {
     name: 'password_page',
     path: '/password',
   );
+  static const registration = Routes._(
+    name: 'registration_page',
+    path: '/registration',
+  );
+  static const forgotPass = Routes._(
+    name: 'forgotPass_page',
+    path: '/forgotPass',
+  );
+  static const checkPass = Routes._(
+    name: 'checkPass_page',
+    path: '/checkPass',
+  );
   
 
   @override

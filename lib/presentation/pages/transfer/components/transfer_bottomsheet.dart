@@ -63,6 +63,7 @@ class BottomsheetWidgetTransfer extends StatelessWidget {
                       Container(
                   height: 33.h,
                   width: 33.h,
+                  padding: EdgeInsets.symmetric(horizontal: ScreenSize.h4),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: AppTheme.colors.grey.withOpacity(.6),

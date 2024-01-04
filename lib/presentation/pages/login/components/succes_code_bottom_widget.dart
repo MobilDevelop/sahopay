@@ -21,7 +21,7 @@ class SuccesCodeBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
+      padding: EdgeInsets.symmetric(horizontal: ScreenSize.w4),
       child: Column(
         children: [
           MainButton(text: visible?tr('login_page.enter'):tr('login_page.verify'), onPressed:succesPress),

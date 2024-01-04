@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/login/login_state.dart';
 import 'package:sahopay/domain/provider/registration.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
@@ -11,17 +12,17 @@ import 'package:sahopay/infrastructure/models/login/registration_send_info.dart'
 import 'package:sahopay/infrastructure/models/login/set_password.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/presentation/pages/login/components/captcha_widget.dart';
-import 'package:timer_count_down/timer_controller.dart';
 
 class LoginCubit extends Cubit<LoginState>{
   LoginCubit():super(LoginInitial());
   
   bool loading =false;
+  bool forgotPassword = false;
+
   bool onRegistration = false;
   bool passwordVisible = true;
   bool confirmpasswordVisible = true;
   bool checked = false;
-  bool forgotPassword = false;
   bool succesCode = false;
   bool showResend = false;
 
@@ -40,57 +41,18 @@ class LoginCubit extends Cubit<LoginState>{
   final captchaController=TextEditingController();
   final succesCodeController=TextEditingController();
 
-  final timerController = CountdownController(autoStart: true);
 
 
   void checkInfo(context)async{
     String login = loginController.text.trim();
     String password = passwordController.text.trim();
-    String confirm = confirmPasswordController.text.trim();
     loading =true;
     emit(LoginInitial());
-  
-    if(onRegistration){
-      if(login.isEmpty || password.isEmpty || confirm.isEmpty){
-       loading=false;
-       emit(LoginError(tr("universal.fillInfo")));
-    }else{
-       if(Helper.isEmail(login)){
-        borderEmail=true;
-       }else{
-        borderEmail=false;
-       }
-       if(password.length<4){
-        borderPassword=true;
-       }else{
-        borderPassword=false;
-       }
-       if(confirm.length<4 || confirm!=password){
-          borderConfirm =true;
-       }else{
-        borderConfirm=false;
-       }
-       if(!checked){
-        borderCheck=true;
-       }else{
-        borderCheck=false;
-       }
 
-      if(!borderPassword && !borderConfirm && !borderCheck && !borderEmail){
-         showDialog(context: context, builder: (context) => CaptchaWidget(
-         controller: captchaController, press:(GetCaptcha captcha){
-          Navigator.pop(context);
-          loading =true;
-          emit(LoginInitial());
-          registration(captcha);
-         }));
-         }
-      }
-    }
-    else{
       if(login.isEmpty || password.isEmpty){
        loading=false;
-       emit(LoginError(tr("universal.fillInfo")));
+
+       EasyLoading.showInfo(tr("universal.fillInfo"));
 
     }else{
       if(Helper.isEmail(login)){
@@ -105,16 +67,13 @@ class LoginCubit extends Cubit<LoginState>{
        }
 
        if(!borderPassword && !borderEmail){
-          loading =true;
-          emit(LoginInitial());
           bool check = await RegistrationServices().login(LoginSend(username: login, password: password).toJson());
           if(check){
             emit(LoginNextPin());
           }else{
-            emit(LoginError(tr("pin.notfound")));
+            EasyLoading.showInfo(tr("pin.notfound"));
           }
        }
-    }
     }
     loading=false;
     emit(LoginInitial());
@@ -134,8 +93,8 @@ class LoginCubit extends Cubit<LoginState>{
       loading=false;
     if(getInfo.code==200){
       succesCode=true;
-      checkPassword=false;
-      timerController.start();
+      checkPassword=true;
+      
     }             
     emit(LoginInitial());
   }
@@ -197,6 +156,7 @@ class LoginCubit extends Cubit<LoginState>{
         borderEmail=false;
        }
       if(!borderEmail){
+        captchaController.clear();
       showDialog(context: context, builder: (context) => CaptchaWidget(
       controller: captchaController, press:(GetCaptcha captcha){
           Navigator.pop(context);
@@ -213,56 +173,25 @@ class LoginCubit extends Cubit<LoginState>{
   void checkForgotPassword(GetCaptcha captcha,String mail)async{
     ServerMessage info = await RegistrationServices().forgotPass(ForgotPasswordJson(answer: captchaController.text.trim(), 
     mail: mail, randomId: captcha.randomId).toJson());
-    loading=false;
     if(info.code==200){
-      onRegistration=false;
-      forgotPassword=false;
-      succesCode =true;
-      timerController.start();
-      checkPassword=true;
+     EasyLoading.showInfo(info.message);
+     emit(LoginNextForgot(mail)); 
     }
-    emit(LoginError(info.message));
-  }
-
-
-
-  void checkView(){
-    onRegistration = !onRegistration;
+    loading=false;
     emit(LoginInitial());
   }
 
 
 
-  void visiblePassword(int type){
-    if(type==1){
-      passwordVisible=!passwordVisible;
-    }else{
-      confirmpasswordVisible=!confirmpasswordVisible;
-    }
+
+  void visiblePassword(){
+    passwordVisible=!passwordVisible;
     emit(LoginInitial());
   }
 
-
-   showChecked(bool? value){
-    checked=!checked;
+  void forgotP(){
+    forgotPassword=!forgotPassword;
     emit(LoginInitial());
-  }
-
-
-  void showForgotPassword(){
-    forgotPassword =!forgotPassword;
-    emit(LoginInitial());
-  }
-
-  void backPress(){
-    succesCode=false;
-    forgotPassword=true;
-    emit(LoginInitial());
-  }
-
-  void resendCodeShow()async{
-    showResend=true;
-    emit(LoginInitial());  
   }
 
   void resendCode(context)async{
@@ -276,9 +205,9 @@ class LoginCubit extends Cubit<LoginState>{
           loading =true;
           emit(LoginInitial());
           if(checkPassword){
-            registration(captcha);
-          }else{
             checkForgotPassword(captcha,email);
+          }else{
+            registration(captcha);
           }
          }));
       }

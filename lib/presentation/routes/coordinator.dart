@@ -1,4 +1,7 @@
 import 'package:sahopay/infrastructure/models/dashboard/dashboard_model.dart';
+import 'package:sahopay/presentation/pages/checkPass/checkPass_page.dart';
+import 'package:sahopay/presentation/pages/forgotPass/forgotPass_page.dart';
+import 'package:sahopay/presentation/pages/registration/registration_page.dart';
 
 import 'index_routes.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +92,30 @@ final GoRouter router = GoRouter(
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child:  const SplashPage(),
+        ),
+      ),
+       GoRoute(
+        name: Routes.registration.name, 
+        path: Routes.registration.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:  const RegistrationPage(),
+        ),
+      ),
+      GoRoute(
+        name: Routes.checkPass.name, 
+        path: Routes.checkPass.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:   CheckPassPage(email: state.extra as String),
+        ),
+      ),
+      GoRoute(
+        name: Routes.forgotPass.name, 
+        path: Routes.forgotPass.path,
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child:   ForgotPassPage(param: state.extra as Map<String,dynamic>),
         ),
       ),
     ],

@@ -106,7 +106,7 @@ class HistoryPage extends StatelessWidget {
                     ).show();
                    }, item: cubit.transactionItems[index]);
                     }else{
-                      return Gap(50.h);
+                      return cubit.transactionItems.length<3? Gap(650.h):Gap(50.h);
                     }
                   }
                    ):cubit.screenType==2?
@@ -128,7 +128,7 @@ class HistoryPage extends StatelessWidget {
                     ).show();
                      });
                       }else{
-                        return Gap(50.h);
+                        return cubit.exchangeItems.length<3? Gap(650.h):Gap(50.h);
                       }
                     }):
                   
@@ -138,7 +138,7 @@ class HistoryPage extends StatelessWidget {
                       if(index<cubit.referalsItems.length){
                         return ReferalsWidget(item: cubit.referalsItems[index]);
                       }else{
-                        return Gap(50.h);
+                         return cubit.referalsItems.length<3? Gap(650.h):Gap(50.h);
                       }
                     })
                           ),

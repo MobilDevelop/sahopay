@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sahopay/presentation/components/animation_loading/loading.dart';
 import 'package:sahopay/presentation/components/button/border_button.dart';
-import 'package:sahopay/presentation/pages/login/components/check_password.dart';
 import 'package:sahopay/presentation/routes/index_routes.dart';
 import 'components/circle_user_widget.dart';
 import 'components/forgot_password.dart';
 import 'components/login_widget.dart';
-import 'components/registration_widget.dart';
-import 'components/succes_code_bottom_widget.dart';
-import 'components/succes_code_title.dart';
-import 'components/succes_pincode_widget.dart';
 import 'components/text_widget.dart';
 import 'library/login_library.dart';
 
@@ -32,51 +26,14 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           );
-      } 
+      }else if(state is LoginNextForgot){
+        context.push(Routes.checkPass.path,extra:state.email);
+      }
     },
     child: Builder(builder: (context) {
       final cubit = context.read<LoginCubit>();
       return BlocBuilder<LoginCubit,LoginState>(builder: (context, state) => Scaffold(
-        body: cubit.succesCode?SizedBox(
-          height: double.maxFinite,
-          width: double.maxFinite,
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    cubit.checkPassword?Gap(10.h):Gap(40.h),
-                    cubit.checkPassword?const CheckPasswordWidget():  const SuccesCodeTitle(),
-                    cubit.checkPassword?Gap(40.h):Gap(60.h),
-                   SuccesCodePincodeWidget(controller: cubit.succesCodeController, 
-                   visible:cubit.checkPassword,
-                   passwordController: cubit.passwordController,
-                   confirmPasswordController: cubit.confirmPasswordController,
-                   passwordVisible: cubit.passwordVisible,
-                   confirmpasswordVisible: cubit.confirmpasswordVisible,
-                   borderColorPass: cubit.borderPassword,
-                   borderColorConfirm: cubit.borderConfirm,
-                   pressPass:(int index)=>cubit.visiblePassword(index)),
-                   cubit.checkPassword?Gap(30.h):Gap(120.h),
-                   SuccesCodeBottomWidget(
-                    controller: cubit.timerController ,
-                    resendPress:()=>cubit.resendCode(context), 
-                    backPress:cubit.backPress,
-                   succesPress:cubit.emailSuccesCode, 
-                   visible:cubit.checkPassword, 
-                   showResend: cubit.showResend,
-                   resendShow:cubit.resendCodeShow)
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: cubit.loading,
-                child: const Loading())
-            ],
-          ),
-        ):SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -105,7 +62,7 @@ class LoginPage extends StatelessWidget {
                 ]),
                   child: Column(
                   children: [
-                  cubit.forgotPassword?const ForgotPassword():cubit.onRegistration?const RegistrationWidget():const LoginWidget(),
+                  cubit.forgotPassword?const ForgotPassword():const LoginWidget(),
                   Gap(ScreenSize.h10),
                   const CircleUserWidget(),
                   TextWidget(controller: cubit.loginController,
@@ -124,74 +81,20 @@ class LoginPage extends StatelessWidget {
                     border: cubit.borderPassword, 
                     visible: true, 
                     overflow: cubit.passwordVisible, 
-                    showText:()=>cubit.visiblePassword(1)
+                    showText:cubit.visiblePassword
                     ),
-                  Visibility(
-                    visible: !cubit.onRegistration,
-                    child: Container(
-                      width: double.maxFinite,
-                      padding: EdgeInsets.only(right: ScreenSize.w10),
-                      child: Bounce(
-                        duration: const Duration(milliseconds: 300),
-                        onPressed:cubit.showForgotPassword,
-                        child: Text(tr('login_page.forget'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary),
-                        textAlign: TextAlign.end),
-                      ),
+                  Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.only(right: ScreenSize.w10),
+                    child: Bounce(
+                      duration: const Duration(milliseconds: 300),
+                      onPressed:cubit.forgotP,
+                      child: Text(tr('login_page.forget'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary),
+                      textAlign: TextAlign.end),
                     ),
                   )],
                   )),
-                  Visibility(
-                    visible: cubit.onRegistration,
-                    child: Column(
-                      children: [
-                  TextWidget(controller: cubit.confirmPasswordController,
-                  title:  tr('login_page.confirm'), 
-                  hintText: tr('login_page.error3'),
-                  border: cubit.borderConfirm, 
-                  visible: true, 
-                  overflow: cubit.confirmpasswordVisible, 
-                  showText:()=>cubit.visiblePassword(2)),
-                  TextWidget(controller: cubit.referalController,
-                  title:  tr('login_page.referal'), 
-                  hintText: "",
-                  border:  false, 
-                  visible: false, 
-                  overflow:false, 
-                  showText:(){}),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Theme(
-                            data: ThemeData(
-                              unselectedWidgetColor: cubit.borderCheck?AppTheme.colors.red:AppTheme.colors.grey
-                            ),
-                            child: Checkbox(value: cubit.checked, 
-                            onChanged: cubit.showChecked,
-                            activeColor: AppTheme.colors.primary), 
-                          ),
-                          Text(tr('login_page.agree'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey)),
-                          Gap(ScreenSize.w10),
-                          Text (tr('login_page.terms'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary)),
-                        ],
-                      ),
-                      Visibility(
-                        visible: cubit.borderCheck,
-                        child: Column(
-                          children: [
-                            Text(
-                               tr('login_page.error4'),
-                                style: AppTheme.data.textTheme.labelSmall!.copyWith(color: AppTheme.colors.red),
-                                ),
-                            Gap(ScreenSize.h16)
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
-                      ],
-                    )),
+                 
                     ]),
                  ),
                  Container(
@@ -202,26 +105,21 @@ class LoginPage extends StatelessWidget {
                       MainButton(text: tr('login_page.enter'),
                       wrap: true, 
                       showLoading: cubit.loading,
-                      onPressed: (){
-                        if(!cubit.loading){
-                         if(cubit.forgotPassword){
-                          cubit.forgotPass(context);
-                         }else{
-                          cubit.checkInfo(context);
-                         }
-                        }
-                      }),
+                      onPressed: ()=>cubit.forgotPassword?cubit.forgotPass(context):cubit.checkInfo(context)),
                        Gap(ScreenSize.h20),
-                       cubit.forgotPassword?BorderButton(onPressed:cubit.showForgotPassword, text: tr('login_page.back'),borderColor: AppTheme.colors.grey):Padding(
+                       cubit.forgotPassword?BorderButton(onPressed:cubit.forgotP, text: tr('login_page.back'),borderColor: AppTheme.colors.grey):
+                       Padding(
                          padding:  EdgeInsets.symmetric(horizontal: ScreenSize.w10),
                          child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(cubit.onRegistration?tr('login_page.comment1'):tr('login_page.comment2'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey)),
+                            Text(tr('login_page.comment2'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey)),
                             Bounce(
                               duration: const Duration(milliseconds: 300),
-                              onPressed:cubit.checkView,
-                              child: Text(cubit.onRegistration?tr('login_page.signin'):tr('login_page.signup'),style: AppTheme.data.textTheme.titleMedium!.copyWith(color: AppTheme.colors.primary))),
+                              onPressed:(){
+                                context.go(Routes.registration.path);
+                              },
+                              child: Text(tr('login_page.signup'),style: AppTheme.data.textTheme.titleMedium!.copyWith(color: AppTheme.colors.primary))),
                           ],
                          ),
                        ),

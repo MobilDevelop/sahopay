@@ -36,6 +36,7 @@ class AppIcons {
   static const String crypto2 = 'assets/icons/crypto2.svg';
   static const String copy = 'assets/icons/copy.svg';
   static const String refresh = 'assets/icons/refresh.svg';
+  static const String support = 'assets/icons/support.svg';
 
 
 
