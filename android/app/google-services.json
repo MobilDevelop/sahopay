@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "185513394283",
+    "project_id": "sahopay-firebase",
+    "storage_bucket": "sahopay-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185513394283:android:77d101269177a59f08712e",
+        "android_client_info": {
+          "package_name": "com.application.sahopay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW8SGkZpF5z9klpnyX7r_4HzmH1Aumtb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

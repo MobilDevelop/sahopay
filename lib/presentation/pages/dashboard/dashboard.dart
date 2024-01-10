@@ -42,7 +42,7 @@ class Dashboard extends StatelessWidget {
           title: Text(tr('dashboard.title'),style: AppTheme.data.textTheme.headlineSmall!.copyWith(color: AppTheme.colors.primary)),
           centerTitle: true,
           actions: [
-            IconButton(onPressed:cubit.launchURL, icon: SvgPicture.asset(AppIcons.support,color: AppTheme.colors.primary)),
+            IconButton(onPressed:cubit.launchURL, icon: SvgPicture.asset(AppIcons.support)),
             Gap(ScreenSize.w6)
           ],
         ),

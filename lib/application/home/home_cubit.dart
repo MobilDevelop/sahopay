@@ -12,7 +12,7 @@ import 'package:sahopay/presentation/pages/login/library/login_library.dart';
 
 class HomeCubit extends Cubit<HomeState>{
   HomeCubit():super(HomeInitial()){
-     getinfo();
+    getinfo();
     nextScreen(0);
   }
 
@@ -66,6 +66,10 @@ class HomeCubit extends Cubit<HomeState>{
     nextScreen(0);
     return Future.value(false);
    }
+  }
+
+  void checkTime()async{
+    
   }
   
 }

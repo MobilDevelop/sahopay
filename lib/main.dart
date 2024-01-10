@@ -9,7 +9,7 @@ import 'application/app_manager/app_manager_cubit.dart';
 import 'infrastructure/common/app_init.dart';
 Future<void> main() async {
   await runZonedGuarded<Future<void>>(() async {
-    await initializeApp();
+  await initializeApp();
 
     runApp( 
       EasyLocalization(
@@ -32,12 +32,15 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp>{
   @override
   void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
+
+
+ 
 
   @override
   Widget build(BuildContext context) {

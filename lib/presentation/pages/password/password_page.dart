@@ -83,13 +83,7 @@ class PasswordPage extends StatelessWidget {
                   Gap(200.h),
                    Container(
                   margin: EdgeInsets.only(left: ScreenSize.w14,right: ScreenSize.w14,bottom: ScreenSize.h24),
-                  child: Row(
-                    children: [
-                      Expanded(child: BorderButton(onPressed: cubit.clearText, text: tr('password.clear'),borderColor: AppTheme.colors.red)),
-                      Gap(ScreenSize.w10),
-                      Expanded(child: BorderButton(onPressed: cubit.updatePassword, text: tr('password.update'))),
-                    ],
-                  ),
+                  child: BorderButton(onPressed: cubit.updatePassword, text: tr('password.update')),
                 )
                 ],
               ),

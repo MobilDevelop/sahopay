@@ -7,6 +7,7 @@ import 'package:sahopay/application/setting/setting_cubit.dart';
 import 'package:sahopay/application/setting/setting_state.dart';
 import 'package:sahopay/presentation/assets/asset_index.dart';
 import 'package:sahopay/presentation/routes/index_routes.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -70,6 +71,22 @@ class SettingPage extends StatelessWidget {
               height: ScreenSize.h10,
               color: AppTheme.colors.grey,
             ),
+            Gap(ScreenSize.h20),
+            Text(tr('setting.time')),
+             Gap(ScreenSize.h10),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: ScreenSize.w10),
+              child: SfSlider(
+                value: cubit.value,
+                min: 0.0,
+                max: 60.0,
+                interval: 15,
+                showTicks: true,
+                showLabels: true,
+                activeColor: AppTheme.colors.primary,
+                onChangeEnd: (val)=>cubit.saveTime(val),
+                onChanged: (val)=>cubit.setValue(val)),
+            )
           ],
         ),
        ));

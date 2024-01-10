@@ -114,9 +114,10 @@
     },
     "setting":{
         "title":"Setting",
-        "profile":"Prifile",
+        "profile":"Profile",
         "password":"Change Password",
-        "password2":"Lock Password"
+        "password2":"Change PIN",
+        "time":"Collapse lock"
     },
     "profile":{
         "title":"Profile",
@@ -164,10 +165,10 @@
         "fill":"Fill in the information",
         "character":"Password must be at least 6 character",
         "notfound":"Account not found",
-        "enterPass":"Enter password",
+        "enterPass":"Enter PIN",
         "saved":"Saved successfully",
-        "confirmPass":"Confirm new password",
-        "enterNewPass":"Enter new password"
+        "confirmPass":"Reply PIN",
+        "enterNewPass":"Create a PIN"
     }
   
     

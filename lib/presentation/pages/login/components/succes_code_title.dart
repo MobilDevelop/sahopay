@@ -25,5 +25,5 @@ class SuccesCodeTitle extends StatelessWidget {
     style: AppTheme.data.textTheme.bodyLarge!.copyWith(color: AppTheme.colors.grey)),
       ],
     );
-  } 
+  }  
 }

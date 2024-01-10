@@ -78,10 +78,12 @@ class DepositPage extends StatelessWidget {
                           Column(children: [
             
                     WithdrawWalletWidget(wallet: cubit.selectedWalletItem, press: () { 
+
                     showModalBottomSheet(context: context, 
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
-                    builder: (context) => WalletBottomSheet(items:cubit.walletItems, onTap:(WalletObject wallet){
+                    builder: (context) => WalletBottomSheet(items:cubit.walletItems, 
+                    onTap:(WalletObject wallet){
                       Navigator.pop(context);
                       cubit.onChangedWallet(wallet);
                     }));
@@ -93,7 +95,8 @@ class DepositPage extends StatelessWidget {
                       showModalBottomSheet(context: context, 
                       backgroundColor: Colors.transparent,
                       isScrollControlled: true,
-                      builder: (context) => DepositBottomsheet(items: cubit.paymentItems, onTap:(DepositPayment payment){
+                      builder: (context) => DepositBottomsheet(items: cubit.paymentItems, 
+                      onTap:(DepositPayment payment){
                         Navigator.pop(context);
                         cubit.onChangedPayment(payment);
                       }));

@@ -8,8 +8,6 @@ import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/login/captcha.dart';
 import 'package:sahopay/infrastructure/models/login/forgot_pass.dart';
 import 'package:sahopay/infrastructure/models/login/login_send.dart';
-import 'package:sahopay/infrastructure/models/login/registration_send_info.dart';
-import 'package:sahopay/infrastructure/models/login/set_password.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/presentation/pages/login/components/captcha_widget.dart';
 
@@ -70,8 +68,6 @@ class LoginCubit extends Cubit<LoginState>{
           bool check = await RegistrationServices().login(LoginSend(username: login, password: password).toJson());
           if(check){
             emit(LoginNextPin());
-          }else{
-            EasyLoading.showInfo(tr("pin.notfound"));
           }
        }
     }
@@ -80,71 +76,7 @@ class LoginCubit extends Cubit<LoginState>{
   }
 
 
-  void registration(GetCaptcha captcha)async{
-    Map<String,dynamic> sendInfo = RegistrationSendInfo(
-    answer: captchaController.text.trim(), 
-    email: loginController.text.trim(), 
-    password:passwordController.text.trim(), 
-    referalCode: referalController.text.trim(), 
-    termsAndCantion: checked, 
-    captchaRandomId: captcha.randomId).toJson();
-
-    ServerMessage getInfo = await RegistrationServices().registration(sendInfo);
-      loading=false;
-    if(getInfo.code==200){
-      succesCode=true;
-      checkPassword=true;
-      
-    }             
-    emit(LoginInitial());
-  }
-
-
-  void emailSuccesCode()async{
-    loading =true;
-    String code = succesCodeController.text.trim();
-    emit(LoginInitial());
-    if(code.length<6){
-      emit(LoginError(tr("pin.character")));
-    }else{
-      String password = passwordController.text.trim();
-      String confirm = confirmPasswordController.text.trim();
-      if(checkPassword){
-         if(password.length<4){
-        borderPassword=true;
-       }else{
-        borderPassword=false;
-       }
-       if(confirm.length<4 || confirm!=password){
-          borderConfirm =true;
-       }else{
-        borderConfirm=false;
-       }
-
-      if(!borderPassword && !borderConfirm){
-        ServerMessage info = await RegistrationServices().setPassword(SetPassword(newPassword: password, key: code).toJson());
-        emit(LoginError(info.message));
-        if(info.code==200){
-          succesCode =false;
-          onRegistration=false;
-          checkPassword=false;
-        }
-
-      }
-
-    }else{
-      ServerMessage getResponse = await RegistrationServices().emeailCodeSucces(code);
-      emit(LoginError(getResponse.message));
-      if(getResponse.code==200){
-        succesCode=false;
-        onRegistration=false;
-    }
-    }
-    }
-    loading =false;
-    emit(LoginInitial());
-  }
-
+  
 
   void forgotPass(context)async{
       loading = true;
@@ -173,8 +105,8 @@ class LoginCubit extends Cubit<LoginState>{
   void checkForgotPassword(GetCaptcha captcha,String mail)async{
     ServerMessage info = await RegistrationServices().forgotPass(ForgotPasswordJson(answer: captchaController.text.trim(), 
     mail: mail, randomId: captcha.randomId).toJson());
-    if(info.code==200){
      EasyLoading.showInfo(info.message);
+    if(info.code==200){
      emit(LoginNextForgot(mail)); 
     }
     loading=false;
@@ -207,7 +139,6 @@ class LoginCubit extends Cubit<LoginState>{
           if(checkPassword){
             checkForgotPassword(captcha,email);
           }else{
-            registration(captcha);
           }
          }));
       }

@@ -53,7 +53,10 @@ void succesCode()async{
     email: param['email'], 
     password:param['password'], 
     referalCode: param['referal'], 
-    termsAndCantion: param['check'], 
+    termsAndCantion: param['check'],
+    apiKey: "",
+    phoneName: '',
+    systemVersion: "",
     captchaRandomId: captcha.randomId).toJson();
 
     ServerMessage getInfo = await RegistrationServices().registration(sendInfo);

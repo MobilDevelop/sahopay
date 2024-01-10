@@ -36,6 +36,8 @@ class AppContatants{
   static String withdrawPost = '${addition}create-payout-transaction';
   static String withdrawCalc = '${addition}calcAmount-withdraw';
 
+  static String condition = '/terms-condition';
+
 
 
 

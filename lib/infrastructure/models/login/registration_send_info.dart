@@ -5,6 +5,9 @@ class RegistrationSendInfo{
   String referalCode;
   bool termsAndCantion;
   String captchaRandomId;
+  String phoneName;
+  String systemVersion;
+  String apiKey;
 
   RegistrationSendInfo({
     required this.answer,
@@ -12,7 +15,10 @@ class RegistrationSendInfo{
     required this.password,
     required this.referalCode,
     required this.termsAndCantion,
-    required this.captchaRandomId
+    required this.captchaRandomId,
+    required this.phoneName,
+    required this.systemVersion,
+    required this.apiKey
   });
 
   Map<String,dynamic> toJson()=>{
@@ -21,6 +27,9 @@ class RegistrationSendInfo{
     'password':password,
     'referralCode':referalCode,
     'termsAndCondition':termsAndCantion,
-    'captchaRandomId':captchaRandomId
+    'captchaRandomId':captchaRandomId,
+    'phone_name':phoneName,
+    'system_version':systemVersion,
+    'api_key':apiKey
   };
 }

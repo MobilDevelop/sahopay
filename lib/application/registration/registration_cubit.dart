@@ -1,14 +1,20 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/application/registration/registration_state.dart';
 import 'package:sahopay/domain/provider/registration.dart';
+import 'package:sahopay/firebase_options.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
 import 'package:sahopay/infrastructure/models/login/captcha.dart';
 import 'package:sahopay/infrastructure/models/login/registration_send_info.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/presentation/pages/login/components/captcha_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform;
 
 class RegistrationCubit extends Cubit<RegistrationState>{
 
@@ -23,12 +29,15 @@ class RegistrationCubit extends Cubit<RegistrationState>{
   bool checked = false;
   bool loading =false;
 
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
   final loginController=TextEditingController();
   final passwordController=TextEditingController();
   final confirmPasswordController=TextEditingController();
   final referalController=TextEditingController();
   final captchaController=TextEditingController();
   final succesCodeController=TextEditingController();
+
 
 
  void checkRegistration(context)async{
@@ -88,6 +97,19 @@ class RegistrationCubit extends Cubit<RegistrationState>{
     String email = loginController.text.trim();
     String password = passwordController.text.trim();
     String referalCode = referalController.text.trim();
+    String phoneName = "";
+    String systemVersion ="";
+
+    if(Platform.isAndroid){
+     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+     phoneName = androidInfo.model;
+     systemVersion = androidInfo.serialNumber;
+     EasyLoading.showInfo(androidInfo.toString());
+    }else if(Platform.isIOS){
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+    }
+    
+    
 
 
     Map<String,dynamic> sendInfo = RegistrationSendInfo(
@@ -95,7 +117,10 @@ class RegistrationCubit extends Cubit<RegistrationState>{
     email: email, 
     password:password, 
     referalCode: referalCode, 
-    termsAndCantion: checked, 
+    termsAndCantion: checked,
+    apiKey: DefaultFirebaseOptions.currentPlatform.apiKey,
+    phoneName: phoneName,
+    systemVersion: systemVersion,
     captchaRandomId: captcha.randomId).toJson();
 
     ServerMessage getInfo = await RegistrationServices().registration(sendInfo);
@@ -132,5 +157,10 @@ showChecked(bool? value){
     checked=!checked;
     emit(RegistrationInitial());
   }
+
+
+
+void launchURL() async =>await canLaunch("https://sahopay.com/terms-condition") ? 
+await launch("https://sahopay.com/terms-condition") : throw 'Could not launch https://sahopay.com/terms-condition';
 
 }

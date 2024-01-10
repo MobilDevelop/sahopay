@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sahopay/application/registration/registration_cubit.dart';
 import 'package:sahopay/application/registration/registration_state.dart';
+import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/presentation/pages/login/components/circle_user_widget.dart';
 import 'package:sahopay/presentation/pages/login/components/registration_widget.dart';
 import 'package:sahopay/presentation/pages/login/components/text_widget.dart';
@@ -117,7 +118,10 @@ class RegistrationPage extends StatelessWidget {
                         ),
                         Text(tr('login_page.agree'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.grey)),
                         Gap(ScreenSize.w10),
-                        Text (tr('login_page.terms'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary)),
+                        Bounce(
+                          duration: Duration(milliseconds: AppContatants.duration),
+                          onPressed:cubit.launchURL,
+                          child: Text (tr('login_page.terms'),style: AppTheme.data.textTheme.bodyMedium!.copyWith(color: AppTheme.colors.primary))),
                       ],
                     ),
                     Visibility(
