@@ -12,6 +12,7 @@ Future<void> initializeApp() async {
   await Hive.initFlutter();
   await Hive.openBox("Mymemory");
   await dotenv.load(fileName: ".env");
+  
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
     name: "flutter_application"

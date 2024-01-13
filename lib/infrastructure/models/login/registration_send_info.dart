@@ -7,7 +7,11 @@ class RegistrationSendInfo{
   String captchaRandomId;
   String phoneName;
   String systemVersion;
+  String systemName;
+  String localizedModel;
+  String model;
   String apiKey;
+  String deviceId;
 
   RegistrationSendInfo({
     required this.answer,
@@ -18,7 +22,11 @@ class RegistrationSendInfo{
     required this.captchaRandomId,
     required this.phoneName,
     required this.systemVersion,
-    required this.apiKey
+    required this.apiKey,
+    required this.deviceId,
+    required this.localizedModel,
+    required this.model,
+    required this.systemName
   });
 
   Map<String,dynamic> toJson()=>{
@@ -28,8 +36,12 @@ class RegistrationSendInfo{
     'referralCode':referalCode,
     'termsAndCondition':termsAndCantion,
     'captchaRandomId':captchaRandomId,
-    'phone_name':phoneName,
-    'system_version':systemVersion,
-    'api_key':apiKey
+    'phoneName':phoneName,
+    'systemVersion':systemVersion,
+    'apiKey':apiKey,
+    'model':model,
+    'localizedModel':localizedModel,
+    'systemName':systemName,
+    'deviceId':deviceId
   };
 }

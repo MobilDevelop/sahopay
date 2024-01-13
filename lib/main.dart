@@ -8,6 +8,7 @@ import 'package:sahopay/presentation/pages/app_widget.dart';
 import 'application/app_manager/app_manager_cubit.dart';
 import 'infrastructure/common/app_init.dart';
 Future<void> main() async {
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent)); 
   await runZonedGuarded<Future<void>>(() async {
   await initializeApp();
 

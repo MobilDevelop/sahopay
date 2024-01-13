@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sahopay/domain/common/constants.dart';
 import 'package:sahopay/domain/my_dio/my_dio.dart';
@@ -17,7 +15,6 @@ class RegistrationServices{
        Response response = await dio.post(AppContatants.registration,data: param);
      return Future.value(ServerMessage.fromJson(response.data));
     } catch (e) {
-      print(e);
       return Future.value(ServerMessage(message: "error",code: -1));
     }
   }
@@ -55,7 +52,6 @@ class RegistrationServices{
       }
       
     } catch (e) {
-      print(e);
       return Future.value(false);
     }
   }

@@ -5,10 +5,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:sahopay/application/registration/registration_state.dart';
 import 'package:sahopay/domain/provider/registration.dart';
-import 'package:sahopay/firebase_options.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/local_source/local_source.dart';
 import 'package:sahopay/infrastructure/models/login/captcha.dart';
 import 'package:sahopay/infrastructure/models/login/registration_send_info.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
@@ -19,6 +20,7 @@ import 'dart:io' show Platform;
 class RegistrationCubit extends Cubit<RegistrationState>{
 
   RegistrationCubit() : super(RegistrationInitial());
+
 
   bool borderEmail =false;
   bool borderPassword =false;
@@ -99,18 +101,30 @@ class RegistrationCubit extends Cubit<RegistrationState>{
     String referalCode = referalController.text.trim();
     String phoneName = "";
     String systemVersion ="";
+    String systemName ="";
+    String model ="";
+    String localizedModel ="";
+    String deviceId="";
+    String apiKey = await LocalSource.getInfo(key: "FBSToken");
 
     if(Platform.isAndroid){
      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+     deviceId = await PlatformDeviceId.getDeviceId??"";
      phoneName = androidInfo.model;
-     systemVersion = androidInfo.serialNumber;
-     EasyLoading.showInfo(androidInfo.toString());
-    }else if(Platform.isIOS){
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    }
-    
-    
+     model = androidInfo.brand;
+     systemVersion = androidInfo.version.release;
+     localizedModel = androidInfo.brand;
+     systemName = "Android";
 
+     }else if(Platform.isIOS){
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      phoneName= iosInfo.name??"";
+      systemVersion = iosInfo.systemVersion??'';
+      systemName = iosInfo.systemName??"";
+      model = iosInfo.model??"";
+      localizedModel = iosInfo.localizedModel??"";
+      deviceId = iosInfo.identifierForVendor??"";
+    }
 
     Map<String,dynamic> sendInfo = RegistrationSendInfo(
     answer: captchaController.text.trim(), 
@@ -118,8 +132,12 @@ class RegistrationCubit extends Cubit<RegistrationState>{
     password:password, 
     referalCode: referalCode, 
     termsAndCantion: checked,
-    apiKey: DefaultFirebaseOptions.currentPlatform.apiKey,
+    localizedModel: localizedModel,
+    model: model,
+    systemName: systemName, 
+    apiKey: apiKey,
     phoneName: phoneName,
+    deviceId: deviceId,
     systemVersion: systemVersion,
     captchaRandomId: captcha.randomId).toJson();
 

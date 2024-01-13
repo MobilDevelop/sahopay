@@ -1,15 +1,19 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:sahopay/application/login/login_state.dart';
 import 'package:sahopay/domain/provider/registration.dart';
 import 'package:sahopay/infrastructure/helper/helper.dart';
+import 'package:sahopay/infrastructure/local_source/local_source.dart';
 import 'package:sahopay/infrastructure/models/login/captcha.dart';
 import 'package:sahopay/infrastructure/models/login/forgot_pass.dart';
 import 'package:sahopay/infrastructure/models/login/login_send.dart';
 import 'package:sahopay/infrastructure/models/universal/server_message.dart';
 import 'package:sahopay/presentation/pages/login/components/captcha_widget.dart';
+import 'dart:io' show Platform;
 
 class LoginCubit extends Cubit<LoginState>{
   LoginCubit():super(LoginInitial());
@@ -32,6 +36,8 @@ class LoginCubit extends Cubit<LoginState>{
 
   String timer = "01:00";
 
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
   final loginController=TextEditingController();
   final passwordController=TextEditingController();
   final confirmPasswordController=TextEditingController();
@@ -44,6 +50,35 @@ class LoginCubit extends Cubit<LoginState>{
   void checkInfo(context)async{
     String login = loginController.text.trim();
     String password = passwordController.text.trim();
+
+     String phoneName = "";
+    String systemVersion ="";
+    String systemName ="";
+    String model ="";
+    String localizedModel ="";
+    String deviceId="";
+    String apiKey = await LocalSource.getInfo(key: "FBSToken");
+
+    if(Platform.isAndroid){
+     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+     deviceId = await PlatformDeviceId.getDeviceId??"";
+     phoneName = androidInfo.model;
+     model = androidInfo.brand;
+     systemVersion = androidInfo.version.release;
+     localizedModel = androidInfo.brand;
+     systemName = "Android";
+
+     }else if(Platform.isIOS){
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      phoneName= iosInfo.name??"";
+      systemVersion = iosInfo.systemVersion??"";
+      systemName = iosInfo.systemName??"";
+      model = iosInfo.model??"";
+      localizedModel = iosInfo.localizedModel??"";
+      deviceId = iosInfo.identifierForVendor??"";
+    }
+
+
     loading =true;
     emit(LoginInitial());
 
@@ -65,7 +100,17 @@ class LoginCubit extends Cubit<LoginState>{
        }
 
        if(!borderPassword && !borderEmail){
-          bool check = await RegistrationServices().login(LoginSend(username: login, password: password).toJson());
+          bool check = await RegistrationServices().login(LoginSend(
+            username: login, 
+            password: password,
+            phoneName: phoneName,
+            systemVersion: systemVersion,
+            apiKey: apiKey,
+            model: model,
+            localizedModel: localizedModel,
+            systemName: systemName,
+            deviceId: deviceId
+            ).toJson());
           if(check){
             emit(LoginNextPin());
           }

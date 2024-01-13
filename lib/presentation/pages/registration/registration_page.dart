@@ -29,7 +29,7 @@ class RegistrationPage extends StatelessWidget {
             ),
           );
       }else if(state is RegistrationSucces){
-        context.go(Routes.forgotPass.path,extra: state.param);
+        context.push(Routes.forgotPass.path,extra: state.param);
       }
      },
      child: Builder(builder: (context) {

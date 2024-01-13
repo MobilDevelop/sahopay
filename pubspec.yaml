@@ -43,7 +43,10 @@ dependencies:
   local_auth: ^2.1.6
   timer_count_down: ^2.2.2
   syncfusion_flutter_sliders: ^20.3.61
-  device_info_plus: ^8.2.2
+  device_info_plus: ^8.0.0
+  permission_handler: ^10.2.0
+  platform_device_id: ^1.0.1
+  flutter_local_notifications: ^16.0.0
 
   # State management
   flutter_bloc: ^8.1.2
@@ -61,6 +64,7 @@ dependencies:
   #connectivity_plus: ^3.0.3
   requests_inspector: ^2.3.5
   firebase_core: ^2.8.0
+  firebase_messaging: ^14.7.4
 
   # Localization
   easy_localization: ^3.0.1

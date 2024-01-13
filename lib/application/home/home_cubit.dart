@@ -23,7 +23,9 @@ class HomeCubit extends Cubit<HomeState>{
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
 
   Widget? window;
-  
+   
+
+ 
 
 
   void nextScreen(int index)async{

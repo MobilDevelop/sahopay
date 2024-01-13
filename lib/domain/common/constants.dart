@@ -7,10 +7,10 @@ class AppContatants{
 
   static String imageUrl = dotenv.env['imageUrl']!;//test
    
-  static String registration = '${addition}register';
+  static String registration = '${addition}mobile-register';
   static String captcha = '${addition}get-temp-captcha';
   static String succesCode = '${addition}mobile-activate';
-  static String login = '${addition}auth-mail';
+  static String login = '${addition}auth-mail-mobile';
   static String forgotPassword = '${addition}account/reset-password/init';
   static String newPassword = '${addition}account/reset-password/finish';
   static String dashboard = '${addition}get-all-wallet/andBalance';
