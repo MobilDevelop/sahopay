@@ -14,7 +14,7 @@ class DialogWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: ScreenSize.w14),
       child: Column(
         children: [
-          Text(item.trasactionStatus=="WAITING"?tr("history.error"):tr("history.succes"),style: AppTheme.data.textTheme.displaySmall),
+          Text(item.trasactionStatus=="WAITING"?tr("history.waiting1"):item.trasactionStatus=="SUCCESS"?tr("history.succes"):tr("history.error"),style: AppTheme.data.textTheme.displaySmall),
           Gap(ScreenSize.h20),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -96,7 +96,7 @@ class HistoryPage extends StatelessWidget {
                    AwesomeDialog(
                     context: context,
                     dialogType: cubit.transactionItems[index].trasactionStatus=="WAITING"? 
-                    DialogType.error:DialogType.success,
+                    DialogType.info:cubit.transactionItems[index].trasactionStatus=="SUCCESS"?DialogType.success:DialogType.warning,
                     animType: AnimType.bottomSlide,
                     
                     body: DialogWidget(item: item),
@@ -119,7 +119,8 @@ class HistoryPage extends StatelessWidget {
                     press: () { 
                         AwesomeDialog(
                     context: context,
-                    dialogType: cubit.exchangeItems[index].trasactionStatus==tr("history.waiting")? DialogType.error:DialogType.success,
+                    dialogType: cubit.exchangeItems[index].trasactionStatus=="WAITING"? DialogType.info:
+                    cubit.exchangeItems[index].trasactionStatus=="SUCCESS"?DialogType.success:DialogType.error,
                     animType: AnimType.bottomSlide,
                     body: ExchangeDialogWidget(item: cubit.exchangeItems[index]),
                     btnOkText: tr("history.ok"),

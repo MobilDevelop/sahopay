@@ -99,6 +99,7 @@
         "pc":"PS",
         "date":"Date",
         "waiting":"  WAITING",
+        "waiting1":"Waiting",
         "error":"Error",
         "succes":"Success",
         "comment":"Comment"
